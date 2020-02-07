@@ -1,0 +1,35 @@
+mat-sidenav{
+    width: 25em;
+}
+.container{
+    position: fixed;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+.sideNavContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.sideNavHeader{
+    flex-grow: 1;
+}
+.sideNavButtons{
+    flex-grow: 7;
+    display: flex;
+    flex-direction: column;
+}
+.sideNavButtons button{
+    flex-grow: 1;
+}
+.sideNavFooter{
+    flex-grow: 1;
+    text-align: right;
+}
+.sideNavFooter p{
+    margin-right: 2em;
+    margin-top: 2em;
+}

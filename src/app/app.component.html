@@ -1,5 +1,33 @@
 <mat-toolbar color="primary">
-  <label>Penny Pinchers</label>
+  <div class='NavHeader'>
+    <label>Penny Pinchers</label>
+  </div>
+  <span style='flex: 1 1 auto'></span>
+  <div class='NavButtons'>
+    <button mat-button [matMenuTriggerFor]='menu'>User</button>
+  </div>
 </mat-toolbar>
-<router-outlet></router-outlet>
-<app-login></app-login>
+<mat-menu #menu='matMenu'>
+  <button mat-menu-item (click)='sidenav.toggle()'>DashBoard</button>
+  <button mat-menu-item>Logout</button>
+</mat-menu>
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav mode='over' >
+    <div class="sideNavContainer">
+      <div class="sideNavButtons">
+        <button mat-button>Button 1</button>
+        <button mat-button>Button 2</button>
+        <button mat-button>Button 3</button>
+        <button mat-button>Button 4</button>
+        <button mat-button>Button 5</button>
+      </div>
+      <div class="sideNavFooter">
+        <p>Designed by Andrew Ngo 2020 &copy;</p>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+    <app-login></app-login>
+  </mat-sidenav-content>
+</mat-sidenav-container>
