@@ -1,0 +1,39 @@
+.loginCard{
+    width: 45%;
+    height: 35%;
+    position: relative;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, 35%);
+    display: flex;
+    flex-direction: column;
+}
+.loginHeader{
+    font-size: 26pt;
+}
+.loginContent{
+    flex-grow: 1;
+    position: relative;
+}
+.loginForm{
+    width: 85%;
+    font-size: 16pt;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.loginForm mat-form-field{
+    width: 100%;
+}
+.loginButtons{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+.loginButtons button{
+    margin: 0;
+    width: 100%;
+    font-size: 12pt;
+}
