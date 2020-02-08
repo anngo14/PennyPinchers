@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
   <div class='NavHeader'>
+    <button mat-icon-button (click)='sidenav.toggle()'>
+      <mat-icon>menu</mat-icon>
+    </button>
     <label>Penny Pinchers</label>
   </div>
   <span style='flex: 1 1 auto'></span>
@@ -28,6 +31,6 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
-    <app-register></app-register>
+    <app-home></app-home>
   </mat-sidenav-content>
 </mat-sidenav-container>
