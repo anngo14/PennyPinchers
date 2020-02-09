@@ -13,7 +13,7 @@
         </form>
     </mat-card-content>
     <mat-card-actions class="loginButtons">
-        <button mat-stroked-button>Sign In</button>
-        <button mat-stroked-button>Register</button>
+        <button mat-stroked-button (click)="redirectToHome()">Sign In</button>
+        <button mat-stroked-button (click)="redirectToRegister()">Register</button>
     </mat-card-actions>
 </mat-card>

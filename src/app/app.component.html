@@ -12,7 +12,7 @@
 </mat-toolbar>
 <mat-menu #menu='matMenu'>
   <button mat-menu-item (click)='sidenav.toggle()'>DashBoard</button>
-  <button mat-menu-item>Logout</button>
+  <button mat-menu-item (click)='redirectToLogin()'>Logout</button>
 </mat-menu>
 <mat-sidenav-container class="container">
   <mat-sidenav #sidenav mode='over'>
@@ -31,6 +31,5 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
-    <app-home></app-home>
   </mat-sidenav-content>
 </mat-sidenav-container>
