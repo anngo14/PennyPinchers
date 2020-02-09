@@ -28,9 +28,50 @@
 <mat-divider></mat-divider>
 <mat-card class="mainContainer">
     <mat-tab-group>
-        <mat-tab label='Overview'>Overview Content</mat-tab>
-        <mat-tab label='Budget'>Budget Content</mat-tab>
-        <mat-tab label="Spending">Spending Content</mat-tab>
+        <mat-tab label='Overview'>
+            <mat-grid-list cols='2' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class="overviewCard">
+                        How much am I spending?
+                        Cash flowing out
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-card class="overviewCard">
+                        How much am I saving?
+                        Cash flowing in
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label='Budget'>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class="budgetCard">
+                        How much can I save?
+                        How much should I save?
+                        How much can I spend?
+                        Do I have enough room for special occasions or emergencies?
+                        How much do I want to save?
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label="Spending">
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class="spendingCard">
+                        What am I spending money on?
+                        What recurring payments am I making?
+                        What are my largest transactions?
+                        Can I afford this lifestyle?
+                        Am I spending more than I can save?
+                        What do I need to spend money on?
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
     </mat-tab-group>
 </mat-card>
 <mat-divider></mat-divider>
+<div style="height: 8em;"></div>

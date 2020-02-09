@@ -1,4 +1,19 @@
 .mainContainer{
     margin: 2em;
-    height: 32em;
+    height: 40em;
+}
+.overviewCard{
+    margin: 1em;
+    height: 33em;
+    width: 100%;
+}
+.budgetCard{
+    margin: 1em;
+    height: 33em;
+    width: 100%;
+}
+.spendingCard{
+    margin: 1em;
+    height: 33em;
+    width: 100%;
 }
