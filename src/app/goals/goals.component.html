@@ -1,0 +1,32 @@
+<mat-grid-list cols="4" rowHeight="75px">
+    <mat-grid-tile rowspan='2'>
+        <h1>Financial Goals</h1>
+    </mat-grid-tile>
+    <mat-grid-tile colspan='3'></mat-grid-tile>
+    <mat-grid-tile colspan='3'></mat-grid-tile>
+  </mat-grid-list>
+<mat-divider></mat-divider>
+<div class="longTermContainer">
+    <mat-grid-list cols="5" rowHeight="10em">
+        <mat-grid-tile>
+            <label>Goal Information</label>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3">
+            <mat-progress-bar id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <label>Goal Percentage</label>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<mat-divider></mat-divider>
+<mat-grid-list cols='1' rowHeight='45em'>
+    <mat-grid-tile>
+        <mat-card class="goalCard">
+            How much I have saved
+            How much I want to save
+            How long it would take to reach the goal at this rate
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+<div style="height: 10em"></div>

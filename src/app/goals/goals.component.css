@@ -1,0 +1,16 @@
+.longTermContainer{
+    height: 10em;
+    position: relative;
+}
+#goalProgressBar{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.goalCard{
+    margin: 1em;
+    height: 40em;
+    width: 100%;
+}

@@ -16,10 +16,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { GoalsComponent } from './goals/goals.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    GoalsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { HomeComponent } from './home/home.component';
     MatIconModule,
     MatDividerModule,
     MatTabsModule,
+    MatProgressBarModule,
     BrowserAnimationsModule
   ],
   providers: [],

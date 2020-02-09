@@ -17,4 +17,7 @@ export class AppComponent {
   redirectToHome(){
     this.r.navigate(['/home']);
   }
+  redirectToGoals(){
+    this.r.navigate(['/goals']);
+  }
 }
