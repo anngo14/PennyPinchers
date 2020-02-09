@@ -22,6 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { GoalsComponent } from './goals/goals.component';
+import { ArchiveComponent } from './archive/archive.component';
+import { EditComponent } from './edit/edit.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { GoalsComponent } from './goals/goals.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    GoalsComponent
+    GoalsComponent,
+    ArchiveComponent,
+    EditComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

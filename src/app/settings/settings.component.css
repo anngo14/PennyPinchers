@@ -1,0 +1,13 @@
+.settingsCard{
+    margin: 1em;
+    height: 50em;
+    width: 100%;
+}
+.btnContainer{
+    position: absolute;
+    right: 1em;
+}
+.settingsButtons{
+    width: 100px;
+    margin: 1em;
+}

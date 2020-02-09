@@ -20,4 +20,13 @@ export class AppComponent {
   redirectToGoals(){
     this.r.navigate(['/goals']);
   }
+  redirectToEdit(){
+    this.r.navigate(['/edit']);
+  }
+  redirectToArchive(){
+    this.r.navigate(['/archive']);
+  }
+  redirectToSettings(){
+    this.r.navigate(['/settings']);
+  }
 }
