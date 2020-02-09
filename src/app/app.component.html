@@ -18,10 +18,10 @@
   <mat-sidenav #sidenav mode='over'>
     <div class="sideNavContainer">
       <div class="sideNavButtons">
-        <button mat-button>Button 1</button>
-        <button mat-button>Button 2</button>
-        <button mat-button>Button 3</button>
-        <button mat-button>Button 4</button>
+        <button mat-button (click)='redirectToHome(); sidenav.toggle()'>Home</button>
+        <button mat-button>Goals</button>
+        <button mat-button>Edit</button>
+        <button mat-button>Archive</button>
         <button mat-button>Button 5</button>
       </div>
       <div class="sideNavFooter">
