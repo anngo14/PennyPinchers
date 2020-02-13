@@ -25,6 +25,7 @@ import { GoalsComponent } from './goals/goals.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { EditComponent } from './edit/edit.component';
 import { SettingsComponent } from './settings/settings.component';
+import { InitialComponent } from './initial/initial.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { SettingsComponent } from './settings/settings.component';
     GoalsComponent,
     ArchiveComponent,
     EditComponent,
-    SettingsComponent
+    SettingsComponent,
+    InitialComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,36 @@
-<mat-grid-list cols="4" rowHeight="75px">
+<!--<mat-grid-list cols="4" rowHeight="75px">
     <mat-grid-tile rowspan='2'>
         <h1>Settings</h1>
     </mat-grid-tile>
     <mat-grid-tile colspan='3'></mat-grid-tile>
     <mat-grid-tile colspan='3'></mat-grid-tile>
   </mat-grid-list>
-<mat-divider></mat-divider>
-<mat-grid-list cols='1' rowHeight='55em'>
+<mat-divider></mat-divider>-->
+<mat-grid-list cols='1' rowHeight='40em'>
     <mat-grid-tile>
         <mat-card class="settingsCard">
-            Settings Content
+            <div class="settingsContent">
+                <h1 style="margin: 1.5em">Settings</h1>
+                <mat-divider></mat-divider>
+                <button mat-stroked-button (click)="togglePasswordForm()" id="changePasswordButton">Change Password</button>
+                <mat-divider></mat-divider>
+                <form class="passwordForm">
+                    <mat-form-field>
+                        <mat-label>Old Password</mat-label>
+                        <input matInput type="text" required>
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <mat-label>New Password</mat-label>
+                        <input matInput type="text" required><br>
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type="text" required>
+                    </mat-form-field>
+                </form>
+                <mat-divider></mat-divider>
+                <button mat-flat-button color="warn" id="deleteAccountButton">Delete Account</button>
+            </div>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
