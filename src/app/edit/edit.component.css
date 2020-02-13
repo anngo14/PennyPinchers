@@ -1,6 +1,6 @@
 .editCard{
     margin: 1em;
-    height: 50em;
+    height: 40em;
     width: 100%;
 }
 .btnContainer{
@@ -10,4 +10,21 @@
 .editButtons{
     width: 100px;
     margin: 1em;
+}
+.budgetContent{
+    margin: 2em;
+}
+.spendingContent{
+    margin: 2em;
+}
+.expenseList{
+    height: 13em;
+    width: 35em;
+    overflow-y: auto;
+}
+.formField{
+    width: 20em;
+}
+.formField2{
+    width: 10em;
 }

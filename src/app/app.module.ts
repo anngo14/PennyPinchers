@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatListModule} from '@angular/material/list';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -56,6 +57,7 @@ import { InitialComponent } from './initial/initial.component';
     MatDividerModule,
     MatTabsModule,
     MatProgressBarModule,
+    MatListModule,
     BrowserAnimationsModule
   ],
   providers: [],

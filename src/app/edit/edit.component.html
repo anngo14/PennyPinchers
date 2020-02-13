@@ -6,10 +6,58 @@
     <mat-grid-tile colspan='3'></mat-grid-tile>
   </mat-grid-list>
 <mat-divider></mat-divider>
-<mat-grid-list cols='1' rowHeight='55em'>
+<mat-grid-list cols='1' rowHeight='45em'>
     <mat-grid-tile>
         <mat-card class="editCard">
-            Edit Content
+            <h2>Budget</h2>
+            <form class="budgetContent">
+                <mat-form-field class='formField'>
+                    <mat-label>Income</mat-label>
+                    <input matInput type="text" placeholder="$0.00">
+                </mat-form-field>
+                <mat-form-field class='formField2' style='margin-left: 2em'>
+                    <mat-label>Frequency</mat-label>
+                    <mat-select required>
+                        <mat-option>---</mat-option>
+                        <mat-option value='hourly'>Hourly</mat-option>
+                        <mat-option value='yearly'>Yearly</mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+                <mat-form-field class='formField'>
+                    <mat-label>Income Type</mat-label>
+                    <mat-select required>
+                        <mat-option>---</mat-option>
+                        <mat-option value='part'>Part-Time</mat-option>
+                        <mat-option value='full'>Full-Time</mat-option>
+                        <mat-option value='variable'>Variable</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+            <mat-divider></mat-divider>
+            <h2 style="margin-top: 2em;">Spending</h2>
+            <form class='spendingContent'>
+                <h3 mat-subheader style='padding: 0'>Add a Monthly Expense</h3>
+                <mat-form-field class='formField'>
+                    <mat-label>Title</mat-label>
+                    <input matInput type="text">
+                </mat-form-field>
+                <mat-form-field class='formField2' style='margin-left: 2em'>
+                    <mat-label>Expense</mat-label>
+                    <input matInput type="text" placeholder="$0.00">
+                </mat-form-field>
+                <button mat-stroked-button style='margin-left: 1em'>Add</button><br>
+                <mat-list class="expenseList">
+                    <h3 mat-subheader>Monthly Expenses</h3>
+                    <mat-list-item *ngIf="empty; else normalList">
+                        <h4 mat-line>No Monthly Expenses</h4>
+                    </mat-list-item>
+                    <mat-list-item #normalList *ngFor='let expense of expenses'>
+                        <h4 mat-line>{{expense.name}}</h4>
+                        <p mat-line>{{expense.price}}</p>
+                        <mat-icon mat-list-icon>cancel</mat-icon>
+                    </mat-list-item>
+                </mat-list>
+            </form>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
