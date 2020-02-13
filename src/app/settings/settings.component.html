@@ -6,14 +6,13 @@
     <mat-grid-tile colspan='3'></mat-grid-tile>
   </mat-grid-list>
 <mat-divider></mat-divider>-->
-<mat-grid-list cols='1' rowHeight='38em'>
+<mat-grid-list cols='1' rowHeight='36em'>
     <mat-grid-tile>
         <mat-card class="settingsCard">
             <div class="settingsContent">
-                <h1 style="margin: 1.5em">Settings</h1>
+                <h1 id="titleHeader">Settings</h1>
                 <mat-divider></mat-divider>
-                <button mat-stroked-button (click)="togglePasswordForm()" id="changePasswordButton">Change Password</button>
-                <mat-divider></mat-divider>
+                <h2 class='subHeader'>Change Password</h2>
                 <form class="passwordForm">
                     <mat-form-field>
                         <mat-label>Old Password</mat-label>

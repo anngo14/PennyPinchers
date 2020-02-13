@@ -1,6 +1,6 @@
 .settingsCard{
     margin: 1em;
-    height: 33em;
+    height: 31em;
     width: 100%;
 }
 .btnContainer{
@@ -17,8 +17,8 @@
 }
 .passwordForm{
     margin: 2em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 #changePasswordButton{
     margin: 2em;
@@ -28,4 +28,11 @@
     left: 50%;
     transform: translateX(-50%);
     margin: 2em 0;
+}
+#titleHeader{
+    margin: 1em;
+    margin-left: 2em;
+}
+.subHeader{
+    margin-top: 2em;
 }
