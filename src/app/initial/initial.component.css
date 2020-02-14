@@ -1,0 +1,26 @@
+.initialContent{
+    height: 55em;
+}
+.expenseList{
+    width: 35em;
+    height: 20em;
+    overflow-y: auto;
+}
+.formField{
+    width: 20em;
+}
+.formField2{
+    width: 10em;
+}
+.reviewLabel{
+    margin-right: 1em;
+}
+.reviewContent{
+    width: 15em;
+    margin-right: 1em;
+    border-top-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    text-align: center;
+    font-size: 18pt;
+}

@@ -29,4 +29,7 @@ export class AppComponent {
   redirectToSettings(){
     this.r.navigate(['/settings']);
   }
+  redirectToInitial(){
+    this.r.navigate(['initial']);
+  }
 }

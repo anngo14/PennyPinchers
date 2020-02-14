@@ -1,1 +1,119 @@
-<p>initial works!</p>
+<mat-horizontal-stepper class='initialContent'>
+    <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Personal Information</ng-template>
+        <form>
+            <mat-form-field class='formField'>
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" [(ngModel)]='firstName' name='firstName' required>
+            </mat-form-field><br>
+            <mat-form-field class='formField'>
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" [(ngModel)]='lastName' name='lastName' required>
+            </mat-form-field><br>
+            <mat-form-field class='formField'>
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="text" [(ngModel)]='phoneNumber' name='phoneNumber' placeholder="123-456-7890">
+            </mat-form-field><br>
+        </form>
+        <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <ng-template matStepLabel>Budget Information</ng-template>
+        <form>
+            <mat-form-field class='formField'>
+                <mat-label>Income</mat-label>
+                <input matInput type="text" [(ngModel)]='incomeAmt' name='incomeAmt' placeholder="$0.00" required>
+            </mat-form-field>
+            <mat-form-field class='formField2' style='margin-left: 2em'>
+                <mat-label>Frequency</mat-label>
+                <mat-select required [(value)]='incomeFrequency'>
+                    <mat-option>---</mat-option>
+                    <mat-option value='hourly'>Hourly</mat-option>
+                    <mat-option value='yearly'>Yearly</mat-option>
+                </mat-select>
+            </mat-form-field><br>
+            <mat-form-field class='formField'>
+                <mat-label>Income Type</mat-label>
+                <mat-select required [(value)]='incomeType'>
+                    <mat-option>---</mat-option>
+                    <mat-option value='Part-Time'>Part-Time</mat-option>
+                    <mat-option value='Full-Time'>Full-Time</mat-option>
+                    <mat-option value='Variable'>Variable</mat-option>
+                </mat-select>
+            </mat-form-field><br>
+            <mat-form-field>
+                <mat-label>Goal</mat-label>
+                <input matInput type="text" [(ngModel)]='goal' name='goal' placeholder="$0.00">
+            </mat-form-field><br>
+        </form>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+        <ng-template matStepLabel>Spending Information</ng-template>
+        <form>
+            <h3 mat-subheader style='padding: 0'>Add a Monthly Expense</h3>
+                <mat-form-field class='formField'>
+                    <mat-label>Title</mat-label>
+                    <input matInput type="text">
+                </mat-form-field>
+                <mat-form-field class='formField2' style='margin-left: 2em'>
+                    <mat-label>Expense</mat-label>
+                    <input matInput type="text" placeholder="$0.00">
+                </mat-form-field>
+                <button mat-stroked-button style='margin-left: 1em'>Add</button><br>
+                <mat-list class="expenseList">
+                    <h3 mat-subheader>Monthly Expenses</h3>
+                    <mat-list-item *ngIf="empty; else normalList">
+                        <h4 mat-line>No Monthly Expenses</h4>
+                    </mat-list-item>
+                    <mat-list-item #normalList *ngFor='let expense of expenses'>
+                        <h4 mat-line>{{expense.name}}</h4>
+                        <p mat-line>{{expense.price}}</p>
+                        <mat-icon mat-list-icon>cancel</mat-icon>
+                    </mat-list-item>
+                </mat-list>
+        </form>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+    </mat-step>
+    <mat-step [stepControl]="fourthFormGroup">
+        <ng-template matStepLabel>Review and Confirm</ng-template>
+        <h3>Personal Information</h3>
+        <label class='reviewLabel'>First Name</label>
+        <input class='reviewContent' readonly value={{firstName}}>
+        <label class='reviewLabel'>Last Name</label>
+        <input class='reviewContent' readonly value={{lastName}}><br>
+        <label class='reviewLabel'>Phone Number</label>
+        <input class='reviewContent' readonly value={{phoneNumber}}>
+        <div style='height: 2em'></div>
+        <mat-divider></mat-divider>
+        <h3>Budget</h3>
+        <label class='reviewLabel'>Income</label>
+        <input class='reviewContent' readonly value={{incomeAmt}}>
+        <label class='reviewLabel'>Frequency</label>
+        <input class='reviewContent' readonly value={{incomeFrequency}}><br>
+        <label class='reviewLabel'>Income Type</label>
+        <input class='reviewContent' readonly value={{incomeType}}>
+        <label class='reviewLabel'>Goal</label>
+        <input class='reviewContent' readonly value={{goal}}>
+        <div style='height: 2em'></div>
+        <mat-divider></mat-divider>
+        <h3>Spending</h3>
+        <mat-list class="expenseList">
+            <h3 mat-subheader>Monthly Expenses</h3>
+            <mat-list-item *ngIf="empty; else normalList">
+                <h4 mat-line>No Monthly Expenses</h4>
+            </mat-list-item>
+            <mat-list-item #normalList *ngFor='let expense of expenses'>
+                <h4 mat-line>{{expense.name}}</h4>
+                <p mat-line>{{expense.price}}</p>
+                <mat-icon mat-list-icon>cancel</mat-icon>
+            </mat-list-item>
+        </mat-list>
+        <div style='height: 1em'></div>
+        <mat-divider></mat-divider>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)='redirectToHome()'>Confirm</button>
+    </mat-step>
+</mat-horizontal-stepper>
