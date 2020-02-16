@@ -55,22 +55,22 @@
             <h3 mat-subheader style='padding: 0'>Add a Monthly Expense</h3>
                 <mat-form-field class='formField'>
                     <mat-label>Title</mat-label>
-                    <input matInput type="text">
+                    <input matInput type="text" [(ngModel)]='expenseTitle' name='expenseTitle'>
                 </mat-form-field>
                 <mat-form-field class='formField2' style='margin-left: 2em'>
                     <mat-label>Expense</mat-label>
-                    <input matInput type="text" placeholder="$0.00">
+                    <input matInput type="text" placeholder="$0.00" [(ngModel)]='expenseAmt' name='expenseAmt'>
                 </mat-form-field>
-                <button mat-stroked-button style='margin-left: 1em'>Add</button><br>
+                <button mat-stroked-button style='margin-left: 1em' (click)='addMonthlyExpense();'>Add</button><br>
                 <mat-list class="expenseList">
                     <h3 mat-subheader>Monthly Expenses</h3>
                     <mat-list-item *ngIf="empty; else normalList">
                         <h4 mat-line>No Monthly Expenses</h4>
                     </mat-list-item>
-                    <mat-list-item #normalList *ngFor='let expense of expenses'>
-                        <h4 mat-line>{{expense.name}}</h4>
-                        <p mat-line>{{expense.price}}</p>
-                        <mat-icon mat-list-icon>cancel</mat-icon>
+                    <mat-list-item #normalList *ngFor='let expense of expenses' class="expenseContainer">
+                        <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
+                        <p mat-line id='expenseAmt'>{{expense.amount}}</p>
+                        <mat-icon mat-list-icon (click)='deleteExpense(expense)'>cancel</mat-icon>
                     </mat-list-item>
                 </mat-list>
         </form>

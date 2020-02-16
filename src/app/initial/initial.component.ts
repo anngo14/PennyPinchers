@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { expense } from '../models/expense';
 
 @Component({
   selector: 'app-initial',
@@ -8,15 +9,16 @@ import { Router } from '@angular/router';
 })
 export class InitialComponent implements OnInit {
 
-  expenses = [];
+  expenses: expense[] = [];
   empty = true;
   firstName = "";
   lastName = "";
   goal = "";
-  income = "";
   incomeAmt = "";
   incomeType = "";
   incomeFrequency = "";
+  expenseTitle = "";
+  expenseAmt = "";
   constructor(private r: Router) { }
 
   ngOnInit() {
@@ -27,5 +29,19 @@ export class InitialComponent implements OnInit {
   redirectToHome(){
     this.r.navigate(['/home']);
   }
-
+  addMonthlyExpense(){
+    let monthlyExpense = {
+      title: this.expenseTitle,
+      amount: this.expenseAmt
+    };
+    this.empty = false;
+    this.expenses.push(monthlyExpense);
+  }
+  deleteExpense(e: expense){
+    let index = this.expenses.indexOf(e);
+    this.expenses.splice(index, 1);
+    if(this.expenses.length === 0){
+      this.empty = true;
+    }
+  }
 }

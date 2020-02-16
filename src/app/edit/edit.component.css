@@ -19,12 +19,23 @@
 }
 .expenseList{
     height: 13em;
-    width: 35em;
+    width: 40em;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .formField{
     width: 20em;
 }
 .formField2{
     width: 10em;
+}
+#expenseTitle{
+    font-size: 32pt;
+}
+#expenseAmount{
+    font-size: 24pt;
+}
+.expenseContainer{
+    margin: 1.5em;
+    margin-right: 0;
 }

@@ -8,13 +8,18 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  initial = true;
   constructor(private r: Router) { }
 
   ngOnInit() {
   }
 
   redirectToHome(){
-    this.r.navigate(['/home']);
+    if(this.initial){
+      this.r.navigate(['/initial']);
+    } else{
+      this.r.navigate(['/home']);
+    }
   }
   redirectToRegister(){
     this.r.navigate(['/register']);
