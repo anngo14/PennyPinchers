@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { expense } from '../models/expense';
+import { income } from '../models/income';
 
 @Component({
   selector: 'app-initial',
@@ -19,6 +20,7 @@ export class InitialComponent implements OnInit {
   incomeFrequency = "";
   expenseTitle = "";
   expenseAmt = "";
+  incomes: income[] = [{income: "", frequency: "", type: ""}];
   constructor(private r: Router) { }
 
   ngOnInit() {
@@ -49,5 +51,17 @@ export class InitialComponent implements OnInit {
     if(this.expenses.length === 0){
       this.empty = true;
     }
+  }
+  addIncomeSource(){
+    let income = {
+      income: "",
+      frequency: "",
+      type: ""
+    };
+    this.incomes.push(income);
+  }
+  deleteIncome(i: income){
+    let index = this.incomes.indexOf(i);
+    this.incomes.splice(index, 1);
   }
 }

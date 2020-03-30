@@ -20,28 +20,33 @@
     <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>Budget Information</ng-template>
         <form>
-            <mat-form-field class='formField'>
-                <mat-label>Income</mat-label>
-                <input matInput type="text" [(ngModel)]='incomeAmt' name='incomeAmt' placeholder="$0.00" required>
-            </mat-form-field>
-            <mat-form-field class='formField2' style='margin-left: 2em'>
-                <mat-label>Frequency</mat-label>
-                <mat-select required [(value)]='incomeFrequency'>
-                    <mat-option>---</mat-option>
-                    <mat-option value='hourly'>Hourly</mat-option>
-                    <mat-option value='yearly'>Yearly</mat-option>
-                </mat-select>
-            </mat-form-field><br>
-            <mat-form-field class='formField'>
-                <mat-label>Income Type</mat-label>
-                <mat-select required [(value)]='incomeType'>
-                    <mat-option>---</mat-option>
-                    <mat-option value='Part-Time'>Part-Time</mat-option>
-                    <mat-option value='Full-Time'>Full-Time</mat-option>
-                    <mat-option value='Variable'>Variable</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-stroked-button style='margin-left: 1em'>Add income source</button><br>
+            <div *ngFor="let income of incomes">
+                <mat-form-field class='formField'>
+                    <mat-label>Income</mat-label>
+                    <input matInput type="text" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
+                </mat-form-field>
+                <mat-form-field class='formField2' style='margin-left: 2em'>
+                    <mat-label>Frequency</mat-label>
+                    <mat-select required [(value)]='income.frequency'>
+                        <mat-option>---</mat-option>
+                        <mat-option value='One-Time'>One-Time</mat-option>
+                        <mat-option value='hourly'>Hourly</mat-option>
+                        <mat-option value='yearly'>Yearly</mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+                <mat-form-field class='formField'>
+                    <mat-label>Income Type</mat-label>
+                    <mat-select required [(value)]='income.type'>
+                        <mat-option>---</mat-option>
+                        <mat-option value='Part-Time'>Part-Time</mat-option>
+                        <mat-option value='Full-Time'>Full-Time</mat-option>
+                        <mat-option value='Variable'>Variable</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
+                <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="vertical-align: text-bottom; margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
+                <br>
+            </div>
             <mat-form-field>
                 <mat-label>Goal</mat-label>
                 <input matInput type="text" [(ngModel)]='goal' name='goal' placeholder="$0.00">
@@ -90,12 +95,14 @@
         <div style='height: 2em'></div>
         <mat-divider></mat-divider>
         <h3>Budget</h3>
-        <label class='reviewLabel'>Income</label>
-        <input class='reviewContent' readonly value={{incomeAmt}}>
-        <label class='reviewLabel'>Frequency</label>
-        <input class='reviewContent' readonly value={{incomeFrequency}}><br>
-        <label class='reviewLabel'>Income Type</label>
-        <input class='reviewContent' readonly value={{incomeType}}>
+        <div *ngFor="let income of incomes">
+            <label class='reviewLabel'>Income</label>
+            <input class='reviewContent' readonly value={{income.income}}>
+            <label class='reviewLabel'>Frequency</label>
+            <input class='reviewContent' readonly value={{income.frequency}}><br>
+            <label class='reviewLabel'>Income Type</label>
+            <input class='reviewContent' readonly value={{income.type}}>
+        </div>
         <label class='reviewLabel'>Goal</label>
         <input class='reviewContent' readonly value={{goal}}>
         <div style='height: 2em'></div>
@@ -103,13 +110,13 @@
         <h3>Spending</h3>
         <mat-list class="expenseList">
             <h3 mat-subheader>Monthly Expenses</h3>
-            <mat-list-item *ngIf="empty; else normalList">
+            <mat-list-item *ngIf="empty; else normal">
                 <h4 mat-line>No Monthly Expenses</h4>
             </mat-list-item>
-            <mat-list-item #normalList *ngFor='let expense of expenses'>
-                <h4 mat-line>{{expense.name}}</h4>
-                <p mat-line>{{expense.price}}</p>
-                <mat-icon mat-list-icon>cancel</mat-icon>
+            <mat-list-item #normal *ngFor='let expense of expenses' class="expenseContainer">
+                <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
+                <p mat-line id='expenseAmt'>{{expense.amount}}</p>
+                <mat-icon mat-list-icon style='font-size: 12pt'>fiber_manual_record</mat-icon>
             </mat-list-item>
         </mat-list>
         <div style='height: 1em'></div>
