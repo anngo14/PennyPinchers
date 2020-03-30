@@ -15,9 +15,6 @@ export class InitialComponent implements OnInit {
   firstName = "";
   lastName = "";
   goal = "";
-  incomeAmt = "";
-  incomeType = "";
-  incomeFrequency = "";
   expenseTitle = "";
   expenseAmt = "";
   incomes: income[] = [{income: "", frequency: "", type: ""}];

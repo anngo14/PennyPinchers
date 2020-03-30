@@ -11,27 +11,37 @@
         <mat-card class="editCard">
             <h2>Budget</h2>
             <form class="budgetContent">
-                <mat-form-field class='formField'>
-                    <mat-label>Income</mat-label>
-                    <input matInput type="text" placeholder="$0.00">
-                </mat-form-field>
-                <mat-form-field class='formField2' style='margin-left: 2em'>
-                    <mat-label>Frequency</mat-label>
-                    <mat-select required>
-                        <mat-option>---</mat-option>
-                        <mat-option value='hourly'>Hourly</mat-option>
-                        <mat-option value='yearly'>Yearly</mat-option>
-                    </mat-select>
+                <div *ngFor="let income of incomes">
+                    <mat-form-field class='formField'>
+                        <mat-label>Income</mat-label>
+                        <input matInput type="text" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
+                    </mat-form-field>
+                    <mat-form-field class='formField2' style='margin-left: 2em'>
+                        <mat-label>Frequency</mat-label>
+                        <mat-select required [(value)]='income.frequency'>
+                            <mat-option>---</mat-option>
+                            <mat-option value='One-Time'>One-Time</mat-option>
+                            <mat-option value='hourly'>Hourly</mat-option>
+                            <mat-option value='yearly'>Yearly</mat-option>
+                        </mat-select>
+                    </mat-form-field><br>
+                    <mat-form-field class='formField'>
+                        <mat-label>Income Type</mat-label>
+                        <mat-select required [(value)]='income.type'>
+                            <mat-option>---</mat-option>
+                            <mat-option value='Part-Time'>Part-Time</mat-option>
+                            <mat-option value='Full-Time'>Full-Time</mat-option>
+                            <mat-option value='Variable'>Variable</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
+                    <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="vertical-align: text-bottom; margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
+                    <br>
+                </div>
+                <mat-form-field>
+                    <mat-label>Goal</mat-label>
+                    <input matInput type="text" [(ngModel)]='goal' name='goal' placeholder="$0.00">
                 </mat-form-field><br>
-                <mat-form-field class='formField'>
-                    <mat-label>Income Type</mat-label>
-                    <mat-select required>
-                        <mat-option>---</mat-option>
-                        <mat-option value='part'>Part-Time</mat-option>
-                        <mat-option value='full'>Full-Time</mat-option>
-                        <mat-option value='variable'>Variable</mat-option>
-                    </mat-select>
-                </mat-form-field>
             </form>
             <mat-divider></mat-divider>
             <h2 style="margin-top: 2em;">Spending</h2>
