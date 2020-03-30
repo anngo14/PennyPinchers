@@ -1,19 +1,22 @@
-<mat-card class="loginCard">
+<mat-card [@loginFail]="error" class="loginCard">
     <mat-card-title class="loginHeader">Login</mat-card-title>
     <mat-card-content class="loginContent">
+        <mat-error id="loginError" *ngIf="error">Invalid Username or Password</mat-error>
         <form class="loginForm">
             <mat-form-field>
                 <mat-label>Email</mat-label>
-                <input matInput type="email" required>
+                <input matInput type="email" required [(ngModel)]="email" name='email'>
+                <mat-error *ngIf="userInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field><br>
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input matInput type="password" required>
+                <input matInput type="password" required [(ngModel)]='password' name='password'>
+                <mat-error *ngIf="passInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </form>
     </mat-card-content>
     <mat-card-actions class="loginButtons">
-        <button mat-stroked-button (click)="redirectToHome()">Sign In</button>
+        <button mat-stroked-button (click)="signIn()">Sign In</button>
         <button mat-stroked-button (click)="redirectToRegister()">Register</button>
     </mat-card-actions>
 </mat-card>

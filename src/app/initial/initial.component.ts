@@ -30,12 +30,18 @@ export class InitialComponent implements OnInit {
     this.r.navigate(['/home']);
   }
   addMonthlyExpense(){
+    if(this.expenseTitle === "" || this.expenseAmt === ""){
+      return;
+    }
+    
     let monthlyExpense = {
       title: this.expenseTitle,
       amount: this.expenseAmt
     };
     this.empty = false;
     this.expenses.push(monthlyExpense);
+    this.expenseTitle = "";
+    this.expenseAmt = "";
   }
   deleteExpense(e: expense){
     let index = this.expenses.indexOf(e);

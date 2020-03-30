@@ -1,23 +1,41 @@
-<mat-card class="registerCard">
+<mat-card class="registerCard" [@registerFail]="error">
     <mat-card-title class="registerHeader">Register as a New User</mat-card-title>
     <mat-card-content class="registerContent">
         <form class="registerForm">
             <mat-form-field>
                 <mat-label>Email</mat-label>
-                <input matInput type="email" required>
+                <input matInput type="email" required [(ngModel)]='email' name='email'>
+                <mat-error *ngIf="emailInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field><br>
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input matInput type="password" required>
+                <input matInput type="password" required [(ngModel)]='password' name='password' (focus)="showPasswordHint()">
+                <mat-error *ngIf="passInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field><br>
             <mat-form-field>
                 <mat-label>Confirm Password</mat-label>
-                <input matInput type="password" required>
+                <input matInput type="password" required [(ngModel)]='confirmPassword' name='confirmPassword' (focus)="showPasswordHint()">
+                <mat-error *ngIf="confirmInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
         </form>
     </mat-card-content>
     <mat-card-actions class="registerButtons">
-        <button mat-stroked-button>Create Account</button>
+        <button mat-stroked-button (click)='createAccount()'>Create Account</button>
     </mat-card-actions>
 </mat-card>
-
+<mat-card [@passwordHint]="showHint" class="passwordHintCard">
+    <mat-card-content>
+        <span> Must Contain an Uppercase character [A-Z] </span> 
+        <span *ngIf="!checkUpper(); else elseBlock" class="crossMark">❌</span>
+        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+        <span> Must Contain a Lowercase Character [a-z] </span>
+        <span *ngIf="!checkLower(); else elseBlock" class="crossMark">❌</span>
+        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+        <span> Must Contain a Special Character [$!@%#...] </span>
+        <span *ngIf="!checkSpecial(); else elseBlock" class="crossMark">❌</span>
+        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+        <span> Passwords Must Match </span>
+        <span *ngIf="!checkMatch(); else elseBlock" class="crossMark">❌</span>
+        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br>
+    </mat-card-content>
+</mat-card>
