@@ -2,6 +2,7 @@
     margin: 2em;
     height: 55em;
     width: 100%;
+    overflow-y: auto;
 }
 .yearSelect{
     margin-top: 2em;
@@ -24,8 +25,12 @@
     color: #FFF864;
 }
 .archiveItem{
+    /* Collapsed Size */ 
     width: 100%;
     height: 152px;
+    /* Expanded Size */
+    /*border: black 1px solid;
+    height: 40em;*/
 }
 .budgetQuick{
     position: absolute;

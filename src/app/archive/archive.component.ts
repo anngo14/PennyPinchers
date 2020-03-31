@@ -53,14 +53,12 @@ export class ArchiveComponent implements OnInit {
     this.pastYears = this.years;
     this.selectedYear = this.current;
   }
-  checkSign(n: number){
-    if(n > 0){
-      return 1;
-    } else if(n < 0){
-      return -1;
-    } else {
-      return 0;
-    }
+  
+  expandItem(){
+    console.log("expand");
+    let item = document.querySelector(".archiveItem");
+    console.log(item);
+    item.setAttribute("style", "border: 1px solid black;");
   }
 
 }

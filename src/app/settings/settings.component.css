@@ -1,6 +1,6 @@
 .settingsCard{
     margin: 1em;
-    height: 31em;
+    height: 41em;
     width: 100%;
 }
 .btnContainer{
@@ -35,4 +35,7 @@
 }
 .subHeader{
     margin-top: 2em;
+}
+.budgetSettings{
+    margin-bottom: 2em;
 }

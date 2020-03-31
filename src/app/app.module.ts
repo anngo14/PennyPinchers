@@ -20,6 +20,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -61,6 +63,8 @@ import { InitialComponent } from './initial/initial.component';
     MatProgressBarModule,
     MatListModule,
     MatStepperModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
     FormsModule,
     BrowserAnimationsModule
   ],

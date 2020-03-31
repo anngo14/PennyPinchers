@@ -26,7 +26,9 @@ export class InitialComponent implements OnInit {
     }
   }
   redirectToHome(){
-    this.r.navigate(['/home']);
+    if(confirm("Are you sure this information is correct?")){
+      this.r.navigate(['/home']);
+    }
   }
   addMonthlyExpense(){
     if(this.expenseTitle === "" || this.expenseAmt === ""){
