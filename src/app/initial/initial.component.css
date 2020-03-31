@@ -1,5 +1,6 @@
 .initialContent{
     height: 55em;
+    overflow-y: auto;
 }
 .expenseList{
     width: 40em;
