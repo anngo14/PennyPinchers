@@ -16,6 +16,9 @@
 .overviewCard::-webkit-scrollbar{
     display: none;
 }
+.overviewHeader{
+    margin-left: 1em;
+}
 .budgetCard{
     margin: 1em;
     height: 33em;
@@ -59,7 +62,6 @@
 .chartContainer{
     margin-top: 2em;
     height: 45em;
-    border: 1px solid black;
 }
 .overviewChart{
     margin: 1em;
@@ -67,4 +69,33 @@
 }#overviewPieChart{
     width: 100%;
     height: 100%;
+}
+.overviewBudgetContent{
+    margin-bottom: 1em;
+}
+.collapsedHeader{
+    width: 400px;
+    font-size: 24pt;
+    font-weight: 200;
+}
+.collapsedDescription{
+    font-size: 14pt;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.overviewBudgetListItem{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.overviewBudgetListHeader{
+    font-size: 22pt;
+    font-weight: 200;
+}
+.overviewBudgetListDescription{
+    font-size: 22pt;
+    text-align: right;
 }

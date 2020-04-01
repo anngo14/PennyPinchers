@@ -42,7 +42,8 @@ export class HomeComponent implements OnInit {
     this.drawBarChart();
   }
   drawPieChart(){
-    this.ctx.strokeRect(570, 30, 200, 150);
+    //legend
+    this.ctx.strokeRect(570, 30, 200, 100);
 
     //Outer Circle
     this.ctx.beginPath();
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit {
     //Label Circle
     this.ctx.beginPath();
     this.ctx.strokeStyle = '#DDDDDD';
-    this.ctx.arc(250, 250, 220, 0, 2 * Math.PI);
+    this.ctx.arc(250, 250, 225, 0, 2 * Math.PI);
     this.ctx.stroke();
   }
   drawBarChart(){
