@@ -12,7 +12,11 @@
             </mat-select>
         </mat-form-field>
     </mat-grid-tile>
-    <mat-grid-tile colspan='3'></mat-grid-tile>
+    <mat-grid-tile colspan='2'></mat-grid-tile>
+    <mat-grid-tile>
+        <h4>Last Check In: &nbsp;</h4>
+        <span style='font-style: italic;'> {{lastCheck}} </span>
+    </mat-grid-tile>
   </mat-grid-list>
 <mat-divider></mat-divider>
 <mat-card class="mainContainer">
@@ -21,14 +25,34 @@
             <mat-grid-list cols='2' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class="overviewCard">
-                        How much am I spending?
-                        Cash flowing out
+                        <div class='transactionContainer'>
+                            <div class='overviewTransaction'>
+                                <mat-list>
+                                    <mat-list-item *ngFor='let t of positiveTransactions' class='transactionItem' id='positiveItem'>+ {{t | currency}}</mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                        <div class='chartContainer'>
+                            <div class='overviewChart'>
+                                <canvas #overviewPieChart id='overviewPieChart' width="800px" height="500px"></canvas>
+                            </div>
+                        </div>
                     </mat-card>
                 </mat-grid-tile>
                 <mat-grid-tile>
                     <mat-card class="overviewCard">
-                        How much am I saving?
-                        Cash flowing in
+                        <div class='transactionContainer'>
+                            <div class='overviewTransaction'>
+                                <mat-list>
+                                    <mat-list-item *ngFor='let t of negativeTransactions' class='transactionItem' id='negativeItem'>- {{t * -1 | currency}}</mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                        <div class='chartContainer'>
+                            <div class='overviewChart'>
+                                <canvas #overviewBarChart id='overviewPieChart' width="800px" height="600px"></canvas>
+                            </div>
+                        </div>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
