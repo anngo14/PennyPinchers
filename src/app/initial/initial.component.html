@@ -12,8 +12,8 @@
                 <input matInput type="text" [(ngModel)]='lastName' name='lastName' required>
             </mat-form-field><br>
             <mat-form-field class='formField2'>
-                <mat-label>Phone Number Ex. 000-000-000</mat-label>
-                <input matInput type="tel" [(ngModel)]='phoneNumber' name='phoneNumber' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890">
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="tel" [(ngModel)]='phoneNumber' name='phoneNumber' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000">
             </mat-form-field><br>
             <h2>Income</h2>
             <div *ngFor="let income of incomes">
@@ -32,6 +32,10 @@
                         <mat-option value='per month'>per month</mat-option>
                         <mat-option value='per year'>per year</mat-option>
                     </mat-select>
+                </mat-form-field>
+                <mat-form-field id='hourField' *ngIf='income.frequency === "per hour"'>
+                    <mat-label>Avg Hours per Week</mat-label>
+                    <input matInput type="number" [(ngModel)]='income.hoursWeekly' name='hoursPerWeek' placeholder="40" required>
                 </mat-form-field><br>
                 <div class='incomeSecondRow'>
                     <mat-form-field class='formField'>
@@ -40,7 +44,6 @@
                             <mat-option>---</mat-option>
                             <mat-option value='Part-Time'>Part-Time</mat-option>
                             <mat-option value='Full-Time'>Full-Time</mat-option>
-                            <mat-option value='Variable'>Variable</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
@@ -213,17 +216,19 @@
         <div style='height: 2em'></div>
         <div *ngFor="let income of incomes">
             <label class='reviewLabel'>Income</label>
-            <input class='reviewContent' readonly value={{income.income}}>
+            <input class='reviewContent' readonly value={{income.income|currency}}>
             <label class='reviewLabel'>Frequency</label>
             <input class='reviewContent' readonly value={{income.frequency}}><br>
             <label class='reviewLabel'>Income Type</label>
-            <input class='reviewContent' readonly value={{income.type}}>
+            <input class='reviewContent' readonly value={{income.type}}><br>
+            <label class='reviewLabel'>Calculated Monthly Income</label>
+            <input class='reviewContent' readonly value={{calculateMonthlyIncome()|currency}}>
         </div>
         <div style='height: 2em'></div>
         <mat-divider></mat-divider>
         <h3>Budget</h3>
         <label class='reviewLabel'>Goal</label>
-        <input class='reviewContent' readonly value={{goal}}>
+        <input class='reviewContent' readonly value={{goal|currency}}>
         <div style='height: 2em'></div>
         <div class='reviewCategories'>
             <div>

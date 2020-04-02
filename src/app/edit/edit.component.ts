@@ -13,7 +13,7 @@ export class EditComponent implements OnInit {
   empty = true;
   expenseAmount = "";
   expenseTitle = "";
-  incomes: income[] = [{income: "", frequency: "", type: ""}];
+  incomes: income[] = [{income: "", frequency: "", hoursWeekly: 0, type: ""}];
   constructor() { }
 
   ngOnInit() {
@@ -46,6 +46,7 @@ export class EditComponent implements OnInit {
     let income = {
       income: "",
       frequency: "",
+      hoursWeekly: 0,
       type: ""
     };
     this.incomes.push(income);
