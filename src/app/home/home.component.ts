@@ -176,10 +176,11 @@ export class HomeComponent implements OnInit {
 
       //1st Bar
       this.ctx2.fillStyle = "#85CBE9";
-      this.ctx2.fillRect(Xorigin, Y - (width / 2), Y, width);
+      this.ctx2.fillRect(Xorigin + 1, Y - (width / 2), Y, width);
       //2nd Bar
       this.ctx2.fillStyle = "#ABE985";
-      this.ctx2.fillRect(Xorigin, Y - (width / 2), (Math.random() * 2) * Y, width);
+      this.ctx2.fillRect(Xorigin + 1, Y - (width / 2), (Math.random() * 2) * Y, width);
+
     }
   }
 }
