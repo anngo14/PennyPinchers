@@ -37,19 +37,21 @@
                         </div>
                         <div class='chartContainer'>
                             <div class='overviewChart'>
-                                <canvas #overviewPieChart id='overviewPieChart' width="900px" height="560px"></canvas>
+                                <canvas #overviewPieChart id='overviewPieChart' width="1000px" height="600px"></canvas>
                             </div>
                             <div class='overviewBudgetContent'>
                                 <mat-accordion>
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
-                                                <div class='collapsedHeader'>
-                                                    <span>Needs</span>
-                                                </div>
-                                                <div class='collapsedDescription'>
-                                                    <span>50%</span>
-                                                </div>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Needs</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>50%</span>
+                                                    </div>
+                                                </div>   
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <h2>Categories</h2>
@@ -81,12 +83,14 @@
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
-                                                <div class='collapsedHeader'>
-                                                    <span>Wants</span>
-                                                </div>
-                                                <div class='collapsedDescription'>
-                                                    <span>30%</span>
-                                                </div>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Wants</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>30%</span>
+                                                    </div>
+                                                </div>   
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <h2>Categories</h2>
@@ -118,12 +122,14 @@
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
-                                                <div class='collapsedHeader'>
-                                                    <span>Saving</span>
-                                                </div>
-                                                <div class='collapsedDescription'>
-                                                    <span>20%</span>
-                                                </div>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Saving</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>20%</span>
+                                                    </div>
+                                                </div>   
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <h2>Categories</h2>
@@ -167,12 +173,14 @@
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
-                                                <div class='collapsedHeader'>
-                                                    <span>Category 1</span>
-                                                </div>
-                                                <div class='collapsedDescription'>
-                                                    <span>Usage &nbsp;</span>
-                                                    <span>{{1351.65 / 2000 | percent}}</span>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Category 1</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>Usage &nbsp;</span>
+                                                        <span>{{1351.65 / 2000 | percent}}</span>
+                                                    </div>
                                                 </div>
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
@@ -204,12 +212,14 @@
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
-                                                <div class='collapsedHeader'>
-                                                    <span>Category 2</span>
-                                                </div>
-                                                <div class='collapsedDescription'>
-                                                    <span>Usage &nbsp;</span>
-                                                    <span>{{803.71 / 600 | percent}}</span>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Category 2</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>Usage &nbsp;</span>
+                                                        <span>{{803.71 / 600 | percent}}</span>
+                                                    </div>
                                                 </div>
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
@@ -241,13 +251,16 @@
                                     <mat-expansion-panel>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
-                                                <div class='collapsedHeader'>
-                                                    <span>Category 3</span>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Category 3</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>Usage &nbsp;</span>
+                                                        <span>{{400 / 400 | percent}}</span>
+                                                    </div>
                                                 </div>
-                                                <div class='collapsedDescription'>
-                                                    <span>Usage &nbsp;</span>
-                                                    <span>{{400 / 400 | percent}}</span>
-                                                </div>
+                                                
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <mat-list>
@@ -282,15 +295,167 @@
                 </mat-grid-tile>
             </mat-grid-list>
         </mat-tab>
-        <mat-tab label='Budget'>
+        <mat-tab label='Budget' >
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class="budgetCard">
-                        How much can I save?
+                        <!--How much can I save?
                         How much should I save?
                         How much can I spend?
                         Do I have enough room for special occasions or emergencies?
-                        How much do I want to save?
+                        How much do I want to save?-->
+                        <div class='budgetHeaderContainer'>
+                            <div class="budgetHeader1">
+                                <span class='budgetHeader'>Available Budget: &nbsp;</span>
+                                <span class='budgetHeader'>{{budgetAmount | currency}}</span><br>
+                                <span class='budgetSubheader'>Allocated Budget: &nbsp;</span>
+                                <span class='budgetSubheader'>{{budgetAllocated | currency}}</span>
+                            </div>
+                            <div class='budgetHeader2'>
+                                <div class='arrow'>
+                                   <mat-icon *ngIf='budgetAmount - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf='budgetAmount - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
+                                </div>
+                                <div class='budgetSavings'>
+                                    <span *ngIf="budgetAmount - budgetAllocated > 0; else checkBudgetSaving2">+ {{budgetAmount - budgetAllocated | currency}}</span>
+                                    <ng-template #checkBudgetSaving2>
+                                        <span *ngIf="budgetAmount - budgetAllocated < 0; else checkBudgetSaving3">- {{budgetAmount - budgetAllocated | currency}}</span>
+                                    </ng-template>
+                                    <ng-template #checkBudgetSavings3>
+                                        <span>{{budgetAmount - budgetAllocated | currency}}</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='budgetMainContainer'>
+                            <div class="budgetChart">
+                                <mat-card class='budgetPieChartCard'>
+                                    <canvas #budgetPieChart id='budgetPieChart' width="1000px" height="650px"></canvas>
+                                </mat-card>
+                            </div>
+                            <div class="budgetCategories">
+                                <div class='overviewBudgetContent'>
+                                    <mat-accordion>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Needs</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>50%</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'>
+                                                            <span>{{budgetAllocated * 0.5 | currency}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Rent</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{1530551.41 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Utilities</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{42.96 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Wants</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>30%</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'>
+                                                            <span>{{budgetAllocated * 0.3 | currency}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Shopping</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{561.41 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Vacation</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{603.71 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Saving</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>20%</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'>
+                                                            <span>{{budgetAllocated * 0.2 | currency}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Goal</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{391.58 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                        </div>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>

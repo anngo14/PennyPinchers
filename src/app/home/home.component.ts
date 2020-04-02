@@ -13,8 +13,12 @@ export class HomeComponent implements OnInit {
   @ViewChild('overviewBarChart', {static: true})
   canvas2: ElementRef<HTMLCanvasElement>;
 
+  @ViewChild('budgetPieChart', {static: true})
+  canvas3: ElementRef<HTMLCanvasElement>;
+
   private ctx: CanvasRenderingContext2D;
   private ctx2: CanvasRenderingContext2D;
+  private ctx3: CanvasRenderingContext2D;
 
   months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
@@ -22,6 +26,8 @@ export class HomeComponent implements OnInit {
   Month:any = "Month";
   Year:any = "Year";
   lastCheck: any;
+  budgetAmount: number = 41230.32;
+  budgetAllocated: number = 40203.00;
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
   constructor() { }
@@ -29,6 +35,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
+    this.ctx3 = this.canvas3.nativeElement.getContext("2d");
     var d = new Date();
     
     this.Month = this.months[d.getMonth()];
@@ -38,10 +45,11 @@ export class HomeComponent implements OnInit {
     this.selectedMonth = this.Month;
     this.lastCheck = this.Month + " " + d.getDate() + ", " + this.Year;
     
-    this.drawPieChart();
+    this.drawPieChart(this.ctx, this.canvas, 290);
+    this.drawPieChart(this.ctx3, this.canvas3, 320);
     this.drawBarChart();
   }
-  drawPieChart(){
+  drawPieChart(c, canvas, radius){
     /* Information needed
     budget percentages, if custom otherwise 50-30-20
     categories and budget in each budget slice ([rent, 3300.12],...)
@@ -52,52 +60,57 @@ export class HomeComponent implements OnInit {
     End Calculations needed
     Still Need to figure out labels on pie chart */
 
-    let xorigin = 450;
-    let yorigin = 270;
-    let radius = 260;
+    let xorigin = canvas.nativeElement.width / 2
+    let yorigin = canvas.nativeElement.height / 2;
     //Outer Circle
-    this.ctx.beginPath();
-    this.ctx.arc(xorigin, yorigin, radius, 0, 2 * Math.PI);
-    this.ctx.stroke();
+    /*
+    c.beginPath();
+    c.arc(xorigin, yorigin, radius, 0, 2 * Math.PI);
+    c.stroke();*/
     
     //pie slice outline 50%
-    this.ctx.strokeStyle = 'black';
-    this.ctx.beginPath();
-    this.ctx.moveTo(xorigin, yorigin);
-    this.ctx.arc(xorigin, yorigin, radius, 0, Math.PI);
-    this.ctx.lineTo(xorigin, yorigin);
-    this.ctx.stroke();
+    c.strokeStyle = 'black';
+    c.beginPath();
+    c.moveTo(xorigin, yorigin);
+    c.arc(xorigin, yorigin, radius, 0, Math.PI);
+    c.lineTo(xorigin, yorigin);
     //pie slice color fill
-    this.ctx.fillStyle = '#AC85E9';
-    this.ctx.fill();
+    c.fillStyle = '#F9E79F';
+    c.fill();
 
     //pie slice outline 30%
-    this.ctx.strokeStyle = 'black';
-    this.ctx.beginPath();
-    this.ctx.moveTo(xorigin, yorigin);
-    this.ctx.arc(xorigin, yorigin, radius, Math.PI, Math.PI + (108 * Math.PI / 180));
-    this.ctx.lineTo(xorigin, yorigin);
-    this.ctx.stroke();
+    c.strokeStyle = 'black';
+    c.beginPath();
+    c.moveTo(xorigin, yorigin);
+    c.arc(xorigin, yorigin, radius, Math.PI, Math.PI + (108 * Math.PI / 180));
+    c.lineTo(xorigin, yorigin);
     //pie slice color fill
-    this.ctx.fillStyle = '#F9F484';
-    this.ctx.fill();
+    c.fillStyle = '#2874A6';
+    c.fill();
 
     //pie slice outline 20%
-    this.ctx.strokeStyle = 'black';
-    this.ctx.beginPath();
-    this.ctx.moveTo(xorigin, yorigin);
-    this.ctx.arc(xorigin, yorigin, radius, Math.PI + (108 * Math.PI / 180), 0);
-    this.ctx.lineTo(xorigin, yorigin);
-    this.ctx.stroke();
+    c.strokeStyle = 'black';
+    c.beginPath();
+    c.moveTo(xorigin, yorigin);
+    c.arc(xorigin, yorigin, radius, Math.PI + (108 * Math.PI / 180), 0 );
+    c.lineTo(xorigin, yorigin);
     //pie slice color fill
-    this.ctx.fillStyle = '#84F9F5';
-    this.ctx.fill();
+    c.fillStyle = '#D5F5E3';
+    c.fill();
 
+    /*
     //Label Circle
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = '#DDDDDD';
-    this.ctx.arc(xorigin, yorigin, radius - 10, 0, 2 * Math.PI);
-    this.ctx.stroke(); 
+    c.beginPath();
+    c.strokeStyle = '#DDDDDD';
+    c.arc(xorigin, yorigin, radius - 10, 0, 2 * Math.PI);
+    c.stroke(); 
+    */
+
+    //Inner Circle
+    c.beginPath();
+    c.arc(xorigin, yorigin, radius / 3, 0, 2 * Math.PI);
+    c.fillStyle = 'white';
+    c.fill();
   }
   drawBarChart(){
     /* Information needed 

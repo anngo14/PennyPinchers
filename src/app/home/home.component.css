@@ -23,6 +23,11 @@
     margin: 1em;
     height: 33em;
     width: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+}
+.budgetCard::-webkit-scrollbar{
+    display: none;
 }
 .spendingCard{
     margin: 1em;
@@ -74,16 +79,31 @@
     margin-bottom: 1em;
 }
 .collapsedHeader{
-    width: 400px;
+    width: 300px;
     font-size: 24pt;
     font-weight: 200;
 }
 .collapsedDescription{
+    width: 150px;
     font-size: 14pt;
     font-weight: 100;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.collapsedDescription2{
+    width: 150px;
+    font-size: 14pt;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.collapsedItem{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .overviewBudgetListItem{
     width: 100%;
@@ -98,4 +118,71 @@
 .overviewBudgetListDescription{
     font-size: 22pt;
     text-align: right;
+}
+.budgetHeader{
+    font-size: 40pt;
+    font-weight: 200;
+}
+.budgetHeaderContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2em;
+}
+.budgetHeader1{
+    text-align: right;
+    width: 690px;
+}
+.budgetSubheader{
+    font-size: 32pt;
+    font-weight: 400;
+}
+.budgetMainContainer{
+    width: 100%;
+    height: 40em;
+    display: flex;
+    flex-direction: row;
+}
+.budgetChart{
+    height: 100%;
+    width: 45%;
+    /*border: 1px solid red;*/
+}
+.budgetCategories{
+    height: 100%;
+    width: 55%;
+    /*border: 1px solid blue;*/
+}
+.budgetPieChartCard{
+   margin: 1em;
+   margin-top: 0;
+   height: 30em;
+}
+.budgetHeader2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+.arrow{
+    width: 5em;
+}
+.budgetSavings{
+    font-size: 40pt;
+}
+#budgetPieChart{
+    width: 100%;
+    height: 100%;
+}
+#positiveTrend{
+    font-size: 70pt;
+    color: #AFFF64;
+}
+#negativeTrend{
+    font-size: 70pt;
+    color: #FF6464;
+}
+#noTrend{
+    font-size: 70pt;
+    color: #FFF864;
 }
