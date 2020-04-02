@@ -11,24 +11,88 @@ import { income } from '../models/income';
 export class InitialComponent implements OnInit {
 
   expenses: expense[] = [];
-  empty = true;
-  firstName = "";
-  lastName = "";
-  goal = "";
+  custom: boolean = false;
+  firstName: string = "";
+  lastName: string = "";
+  goal: number;
+  needPercentage: number = 50;
+  wantPercentage: number = 30;
+  savingPercentage: number = 20;
   expenseTitle = "";
   expenseAmt = "";
+  needTitle = "";
+  needAmt = "";
+  needs: any = [];
+  wantTitle = "";
+  wantAmt = "";
+  wants: any = [];
+  savingTitle = "";
+  savingAmt = "";
+  savings: any = [];
   incomes: income[] = [{income: "", frequency: "", type: ""}];
+
   constructor(private r: Router) { }
 
   ngOnInit() {
-    if(this.expenses.length > 0){
-      this.empty = false;
-    }
   }
   redirectToHome(){
     if(confirm("Are you sure this information is correct?")){
       this.r.navigate(['/home']);
     }
+  }
+  addNeedCategory(){
+    if(this.needTitle === "" || this.needAmt === ""){
+      return;
+    }
+
+    let category = {
+      title: this.needTitle,
+      amount: this.needAmt
+    };
+    this.needs.push(category);
+    this.needTitle = "";
+    this.needAmt = "";
+  }
+  deleteCategory(c){
+    let index = this.needs.indexOf(c);
+    this.needs.splice(index, 1);
+  }
+  addWantCategory(){
+    if(this.wantTitle === "" || this.wantAmt === ""){
+      return;
+    }
+
+    let category = {
+      title: this.wantTitle,
+      amount: this.wantAmt
+    };
+    this.wants.push(category);
+    this.wantTitle = "";
+    this.wantAmt = "";
+  }
+  deleteWantCategory(c){
+    let index = this.wants.indexOf(c);
+    this.wants.splice(index, 1);
+  }
+  addSavingCategory(){
+    if(this.savingTitle === "" || this.savingAmt === ""){
+      return;
+    }
+
+    let category = {
+      title: this.savingTitle,
+      amount: this.savingAmt
+    };
+    this.savings.push(category);
+    this.savingTitle = "";
+    this.savingAmt = "";
+  }
+  deleteSavingCategory(c){
+    let index = this.savings.indexOf(c);
+    this.savings.splice(index, 1);
+  }
+  onToggle(event){
+    this.custom = !this.custom;
   }
   addMonthlyExpense(){
     if(this.expenseTitle === "" || this.expenseAmt === ""){
@@ -39,7 +103,6 @@ export class InitialComponent implements OnInit {
       title: this.expenseTitle,
       amount: this.expenseAmt
     };
-    this.empty = false;
     this.expenses.push(monthlyExpense);
     this.expenseTitle = "";
     this.expenseAmt = "";
@@ -47,9 +110,6 @@ export class InitialComponent implements OnInit {
   deleteExpense(e: expense){
     let index = this.expenses.indexOf(e);
     this.expenses.splice(index, 1);
-    if(this.expenses.length === 0){
-      this.empty = true;
-    }
   }
   addIncomeSource(){
     let income = {

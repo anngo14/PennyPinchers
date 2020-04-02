@@ -2,6 +2,11 @@
     height: 55em;
     overflow-y: auto;
 }
+.incomeSecondRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .expenseList{
     width: 40em;
     height: 20em;
@@ -13,6 +18,10 @@
 }
 .formField2{
     width: 10em;
+}
+.smallFormField{
+    width: 3em;
+    text-align: center;
 }
 .reviewLabel{
     margin-right: 1em;
@@ -26,6 +35,29 @@
     text-align: center;
     font-size: 18pt;
 }
+.reviewHeaderContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.reviewHeader{
+    font-size: 22pt;
+}
+.reviewCategory{
+    text-align: center;
+    font-size: 18pt;
+    font-weight: 200;
+}
+.reviewList{
+    height: 11em;
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 30em;
+}
+.reviewCategories{
+    display: flex;
+    flex-direction: row;
+}
 .expenseContainer{
     margin: 1.5em;
     margin-right: 0;
@@ -35,4 +67,38 @@
 }
 #expenseAmt{
     font-size: 24pt;
+    font-weight: 300;
+}
+.categoryHeading{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.categoryHeading p{
+    font-size: 20pt;
+    margin-right: 0.5em;
+}
+.categorySubheading{
+    padding: 0;
+    font-weight: 400;
+}
+.categoryList{
+    width: 60em;
+    height: 11em;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.needListItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.listItemTitle{
+    margin-left: 0.25em;
+    font-size: 22pt;
+    font-weight: 200;
+}
+.listItemAmount{
+    margin-left: 0.5em;
+    font-size: 18pt;
 }

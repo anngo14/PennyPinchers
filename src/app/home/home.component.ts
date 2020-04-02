@@ -42,20 +42,30 @@ export class HomeComponent implements OnInit {
     this.drawBarChart();
   }
   drawPieChart(){
-    //legend
-    this.ctx.strokeRect(570, 30, 200, 100);
+    /* Information needed
+    budget percentages, if custom otherwise 50-30-20
+    categories and budget in each budget slice ([rent, 3300.12],...)
+    colors
+    End Information needed
+    Calculations needed
+    convert degress to radians to draw pie slices 
+    End Calculations needed
+    Still Need to figure out labels on pie chart */
 
+    let xorigin = 450;
+    let yorigin = 270;
+    let radius = 260;
     //Outer Circle
     this.ctx.beginPath();
-    this.ctx.arc(250, 250, 240, 0, 2 * Math.PI);
+    this.ctx.arc(xorigin, yorigin, radius, 0, 2 * Math.PI);
     this.ctx.stroke();
     
     //pie slice outline 50%
     this.ctx.strokeStyle = 'black';
     this.ctx.beginPath();
-    this.ctx.moveTo(250, 250);
-    this.ctx.arc(250, 250, 240, 0, Math.PI);
-    this.ctx.lineTo(250, 250);
+    this.ctx.moveTo(xorigin, yorigin);
+    this.ctx.arc(xorigin, yorigin, radius, 0, Math.PI);
+    this.ctx.lineTo(xorigin, yorigin);
     this.ctx.stroke();
     //pie slice color fill
     this.ctx.fillStyle = '#AC85E9';
@@ -64,9 +74,9 @@ export class HomeComponent implements OnInit {
     //pie slice outline 30%
     this.ctx.strokeStyle = 'black';
     this.ctx.beginPath();
-    this.ctx.moveTo(250, 250);
-    this.ctx.arc(250, 250, 240, Math.PI, Math.PI + (108 * Math.PI / 180));
-    this.ctx.lineTo(250, 250);
+    this.ctx.moveTo(xorigin, yorigin);
+    this.ctx.arc(xorigin, yorigin, radius, Math.PI, Math.PI + (108 * Math.PI / 180));
+    this.ctx.lineTo(xorigin, yorigin);
     this.ctx.stroke();
     //pie slice color fill
     this.ctx.fillStyle = '#F9F484';
@@ -75,9 +85,9 @@ export class HomeComponent implements OnInit {
     //pie slice outline 20%
     this.ctx.strokeStyle = 'black';
     this.ctx.beginPath();
-    this.ctx.moveTo(250, 250);
-    this.ctx.arc(250, 250, 240, Math.PI + (108 * Math.PI / 180), 0);
-    this.ctx.lineTo(250, 250);
+    this.ctx.moveTo(xorigin, yorigin);
+    this.ctx.arc(xorigin, yorigin, radius, Math.PI + (108 * Math.PI / 180), 0);
+    this.ctx.lineTo(xorigin, yorigin);
     this.ctx.stroke();
     //pie slice color fill
     this.ctx.fillStyle = '#84F9F5';
@@ -86,10 +96,21 @@ export class HomeComponent implements OnInit {
     //Label Circle
     this.ctx.beginPath();
     this.ctx.strokeStyle = '#DDDDDD';
-    this.ctx.arc(250, 250, 225, 0, 2 * Math.PI);
-    this.ctx.stroke();
+    this.ctx.arc(xorigin, yorigin, radius - 10, 0, 2 * Math.PI);
+    this.ctx.stroke(); 
   }
   drawBarChart(){
+    /* Information needed 
+    min and max budget amounts to create the x-axis intervals
+    category names for y-axis labels
+    budget amount and amount used ["Category 1", 2000, 1351.65] for mat expansion panel
+    colors for the bar chart 
+    End Information needed 
+    Calculations needed
+    calculate the x-axis intervals so that there are always 10 intervals between
+    value to stop the bars at 
+    End Calculations needed*/
+    
     this.ctx2.beginPath();
     this.ctx2.moveTo(100, 30);
     this.ctx2.lineTo(100, 500);
@@ -104,6 +125,7 @@ export class HomeComponent implements OnInit {
     let Yorigin = 500;
     let Ybottom = 510;
     let Ytop = 30;
+    let interval = 60;
 
     for(let i = 0; i < 10; i++){
       this.ctx2.strokeStyle = 'black';
@@ -120,7 +142,7 @@ export class HomeComponent implements OnInit {
       this.ctx2.moveTo(X, Yorigin);
       this.ctx2.lineTo(X, Ytop);
       this.ctx2.stroke();
-      X += 60;
+      X += interval;
     }
     this.ctx2.strokeStyle = 'black';
 

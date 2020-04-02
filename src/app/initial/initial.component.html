@@ -1,6 +1,7 @@
 <mat-horizontal-stepper class='initialContent'>
     <mat-step [stepControl]="firstFormGroup">
-        <ng-template matStepLabel>Personal Information</ng-template>
+        <ng-template matStepLabel>Basic Information</ng-template>
+        <h2>Personal Information</h2>
         <form>
             <mat-form-field class='formField'>
                 <mat-label>First Name</mat-label>
@@ -10,48 +11,165 @@
                 <mat-label>Last Name</mat-label>
                 <input matInput type="text" [(ngModel)]='lastName' name='lastName' required>
             </mat-form-field><br>
-            <mat-form-field class='formField'>
-                <mat-label>Phone Number</mat-label>
-                <input matInput type="text" [(ngModel)]='phoneNumber' name='phoneNumber' placeholder="123-456-7890">
+            <mat-form-field class='formField2'>
+                <mat-label>Phone Number Ex. 000-000-000</mat-label>
+                <input matInput type="tel" [(ngModel)]='phoneNumber' name='phoneNumber' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890">
             </mat-form-field><br>
+            <h2>Income</h2>
+            <div *ngFor="let income of incomes">
+                <mat-form-field class='formField'>
+                    <mat-label>Income</mat-label>
+                    <input matInput type="number" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
+                </mat-form-field>
+                <mat-form-field class='formField2' style='margin-left: 2em'>
+                    <mat-label>Frequency</mat-label>
+                    <mat-select required [(value)]='income.frequency'>
+                        <mat-option>---</mat-option>
+                        <mat-option value='one-time'>one-time</mat-option>
+                        <mat-option value='per hour'>hourly</mat-option>
+                        <mat-option value='per week'>weekly</mat-option>
+                        <mat-option value='bi-weekly'>bi-weekly</mat-option>
+                        <mat-option value='per month'>per month</mat-option>
+                        <mat-option value='per year'>per year</mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+                <div class='incomeSecondRow'>
+                    <mat-form-field class='formField'>
+                        <mat-label>Income Type</mat-label>
+                        <mat-select required [(value)]='income.type'>
+                            <mat-option>---</mat-option>
+                            <mat-option value='Part-Time'>Part-Time</mat-option>
+                            <mat-option value='Full-Time'>Full-Time</mat-option>
+                            <mat-option value='Variable'>Variable</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
+                    <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
+                    <br>
+                </div>
+            </div>
         </form>
         <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>Budget Information</ng-template>
         <form>
-            <div *ngFor="let income of incomes">
-                <mat-form-field class='formField'>
-                    <mat-label>Income</mat-label>
-                    <input matInput type="text" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
-                </mat-form-field>
-                <mat-form-field class='formField2' style='margin-left: 2em'>
-                    <mat-label>Frequency</mat-label>
-                    <mat-select required [(value)]='income.frequency'>
-                        <mat-option>---</mat-option>
-                        <mat-option value='One-Time'>One-Time</mat-option>
-                        <mat-option value='hourly'>Hourly</mat-option>
-                        <mat-option value='yearly'>Yearly</mat-option>
-                    </mat-select>
-                </mat-form-field><br>
-                <mat-form-field class='formField'>
-                    <mat-label>Income Type</mat-label>
-                    <mat-select required [(value)]='income.type'>
-                        <mat-option>---</mat-option>
-                        <mat-option value='Part-Time'>Part-Time</mat-option>
-                        <mat-option value='Full-Time'>Full-Time</mat-option>
-                        <mat-option value='Variable'>Variable</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
-                <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="vertical-align: text-bottom; margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
-                <br>
-            </div>
-            <mat-form-field>
+            <h2>Financial Goal</h2>
+            <mat-form-field class='formField'>
                 <mat-label>Goal</mat-label>
-                <input matInput type="text" [(ngModel)]='goal' name='goal' placeholder="$0.00">
+                <input matInput type="number" [(ngModel)]="goal" name='goal' placeholder="$0.00">
             </mat-form-field><br>
         </form>
+        <h2>Budget</h2>
+        <mat-slide-toggle color='primary' (change)=onToggle($event)>Custom Budget</mat-slide-toggle>
+        <form>
+            <div class='categoryHeading'>
+                <p>Needs</p>
+                <mat-form-field class='smallFormField'>
+                    <input matInput *ngIf='!custom; else enabled;' type="number"  placeholder="50%" readonly>
+                    <ng-template #enabled>
+                        <input matInput type="number" [(ngModel)]='needPercentage' placeholder="50%" name='needPercentage' required>
+                    </ng-template>
+                </mat-form-field>
+            </div>
+            <h3 mat-subheader class='categorySubheading'>Add a Category (up to 6)</h3>
+            <mat-form-field class='formField'>
+                <mat-label>Category Title</mat-label>
+                <input matInput type="text" [(ngModel)]='needTitle' name='needTitle'>
+            </mat-form-field>
+            <mat-form-field class='formField2' style='margin-left: 1em'>
+                <mat-label>Budget Amount</mat-label>
+                <input matInput type="number" placeholder="$0.00" [(ngModel)]='needAmt' name='needAmt'>
+            </mat-form-field>
+            <button mat-stroked-button *ngIf="needs.length < 6; else needButton"style='margin-left: 2em' (click)='addNeedCategory();'>Add</button><br>
+            <ng-template #needButton>
+                <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+            </ng-template>
+            <mat-list class="categoryList">
+                <h3 mat-subheader> Need Categories (Rent, Utilities, Food,...)</h3>
+                <mat-list-item *ngIf="needs.length === 0; else normalNeed">
+                    <h4 mat-line>No Categories</h4>
+                </mat-list-item>
+                <mat-list-item #normalNeed *ngFor='let c of needs'>
+                    <div class='needListItem'>
+                        <mat-icon mat-list-icon (click)='deleteCategory(c)'>cancel</mat-icon>
+                        <p class='listItemTitle'>{{c.title}}</p>
+                        <p class='listItemAmount'>{{c.amount | currency}}</p>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+            <div class='categoryHeading'>
+                <p>Wants</p>
+                <mat-form-field class='smallFormField'>
+                    <input matInput type="number" *ngIf="!custom; else enabledWant;" placeholder="30%" readonly>
+                    <ng-template #enabledWant>
+                        <input matInput type="number" [(ngModel)]='wantPercentage' name='wantPercentage' placeholder="30%" required>
+                    </ng-template>
+                </mat-form-field>
+            </div>
+            <h3 mat-subheader class='categorySubheading'>Add a Category (up to 6)</h3>
+            <mat-form-field class='formField'>
+                <mat-label>Category Title</mat-label>
+                <input matInput type="text" [(ngModel)]='wantTitle' name='wantTitle'>
+            </mat-form-field>
+            <mat-form-field class='formField2' style='margin-left: 1em'>
+                <mat-label>Budget Amount</mat-label>
+                <input matInput type="number" placeholder="$0.00" [(ngModel)]='wantAmt' name='wantAmt'>
+            </mat-form-field>
+            <button mat-stroked-button *ngIf="wants.length < 6; else wantButton"style='margin-left: 2em' (click)='addWantCategory();'>Add</button><br>
+            <ng-template #wantButton>
+                <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+            </ng-template>
+            <mat-list class="categoryList">
+                <h3 mat-subheader> Want Categories (Entertainment, Vacation, Shopping,...)</h3>
+                <mat-list-item *ngIf="wants.length === 0; else normalWant">
+                    <h4 mat-line>No Categories</h4>
+                </mat-list-item>
+                <mat-list-item #normalWant *ngFor='let c of wants'>
+                    <div class='needListItem'>
+                        <mat-icon mat-list-icon (click)='deleteWantCategory(c)'>cancel</mat-icon>
+                        <p class='listItemTitle'>{{c.title}}</p>
+                        <p class='listItemAmount'>{{c.amount | currency}}</p>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+            <div class='categoryHeading'>
+                <p>Saving</p>
+                <mat-form-field class='smallFormField'>
+                    <input matInput type="number" *ngIf="!custom; else enabledSaving;" placeholder="20%" readonly>
+                    <ng-template #enabledSaving>
+                        <input matInput type="number" [(ngModel)]='savingPercentage' name='savingPercentage' placeholder="20%" required>
+                    </ng-template>
+                </mat-form-field>
+            </div>
+            <h3 mat-subheader class='categorySubheading'>Add a Category (up to 6)</h3>
+            <mat-form-field class='formField'>
+                <mat-label>Category Title</mat-label>
+                <input matInput type="text" [(ngModel)]='savingTitle' name='savingTitle'>
+            </mat-form-field>
+            <mat-form-field class='formField2' style='margin-left: 1em'>
+                <mat-label>Budget Amount</mat-label>
+                <input matInput type="number" placeholder="$0.00" [(ngModel)]='savingAmt' name='savingAmt'>
+            </mat-form-field>
+            <button mat-stroked-button *ngIf="savings.length < 6; else savingButton"style='margin-left: 2em' (click)='addSavingCategory();'>Add</button><br>
+            <ng-template #savingButton>
+                <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+            </ng-template>
+            <mat-list class="categoryList">
+                <h3 mat-subheader> Saving Categories (Financial Goals,...)</h3>
+                <mat-list-item *ngIf="savings.length === 0; else normalSaving">
+                    <h4 mat-line>No Categories</h4>
+                </mat-list-item>
+                <mat-list-item #normalSaving *ngFor='let c of savings'>
+                    <div class='needListItem'>
+                        <mat-icon mat-list-icon (click)='deleteSavingCategory(c)'>cancel</mat-icon>
+                        <p class='listItemTitle'>{{c.title}}</p>
+                        <p class='listItemAmount'>{{c.amount | currency}}</p>
+                    </div>
+                </mat-list-item>
+            </mat-list>    
+        </form>
+        <div style='margin-bottom: 2em;'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
     </mat-step>
@@ -63,19 +181,19 @@
                     <mat-label>Title</mat-label>
                     <input matInput type="text" [(ngModel)]='expenseTitle' name='expenseTitle'>
                 </mat-form-field>
-                <mat-form-field class='formField2' style='margin-left: 2em'>
+                <mat-form-field class='formField2' style='margin-left: 1em'>
                     <mat-label>Expense</mat-label>
-                    <input matInput type="text" placeholder="$0.00" [(ngModel)]='expenseAmt' name='expenseAmt'>
+                    <input matInput type="number" placeholder="$0.00" [(ngModel)]='expenseAmt' name='expenseAmt'>
                 </mat-form-field>
-                <button mat-stroked-button style='margin-left: 1em' (click)='addMonthlyExpense();'>Add</button><br>
+                <button mat-stroked-button style='margin-left: 2em' (click)='addMonthlyExpense();'>Add</button><br>
                 <mat-list class="expenseList">
                     <h3 mat-subheader>Monthly Expenses</h3>
-                    <mat-list-item *ngIf="empty; else normalList">
+                    <mat-list-item *ngIf="expenses.length === 0; else normalList">
                         <h4 mat-line>No Monthly Expenses</h4>
                     </mat-list-item>
                     <mat-list-item #normalList *ngFor='let expense of expenses' class="expenseContainer">
                         <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
-                        <p mat-line id='expenseAmt'>{{expense.amount}}</p>
+                        <p mat-line id='expenseAmt'>{{expense.amount | currency}}</p>
                         <mat-icon mat-list-icon (click)='deleteExpense(expense)'>cancel</mat-icon>
                     </mat-list-item>
                 </mat-list>
@@ -93,8 +211,6 @@
         <label class='reviewLabel'>Phone Number</label>
         <input class='reviewContent' readonly value={{phoneNumber}}>
         <div style='height: 2em'></div>
-        <mat-divider></mat-divider>
-        <h3>Budget</h3>
         <div *ngFor="let income of incomes">
             <label class='reviewLabel'>Income</label>
             <input class='reviewContent' readonly value={{income.income}}>
@@ -103,23 +219,86 @@
             <label class='reviewLabel'>Income Type</label>
             <input class='reviewContent' readonly value={{income.type}}>
         </div>
+        <div style='height: 2em'></div>
+        <mat-divider></mat-divider>
+        <h3>Budget</h3>
         <label class='reviewLabel'>Goal</label>
         <input class='reviewContent' readonly value={{goal}}>
+        <div style='height: 2em'></div>
+        <div class='reviewCategories'>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Need</p>
+                    <p class='reviewCategory' style='margin-left: 0.5em;'>{{needPercentage}}</p>
+                    <p class='reviewCategory' style='font-weight:500;'>%</p>
+                </div>
+                <mat-list class='reviewList'>
+                    <h3 mat-subheader style='padding: 0;'>Categories</h3>
+                    <mat-list-item *ngIf="needs.length === 0; else reviewNeeds">
+                        <h4 mat-line>No Categories</h4>
+                    </mat-list-item>
+                    <mat-list-item #reviewNeeds *ngFor='let c of needs'>
+                        <div class='needListItem'>
+                            <p class='listItemTitle'>{{c.title}}</p>
+                            <p class='listItemAmount'>{{c.amount | currency}}</p>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Want</p>
+                    <p class='reviewCategory' style='margin-left: 0.5em;'>{{wantPercentage}}</p>
+                    <p class='reviewCategory' style='font-weight:500;'>%</p>
+                </div>
+                <mat-list class='reviewList'>
+                    <h3 mat-subheader>Categories</h3>
+                    <mat-list-item *ngIf="wants.length === 0; else reviewWants">
+                        <h4 mat-line>No Categories</h4>
+                    </mat-list-item>
+                    <mat-list-item #reviewWants *ngFor='let c of wants'>
+                        <div class='needListItem'>
+                            <p class='listItemTitle'>{{c.title}}</p>
+                            <p class='listItemAmount'>{{c.amount | currency}}</p>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Saving</p>
+                    <p class='reviewCategory' style='margin-left: 0.5em;'>{{savingPercentage}}</p>
+                    <p class='reviewCategory' style='font-weight:500;'>%</p>
+                </div>
+                <mat-list class='reviewList'>
+                    <h3 mat-subheader>Categories</h3>
+                    <mat-list-item *ngIf="savings.length === 0; else reviewSavings">
+                        <h4 mat-line>No Categories</h4>
+                    </mat-list-item>
+                    <mat-list-item #reviewSavings *ngFor='let c of savings'>
+                        <div class='needListItem'>
+                            <p class='listItemTitle'>{{c.title}}</p>
+                            <p class='listItemAmount'>{{c.amount | currency}}</p>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
         <div style='height: 2em'></div>
         <mat-divider></mat-divider>
         <h3>Spending</h3>
         <mat-list class="expenseList">
             <h3 mat-subheader>Monthly Expenses</h3>
-            <mat-list-item *ngIf="empty; else normal">
+            <mat-list-item *ngIf="expenses.length === 0; else normal">
                 <h4 mat-line>No Monthly Expenses</h4>
             </mat-list-item>
             <mat-list-item #normal *ngFor='let expense of expenses' class="expenseContainer">
                 <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
-                <p mat-line id='expenseAmt'>{{expense.amount}}</p>
+                <p mat-line id='expenseAmt'>{{expense.amount | currency}}</p>
                 <mat-icon mat-list-icon style='font-size: 12pt'>fiber_manual_record</mat-icon>
             </mat-list-item>
         </mat-list>
-        <div style='height: 1em'></div>
+        <div style='height: 2em'></div>
         <mat-divider></mat-divider>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)='redirectToHome()'>Confirm</button>
