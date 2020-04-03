@@ -92,7 +92,7 @@
     scrollbar-width: thin;
 }
 .collapsedListItem{
-    margin: 1em;
+    margin: 0.25em;
 }
 .collapsedHeader{
     width: 300px;
