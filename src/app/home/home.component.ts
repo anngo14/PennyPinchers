@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   needCategories: expense[] = [{title: "Rent", amount: "1200"}, {title: 'Utilities', amount: '45'}];
   wantCategories: expense[] = [{title: "Shopping", amount: '250'}, {title: 'Movies', amount: '35'}];
   savingCategories: expense[] = [{title: 'Goal', amount: '400'}];
-  allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, {title: 'Utilities', budget: 50, used: 45}, {title: 'Shopping', budget: 400, used: 250}, {title: 'Movies', budget: 35, used: 35}];
+  allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, {title: 'Utilities', budget: 50, used: 45}, {title: 'Shopping', budget: 400, used: 250}, {title: 'Movies', budget: 35, used: 35},{title: 'test', budget: 1, used: 1}, {title:'tile2', budget:2, used:2}, {title: 'test3', budget:3, used:3}, {title:'test4', budget:4, used:4}, {title:'test5', budget:5, used:5}];
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
   constructor() { }

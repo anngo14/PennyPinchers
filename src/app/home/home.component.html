@@ -146,9 +146,9 @@
                             <div class='overviewChart'>
                                 <canvas #overviewBarChart id='overviewBarChart' width="1000px" height="600px"></canvas>
                             </div>
-                            <div class='overviewBudgetContent'>
+                            <div class='overviewBudgetContentBig'>
                                 <mat-accordion>
-                                    <mat-expansion-panel *ngFor='let c of allCategories'>
+                                    <mat-expansion-panel *ngFor='let c of allCategories' class='collapsedListItem'>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
                                                 <div class='collapsedItem'>
@@ -252,7 +252,12 @@
                                                     </div>   
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
-                                            <h2>Categories</h2>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip>Add a New Needs Category +</mat-chip>
+                                                </mat-chip-list>
+                                            </div>
                                             <mat-list>
                                                 <mat-list-item *ngFor='let c of needCategories'>
                                                     <div class='overviewBudgetListItem'>
@@ -283,8 +288,12 @@
                                                     </div>   
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
-                                            <h2>Categories</h2>
-                                            <mat-list>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip>Add a New Wants Category +</mat-chip>
+                                                </mat-chip-list>
+                                            </div>                                            <mat-list>
                                                 <mat-list-item *ngFor='let c of wantCategories'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
@@ -314,8 +323,12 @@
                                                     </div>   
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
-                                            <h2>Categories</h2>
-                                            <mat-list>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip>Add a New Saving Category +</mat-chip>
+                                                </mat-chip-list>
+                                            </div>                                            <mat-list>
                                                 <mat-list-item *ngFor='let c of savingCategories'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
@@ -370,9 +383,14 @@
                         </div>
                         <div class='expenseMainContainer'>
                             <div class='expenseCategories'>
-                                <div class='overviewBudgetContent'>
+                                <div class='expenseAddContainer'>
+                                    <mat-chip-list>
+                                        <mat-chip>Add a New Expense +</mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                                <div class='overviewBudgetContentBig'>
                                     <mat-accordion>
-                                        <mat-expansion-panel *ngFor='let c of allCategories'>
+                                        <mat-expansion-panel *ngFor='let c of allCategories' class='collapsedListItem'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>

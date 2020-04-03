@@ -22,6 +22,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatChipsModule} from '@angular/material/chips';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -65,6 +66,7 @@ import { InitialComponent } from './initial/initial.component';
     MatStepperModule,
     MatSlideToggleModule,
     MatExpansionModule,
+    MatChipsModule,
     FormsModule,
     BrowserAnimationsModule
   ],
