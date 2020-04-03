@@ -166,7 +166,7 @@
                         </div>
                         <div class='chartContainer'>
                             <div class='overviewChart'>
-                                <canvas #overviewBarChart id='overviewPieChart' width="800px" height="600px"></canvas>
+                                <canvas #overviewBarChart id='overviewBarChart' width="1000px" height="600px"></canvas>
                             </div>
                             <div class='overviewBudgetContent'>
                                 <mat-accordion>
@@ -464,12 +464,164 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class="spendingCard">
-                        What am I spending money on?
+                        <!--What am I spending money on?
                         What recurring payments am I making?
                         What are my largest transactions?
                         Can I afford this lifestyle?
                         Am I spending more than I can save?
-                        What do I need to spend money on?
+                        What do I need to spend money on?-->
+                        <div>
+                            <mat-list>
+                                
+                            </mat-list>
+                        </div>
+                        <div class='budgetHeader2'>
+                            <div class='arrow'>
+                               <mat-icon *ngIf='budgetAmount - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                <ng-template #secondCheck><mat-icon *ngIf='budgetAmount - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
+                            </div>
+                            <div class='budgetSavings'>
+                                <span *ngIf="budgetAmount - budgetAllocated > 0; else checkBudgetSaving2">+ {{budgetAmount - budgetAllocated | currency}}</span>
+                                <ng-template #checkBudgetSaving2>
+                                    <span *ngIf="budgetAmount - budgetAllocated < 0; else checkBudgetSaving3">- {{budgetAmount - budgetAllocated | currency}}</span>
+                                </ng-template>
+                                <ng-template #checkBudgetSavings3>
+                                    <span>{{budgetAmount - budgetAllocated | currency}}</span>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class='expenseMainContainer'>
+                            <div class='expenseCategories'>
+                                <div class='overviewBudgetContent'>
+                                    <mat-accordion>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Category 1</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>Usage &nbsp;</span>
+                                                            <span>{{1351.65 / 2000 | percent}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Budget</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{2000.00 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Used</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{1351.65 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Category 2</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>Usage &nbsp;</span>
+                                                            <span>{{803.71 / 600 | percent}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Budget</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{600.00 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Used</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{803.71 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Category 3</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>Usage &nbsp;</span>
+                                                            <span>{{400 / 400 | percent}}</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Budget</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{400 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Used</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{400 | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                            <div class='expenseChart'>
+                                <mat-card class='expenseBarChartCard'>
+                                    <canvas #expenseBarChart id='expenseBarChart' width="1000px" height="800px"></canvas>
+                                </mat-card>
+                            </div>
+                        </div>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>

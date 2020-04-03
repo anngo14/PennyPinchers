@@ -33,6 +33,11 @@
     margin: 1em;
     height: 33em;
     width: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+}
+.spendingCard::-webkit-scrollbar{
+    display: none;
 }
 .transactionContainer{
     height: 210px;
@@ -71,7 +76,8 @@
 .overviewChart{
     margin: 1em;
     height: 30em;
-}#overviewPieChart{
+}
+#overviewPieChart{
     width: 100%;
     height: 100%;
 }
@@ -146,12 +152,10 @@
 .budgetChart{
     height: 100%;
     width: 45%;
-    /*border: 1px solid red;*/
 }
 .budgetCategories{
     height: 100%;
     width: 55%;
-    /*border: 1px solid blue;*/
 }
 .budgetPieChartCard{
    margin: 1em;
@@ -174,6 +178,11 @@
     width: 100%;
     height: 100%;
 }
+#overviewBarChart{
+    width: 100%;
+    height: 100%;
+}
+
 #positiveTrend{
     font-size: 70pt;
     color: #AFFF64;
@@ -185,4 +194,23 @@
 #noTrend{
     font-size: 70pt;
     color: #FFF864;
+}
+.expenseMainContainer{
+    width: 100%;
+    height: 40em;
+    display: flex;
+    flex-direction: row;
+}
+.expenseCategories{
+    width: 40%;
+    height: 100%;
+}
+.expenseChart{
+    width: 60%;
+    height: 100%;
+}
+.expenseBarChartCard{
+    margin: 1em;
+    margin-top: 0;
+    height: 35em;
 }

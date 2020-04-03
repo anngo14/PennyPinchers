@@ -16,9 +16,13 @@ export class HomeComponent implements OnInit {
   @ViewChild('budgetPieChart', {static: true})
   canvas3: ElementRef<HTMLCanvasElement>;
 
+  @ViewChild('expenseBarChart', {static: true})
+  canvas4: ElementRef<HTMLCanvasElement>;
+
   private ctx: CanvasRenderingContext2D;
   private ctx2: CanvasRenderingContext2D;
   private ctx3: CanvasRenderingContext2D;
+  private ctx4: CanvasRenderingContext2D;
 
   months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
@@ -36,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
     this.ctx3 = this.canvas3.nativeElement.getContext("2d");
+    this.ctx4 = this.canvas4.nativeElement.getContext("2d");
     var d = new Date();
     
     this.Month = this.months[d.getMonth()];
@@ -47,7 +52,8 @@ export class HomeComponent implements OnInit {
     
     this.drawPieChart(this.ctx, this.canvas, 290);
     this.drawPieChart(this.ctx3, this.canvas3, 320);
-    this.drawBarChart();
+    this.drawBarChart(this.ctx2);
+    this.drawBarChart(this.ctx4);
   }
   drawPieChart(c, canvas, radius){
     /* Information needed
@@ -112,7 +118,7 @@ export class HomeComponent implements OnInit {
     c.fillStyle = 'white';
     c.fill();
   }
-  drawBarChart(){
+  drawBarChart(ctx){
     /* Information needed 
     min and max budget amounts to create the x-axis intervals
     category names for y-axis labels
@@ -124,44 +130,44 @@ export class HomeComponent implements OnInit {
     value to stop the bars at 
     End Calculations needed*/
     
-    this.ctx2.beginPath();
-    this.ctx2.moveTo(100, 30);
-    this.ctx2.lineTo(100, 500);
-    this.ctx2.lineTo(700, 500);
-    this.ctx2.stroke();
-    this.drawXAxis();
+    ctx.beginPath();
+    ctx.moveTo(100, 30);
+    ctx.lineTo(100, 500);
+    ctx.lineTo(900, 500);
+    ctx.stroke();
+    this.drawXAxis(ctx);
   }
-  drawXAxis(){
-    this.ctx2.font = '10pt Roboto, Helvetica Neue, sans-serif';
-    this.ctx2.textAlign = 'center';
-    let X = 160;
+  drawXAxis(ctx){
+    ctx.font = '10pt Helvetica';
+    ctx.textAlign = 'center';
+    let X = 180;
     let Yorigin = 500;
     let Ybottom = 510;
     let Ytop = 30;
-    let interval = 60;
+    let interval = 80;
 
     for(let i = 0; i < 10; i++){
-      this.ctx2.strokeStyle = 'black';
-      this.ctx2.beginPath();
-      this.ctx2.moveTo(X, Ybottom);
-      this.ctx2.lineTo(X, Yorigin);
-      this.ctx2.stroke();
+      ctx.strokeStyle = 'black';
+      ctx.beginPath();
+      ctx.moveTo(X, Ybottom);
+      ctx.lineTo(X, Yorigin);
+      ctx.stroke();
 
       //x-axis labels
-      this.ctx2.fillText("Label", X, Ybottom + 20);
+      ctx.fillText("Label", X, Ybottom + 20);
       //background lines
-      this.ctx2.strokeStyle = '#DDDDDD';
-      this.ctx2.beginPath();
-      this.ctx2.moveTo(X, Yorigin);
-      this.ctx2.lineTo(X, Ytop);
-      this.ctx2.stroke();
+      ctx.strokeStyle = '#DDDDDD';
+      ctx.beginPath();
+      ctx.moveTo(X, Yorigin);
+      ctx.lineTo(X, Ytop);
+      ctx.stroke();
       X += interval;
     }
-    this.ctx2.strokeStyle = 'black';
+    ctx.strokeStyle = 'black';
 
-    this.drawYAxis(5);
+    this.drawYAxis(5, ctx);
   }
-  drawYAxis(interval: number){
+  drawYAxis(interval: number, ctx){
     let width = 40;
     //change width based on interval (max 20)
     if(interval <= 15 && interval > 10){
@@ -178,22 +184,22 @@ export class HomeComponent implements OnInit {
     Y = 500;
     for(let i = 0; i < interval; i++){
       Y -= gap;
-      this.ctx2.beginPath();
-      this.ctx2.moveTo(Xorigin, Y);
-      this.ctx2.lineTo(Xbottom, Y);
-      this.ctx2.stroke();
+      ctx.beginPath();
+      ctx.moveTo(Xorigin, Y);
+      ctx.lineTo(Xbottom, Y);
+      ctx.stroke();
       //y-axis labels
-      this.ctx2.textAlign = 'right';
-      this.ctx2.fillStyle = 'black';
-      this.ctx2.fillText("Label", Xbottom - 10, Y + 5);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = 'black';
+      ctx.font = '12pt Helvetica';
+      ctx.fillText("Label", Xbottom - 10, Y + 5);
 
       //1st Bar
-      this.ctx2.fillStyle = "#85CBE9";
-      this.ctx2.fillRect(Xorigin + 1, Y - (width / 2), Y, width);
+      ctx.fillStyle = "#85CBE9";
+      ctx.fillRect(Xorigin + 1, Y - (width / 2), Y, width);
       //2nd Bar
-      this.ctx2.fillStyle = "#ABE985";
-      this.ctx2.fillRect(Xorigin + 1, Y - (width / 2), (Math.random() * 2) * Y, width);
-
+      ctx.fillStyle = "#ABE985";
+      ctx.fillRect(Xorigin + 1, Y - (width / 2), (Math.random() * 2) * Y, width);
     }
   }
 }
