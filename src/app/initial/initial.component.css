@@ -7,6 +7,11 @@
     flex-direction: row;
     align-items: center;
 }
+.incomeContainer{
+    height: 20em;
+    width: 40em;
+    overflow-y: auto;
+}
 .expenseList{
     width: 40em;
     height: 15em;

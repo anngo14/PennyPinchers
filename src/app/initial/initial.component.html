@@ -16,42 +16,47 @@
                 <input matInput type="tel" [(ngModel)]='phoneNumber' name='phoneNumber' pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000">
             </mat-form-field><br>
             <h2>Income</h2>
-            <div *ngFor="let income of incomes">
-                <mat-form-field class='formField'>
-                    <mat-label>Income</mat-label>
-                    <input matInput type="number" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
-                </mat-form-field>
-                <mat-form-field class='formField2' style='margin-left: 2em'>
-                    <mat-label>Frequency</mat-label>
-                    <mat-select required [(value)]='income.frequency'>
-                        <mat-option>---</mat-option>
-                        <mat-option value='one-time'>one-time</mat-option>
-                        <mat-option value='per hour'>hourly</mat-option>
-                        <mat-option value='per week'>weekly</mat-option>
-                        <mat-option value='bi-weekly'>bi-weekly</mat-option>
-                        <mat-option value='per month'>per month</mat-option>
-                        <mat-option value='per year'>per year</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field id='hourField' *ngIf='income.frequency === "per hour"'>
-                    <mat-label>Avg Hours per Week</mat-label>
-                    <input matInput type="number" [(ngModel)]='income.hoursWeekly' name='hoursPerWeek' placeholder="40" required>
-                </mat-form-field><br>
-                <div class='incomeSecondRow'>
+            <div class='incomeContainer'>
+                <div *ngFor="let income of incomes">
                     <mat-form-field class='formField'>
-                        <mat-label>Income Type</mat-label>
-                        <mat-select required [(value)]='income.type'>
+                        <mat-label>Income</mat-label>
+                        <input matInput type="number" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
+                    </mat-form-field>
+                    <mat-form-field class='formField2' style='margin-left: 2em'>
+                        <mat-label>Frequency</mat-label>
+                        <mat-select required [(value)]='income.frequency'>
                             <mat-option>---</mat-option>
-                            <mat-option value='Part-Time'>Part-Time</mat-option>
-                            <mat-option value='Full-Time'>Full-Time</mat-option>
+                            <mat-option value='one-time'>one-time</mat-option>
+                            <mat-option value='per hour'>hourly</mat-option>
+                            <mat-option value='per week'>weekly</mat-option>
+                            <mat-option value='bi-weekly'>bi-weekly</mat-option>
+                            <mat-option value='per month'>per month</mat-option>
+                            <mat-option value='per year'>per year</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
-                    <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
-                    <br>
+                    <mat-form-field id='hourField' *ngIf='income.frequency === "per hour"'>
+                        <mat-label>Avg Hours per Week</mat-label>
+                        <input matInput type="number" [(ngModel)]='income.hoursWeekly' name='hoursPerWeek' placeholder="40" required>
+                    </mat-form-field><br>
+                    <div class='incomeSecondRow'>
+                        <mat-form-field class='formField'>
+                            <mat-label>Income Type</mat-label>
+                            <mat-select required [(value)]='income.type'>
+                                <mat-option>---</mat-option>
+                                <mat-option value='Part-Time'>Part-Time</mat-option>
+                                <mat-option value='Full-Time'>Full-Time</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
+                        <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
+                        <br>
+                    </div>
                 </div>
             </div>
         </form>
+        <div style='height: 2em'></div>
+        <mat-divider></mat-divider>
+        <div style='height: 1em'></div>
         <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
@@ -172,12 +177,15 @@
                 </mat-list-item>
             </mat-list>    
         </form>
-        <div style='margin-bottom: 2em;'></div>
+        <div style='height: 2em;'></div>
+        <mat-divider></mat-divider>
+        <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup">
         <ng-template matStepLabel>Expense Information</ng-template>
+        <h2>Expenses</h2>
         <div class='categoryExpenseContainer'>
             <div class='categoryExpense'>
                 <div class='categoryHeading'>
@@ -266,6 +274,9 @@
                     </mat-list-item>
                 </mat-list>
         </form>
+        <div style='height: 2em'></div>
+        <mat-divider></mat-divider>
+        <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
     </mat-step>
@@ -406,8 +417,9 @@
                 <input class='reviewContent' value={{calculateUncategorizedExpenses()|currency}} readonly>
             </div>
         </div>
-        <div style='height: 4em'></div>
+        <div style='height: 2em'></div>
         <mat-divider></mat-divider>
+        <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)='redirectToHome()'>Confirm</button>
     </mat-step>
