@@ -23,12 +23,15 @@ export class InitialComponent implements OnInit {
   needTitle = "";
   needAmt = "";
   needs: any = [];
+  needsExpense: expense[] = [];
   wantTitle = "";
   wantAmt = "";
   wants: any = [];
+  wantsExpense: expense[] = [];
   savingTitle = "";
   savingAmt = "";
   savings: any = [];
+  savingExpense: expense[] = [];
   incomes: income[] = [{income: "", frequency: "", hoursWeekly: 0, type: ""}];
 
   constructor(private r: Router) { }
@@ -50,11 +53,13 @@ export class InitialComponent implements OnInit {
       amount: this.needAmt
     };
     this.needs.push(category);
+    this.needsExpense.push({title: this.needTitle, amount: ""});
     this.needTitle = "";
     this.needAmt = "";
   }
   deleteCategory(c){
     let index = this.needs.indexOf(c);
+    this.needsExpense.splice(index, 1);
     this.needs.splice(index, 1);
   }
   addWantCategory(){
@@ -67,11 +72,13 @@ export class InitialComponent implements OnInit {
       amount: this.wantAmt
     };
     this.wants.push(category);
+    this.wantsExpense.push({title: this.wantTitle, amount: ""});
     this.wantTitle = "";
     this.wantAmt = "";
   }
   deleteWantCategory(c){
     let index = this.wants.indexOf(c);
+    this.wantsExpense.splice(index, 1);
     this.wants.splice(index, 1);
   }
   addSavingCategory(){
@@ -84,17 +91,19 @@ export class InitialComponent implements OnInit {
       amount: this.savingAmt
     };
     this.savings.push(category);
+    this.savingExpense.push({title: this.savingTitle, amount: ""});
     this.savingTitle = "";
     this.savingAmt = "";
   }
   deleteSavingCategory(c){
     let index = this.savings.indexOf(c);
+    this.savingExpense.splice(index, 1);
     this.savings.splice(index, 1);
   }
   onToggle(event){
     this.custom = !this.custom;
   }
-  addMonthlyExpense(){
+  addExpense(){
     if(this.expenseTitle === "" || this.expenseAmt === ""){
       return;
     }
@@ -149,5 +158,33 @@ export class InitialComponent implements OnInit {
       }
     }
     return monthlyIncome;
+  }
+  calculateNeedExpenses(){
+    let expense = 0;
+    for(let i = 0; i < this.needsExpense.length; i++){
+      expense += Number.parseFloat(this.needsExpense[i].amount);
+    }
+    return expense;
+  }
+  calculateWantExpenses(){
+    let expense = 0;
+    for(let i = 0; i < this.wantsExpense.length; i++){
+      expense += Number.parseFloat(this.wantsExpense[i].amount);
+    }
+    return expense;
+  }
+  calculateSavingExpenses(){
+    let expense = 0;
+    for(let i = 0; i < this.savingExpense.length; i++){
+      expense += Number.parseFloat(this.savingExpense[i].amount);
+    }
+    return expense;
+  }
+  calculateUncategorizedExpenses(){
+    let expense = 0;
+    for(let i = 0; i < this.expenses.length; i++){
+      expense += Number.parseFloat(this.expenses[i].amount);
+    }
+    return expense;
   }
 }

@@ -178,8 +178,73 @@
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup">
         <ng-template matStepLabel>Expense Information</ng-template>
+        <div class='categoryExpenseContainer'>
+            <div class='categoryExpense'>
+                <div class='categoryHeading'>
+                    <p>Needs</p>
+                </div>
+                <div class='categorySubheadingContainer'>
+                    <h3 mat-subheader class='categorySubheading'>Categories</h3>
+                </div>
+                <mat-list class='categoryList2'>
+                    <h3 mat-subheader>Input the Cost of Each Category</h3>
+                    <mat-list-item *ngIf="needs.length === 0; else expenseNeeds">
+                        <h4 mat-line>No Categories</h4>
+                    </mat-list-item>
+                    <mat-list-item #expenseNeeds *ngFor="let c of needsExpense; let index = index;">
+                        <div class='needListItem'>
+                            <input class='expenseListItemTitle' type="text" [(ngModel)]="needsExpense[index].title" >
+                            <p class="expenseListItemAmountLabel">$</p>
+                            <input type="number" class='expenseListItemAmount' [(ngModel)]="needsExpense[index].amount" placeholder={{needs[index].amount}}>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class='categoryExpense'>
+                <div class='categoryHeading'>
+                    <p>Wants</p>
+                </div>
+                <div class='categorySubheadingContainer'>
+                    <h3 mat-subheader class='categorySubheading'>Categories</h3>
+                </div>
+                <mat-list class='categoryList2'>
+                    <h3 mat-subheader>Input the Cost of Each Category</h3>
+                    <mat-list-item *ngIf="wants.length === 0; else expenseWants">
+                        <h4 mat-line>No Categories</h4>
+                    </mat-list-item>
+                    <mat-list-item #expenseWants *ngFor="let c of wantsExpense; let index = index;">
+                        <div class='needListItem'>
+                            <input class='expenseListItemTitle' type="text" [(ngModel)]="wantsExpense[index].title" >
+                            <p class="expenseListItemAmountLabel">$</p>
+                            <input type="number" class='expenseListItemAmount' [(ngModel)]="wantsExpense[index].amount" placeholder={{wants[index].amount}}>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class='categoryExpense'>
+                <div class='categoryHeading'>
+                    <p>Saving</p>
+                </div>
+                <div class='categorySubheadingContainer'>
+                    <h3 mat-subheader class='categorySubheading'>Categories</h3>
+                </div>
+                <mat-list class='categoryList2'>
+                    <h3 mat-subheader>Input the Cost of Each Category</h3>
+                    <mat-list-item *ngIf="savings.length === 0; else expenseSaving">
+                        <h4 mat-line>No Categories</h4>
+                    </mat-list-item>
+                    <mat-list-item #expenseSaving *ngFor="let c of savingExpense; let index = index;">
+                        <div class='needListItem'>
+                            <input class='expenseListItemTitle' type="text" [(ngModel)]="savingExpense[index].title" >
+                            <p class="expenseListItemAmountLabel">$</p>
+                            <input type="number" class='expenseListItemAmount' [(ngModel)]="savingExpense[index].amount" placeholder={{savings[index].amount}}>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
         <form>
-            <h3 mat-subheader style='padding: 0'>Add a Monthly Expense</h3>
+            <h3 mat-subheader style='padding: 0'>Add an Uncategorized Expense</h3>
                 <mat-form-field class='formField'>
                     <mat-label>Title</mat-label>
                     <input matInput type="text" [(ngModel)]='expenseTitle' name='expenseTitle'>
@@ -188,11 +253,11 @@
                     <mat-label>Expense</mat-label>
                     <input matInput type="number" placeholder="$0.00" [(ngModel)]='expenseAmt' name='expenseAmt'>
                 </mat-form-field>
-                <button mat-stroked-button style='margin-left: 2em' (click)='addMonthlyExpense();'>Add</button><br>
+                <button mat-stroked-button style='margin-left: 2em' (click)='addExpense();'>Add</button><br>
                 <mat-list class="expenseList">
-                    <h3 mat-subheader>Monthly Expenses</h3>
+                    <h3 mat-subheader>Uncategorized Expenses</h3>
                     <mat-list-item *ngIf="expenses.length === 0; else normalList">
-                        <h4 mat-line>No Monthly Expenses</h4>
+                        <h4 mat-line>No Expenses</h4>
                     </mat-list-item>
                     <mat-list-item #normalList *ngFor='let expense of expenses' class="expenseContainer">
                         <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
@@ -291,11 +356,11 @@
         </div>
         <div style='height: 2em'></div>
         <mat-divider></mat-divider>
-        <h3>Spending</h3>
+        <h3>Expenses</h3>
         <mat-list class="expenseList">
-            <h3 mat-subheader>Monthly Expenses</h3>
+            <h3 mat-subheader>Uncategorized Expenses</h3>
             <mat-list-item *ngIf="expenses.length === 0; else normal">
-                <h4 mat-line>No Monthly Expenses</h4>
+                <h4 mat-line>No Expenses</h4>
             </mat-list-item>
             <mat-list-item #normal *ngFor='let expense of expenses' class="expenseContainer">
                 <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
@@ -303,7 +368,45 @@
                 <mat-icon mat-list-icon style='font-size: 12pt'>fiber_manual_record</mat-icon>
             </mat-list-item>
         </mat-list>
-        <div style='height: 2em'></div>
+        <div class='reviewCategories'>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Needs</p>
+                    <p class='reviewCategory' style='margin-left: 0.5em;'>{{needPercentage}}</p>
+                    <p class='reviewCategory' style='font-weight:500;'>%</p>
+                </div>
+                <label class='reviewExpenseLabel'>Total</label>
+                <input class='reviewContent' value={{calculateNeedExpenses()|currency}} readonly>
+            </div>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Wants</p>
+                    <p class='reviewCategory' style='margin-left: 0.5em;'>{{wantPercentage}}</p>
+                    <p class='reviewCategory' style='font-weight:500;'>%</p>
+                </div>
+                <label class='reviewExpenseLabel'>Total</label>
+                <input class='reviewContent' value={{calculateWantExpenses()|currency}} readonly>
+            </div>
+        </div>
+        <div class='reviewCategories'>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Saving</p>
+                    <p class='reviewCategory' style='margin-left: 0.5em;'>{{savingPercentage}}</p>
+                    <p class='reviewCategory' style='font-weight:500;'>%</p>
+                </div>
+                <label class='reviewExpenseLabel'>Total</label>
+                <input class='reviewContent' value={{calculateSavingExpenses()|currency}} readonly>
+            </div>
+            <div>
+                <div class='reviewHeaderContainer'>
+                    <p class='reviewHeader'>Uncategorized</p>
+                </div>
+                <label class='reviewExpenseLabel'>Total</label>
+                <input class='reviewContent' value={{calculateUncategorizedExpenses()|currency}} readonly>
+            </div>
+        </div>
+        <div style='height: 4em'></div>
         <mat-divider></mat-divider>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)='redirectToHome()'>Confirm</button>

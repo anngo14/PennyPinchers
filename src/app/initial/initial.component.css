@@ -9,7 +9,7 @@
 }
 .expenseList{
     width: 40em;
-    height: 20em;
+    height: 15em;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -24,6 +24,9 @@
     text-align: center;
 }
 .reviewLabel{
+    margin-right: 1em;
+}
+.reviewExpenseLabel{
     margin-right: 1em;
 }
 .reviewContent{
@@ -82,11 +85,29 @@
     padding: 0;
     font-weight: 400;
 }
+.categorySubheadingContainer{
+    display: flex;
+    flex-direction: row;
+    width: 22em;
+    justify-content: space-between;
+    align-items: center;
+}
 .categoryList{
     width: 60em;
     height: 11em;
     overflow-y: auto;
     overflow-x: hidden;
+}
+.categoryList2{
+    width: 32em;
+    height: 11em;
+    overflow: auto;
+}
+.categoryExpenseContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100em;
+    justify-content: space-between;
 }
 .needListItem{
     display: flex;
@@ -101,6 +122,26 @@
 .listItemAmount{
     margin-left: 0.5em;
     font-size: 18pt;
+}
+.expenseListItemTitle{
+    border: none;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 22pt;
+    font-weight: 200;
+    width: 10em;
+    margin-right: 1em;
+}
+.expenseListItemAmount{
+    border: none;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 20pt;
+    width: 5em;
+}
+.expenseListItemAmount::placeholder{
+    opacity: 0.25;
+}
+.expenseListItemAmountLabel{
+    font-size: 20pt;
 }
 #hourField{
     margin-left: 1em;
