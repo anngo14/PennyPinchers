@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { expense } from '../models/expense';
 import { budget } from '../models/budget';
+import { pieslice } from '../models/pieslice';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,11 @@ export class HomeComponent implements OnInit {
   private ctx3: CanvasRenderingContext2D;
   private ctx4: CanvasRenderingContext2D;
 
+  slices: pieslice[] = [
+    {start: Math.PI / 2, end: (Math.PI / 2) + Math.PI}, //50% 
+    {start: 3 * Math.PI / 2, end: (3 * Math.PI / 2) + (72 * Math.PI / 180)}, //20%
+    {start: (3 * Math.PI / 2) + (72 * Math.PI / 180) , end: Math.PI / 2}]; //30%
+  colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"];
   months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
   selectedMonth;
@@ -40,9 +46,18 @@ export class HomeComponent implements OnInit {
   needCategories: expense[] = [{title: "Rent", amount: "1200"}, {title: 'Utilities', amount: '45'}];
   wantCategories: expense[] = [{title: "Shopping", amount: '250'}, {title: 'Movies', amount: '35'}];
   savingCategories: expense[] = [{title: 'Goal', amount: '400'}];
-  allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, {title: 'Utilities', budget: 50, used: 45}, {title: 'Shopping', budget: 400, used: 250}, {title: 'Movies', budget: 35, used: 35},{title: 'test', budget: 1, used: 1}, {title:'tile2', budget:2, used:2}, {title: 'test3', budget:3, used:3}, {title:'test4', budget:4, used:4}, {title:'test5', budget:5, used:5}];
+  allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, 
+    {title: 'Utilities', budget: 50, used: 45}, 
+    {title: 'Shopping', budget: 400, used: 250}, 
+    {title: 'Movies', budget: 35, used: 35},
+    {title: 'test', budget: 1, used: 1}, 
+    {title:'tile2', budget:2, used:2}, 
+    {title: 'test3', budget:3, used:3}, 
+    {title:'test4', budget:4, used:4}, 
+    {title:'test5', budget:5, used:5}];
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
+
   constructor() { }
 
   ngOnInit() {
@@ -59,12 +74,12 @@ export class HomeComponent implements OnInit {
     this.selectedMonth = this.Month;
     this.lastCheck = this.Month + " " + d.getDate() + ", " + this.Year;
     
-    this.drawPieChart(this.ctx, this.canvas, 290);
-    this.drawPieChart(this.ctx3, this.canvas3, 320);
+    this.drawPieChart(this.ctx, this.canvas, 290, this.slices, true);
+    this.drawPieChart(this.ctx3, this.canvas3, 320, this.slices, false);
     this.drawBarChart(this.ctx2);
     this.drawBarChart(this.ctx4);
   }
-  drawPieChart(c, canvas, radius){
+  drawPieChart(c, canvas, radius, slices, animate){
     /* Information needed
     budget percentages, if custom otherwise 50-30-20
     categories and budget in each budget slice ([rent, 3300.12],...)
@@ -77,55 +92,55 @@ export class HomeComponent implements OnInit {
 
     let xorigin = canvas.nativeElement.width / 2
     let yorigin = canvas.nativeElement.height / 2;
-    //Outer Circle
-    /*
-    c.beginPath();
-    c.arc(xorigin, yorigin, radius, 0, 2 * Math.PI);
-    c.stroke();*/
     
-    //pie slice outline 50%
-    c.strokeStyle = 'black';
-    c.beginPath();
-    c.moveTo(xorigin, yorigin);
-    c.arc(xorigin, yorigin, radius, 0, Math.PI);
-    c.lineTo(xorigin, yorigin);
-    //pie slice color fill
-    c.fillStyle = '#F9E79F';
-    c.fill();
-
-    //pie slice outline 30%
-    c.strokeStyle = 'black';
-    c.beginPath();
-    c.moveTo(xorigin, yorigin);
-    c.arc(xorigin, yorigin, radius, Math.PI, Math.PI + (108 * Math.PI / 180));
-    c.lineTo(xorigin, yorigin);
-    //pie slice color fill
-    c.fillStyle = '#2874A6';
-    c.fill();
-
-    //pie slice outline 20%
-    c.strokeStyle = 'black';
-    c.beginPath();
-    c.moveTo(xorigin, yorigin);
-    c.arc(xorigin, yorigin, radius, Math.PI + (108 * Math.PI / 180), 0 );
-    c.lineTo(xorigin, yorigin);
-    //pie slice color fill
-    c.fillStyle = '#D5F5E3';
-    c.fill();
-
-    /*
-    //Label Circle
-    c.beginPath();
-    c.strokeStyle = '#DDDDDD';
-    c.arc(xorigin, yorigin, radius - 10, 0, 2 * Math.PI);
-    c.stroke(); 
-    */
-
-    //Inner Circle
-    c.beginPath();
-    c.arc(xorigin, yorigin, radius / 3, 0, 2 * Math.PI);
-    c.fillStyle = 'white';
-    c.fill();
+    if(animate){
+      setTimeout(() => {
+        this.animatePieChart(c, canvas, radius, slices);
+      }, 1000);
+    } else {
+      //Draws static pie chart
+      for(let i = 0; i < slices.length; i++){
+        c.beginPath();
+        c.moveTo(xorigin, yorigin);
+        c.arc(xorigin, yorigin, radius, slices[i].start, slices[i].end);
+        c.lineTo(xorigin, yorigin);
+        c.fillStyle = this.colors[i];
+        c.fill();
+      }
+      //Inner White Circle
+      c.beginPath();
+      c.arc(xorigin, yorigin, radius / 3, 0, 2 * Math.PI);
+      c.fillStyle = 'white';
+      c.fill();
+    }
+  }
+  animatePieChart(c, canvas, radius, slice){
+    let xorigin = canvas.nativeElement.width / 2;
+    let yorigin = canvas.nativeElement.height / 2;
+    let j = 1;
+    setInterval(() => {
+      //clear canvas 
+      c.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height);
+      if(j >= 360){
+        j = 0;
+      }  
+      let step = j * Math.PI / 180;
+      //draw new pie slice with a new step
+      for(let i = 0; i < this.slices.length; i++){
+        c.beginPath();
+        c.moveTo(xorigin, yorigin);
+        c.arc(xorigin, yorigin, radius, slice[i].start + step, slice[i].end + step);
+        c.fillStyle = this.colors[i];
+        c.fill();
+      }
+      //draw white inner circle
+      c.beginPath();
+      c.arc(xorigin, yorigin, radius / 3, 0, 2 * Math.PI);
+      c.fillStyle = 'white';
+      c.fill();
+  
+      j++;
+      }, 20);
   }
   drawBarChart(ctx){
     /* Information needed 
