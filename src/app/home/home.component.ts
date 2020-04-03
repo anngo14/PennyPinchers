@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { expense } from '../models/expense';
+import { budget } from '../models/budget';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +32,15 @@ export class HomeComponent implements OnInit {
   Month:any = "Month";
   Year:any = "Year";
   lastCheck: any;
-  budgetAmount: number = 41230.32;
-  budgetAllocated: number = 40203.00;
+  budgetAmount: number = 4123.32;
+  budgetAllocated: number = 4020.00;
+  needPercentage: number = 50;
+  wantPercentage: number = 30;
+  savingPercentage: number = 20;
+  needCategories: expense[] = [{title: "Rent", amount: "1200"}, {title: 'Utilities', amount: '45'}];
+  wantCategories: expense[] = [{title: "Shopping", amount: '250'}, {title: 'Movies', amount: '35'}];
+  savingCategories: expense[] = [{title: 'Goal', amount: '400'}];
+  allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, {title: 'Utilities', budget: 50, used: 45}, {title: 'Shopping', budget: 400, used: 250}, {title: 'Movies', budget: 35, used: 35}];
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
   constructor() { }
