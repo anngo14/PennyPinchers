@@ -3,6 +3,7 @@ import { expense } from '../models/expense';
 import { budget } from '../models/budget';
 import { pieslice } from '../models/pieslice';
 import { barchart } from '../models/barchart';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-home',
@@ -35,9 +36,10 @@ export class HomeComponent implements OnInit {
     {title: 'Entertainment', budget: 400, used: 400}
   ];
   slices: pieslice[] = [
-    {start: Math.PI / 2, end: (Math.PI / 2) + Math.PI}, //50% 
-    {start: 3 * Math.PI / 2, end: (3 * Math.PI / 2) + (72 * Math.PI / 180)}, //20%
-    {start: (3 * Math.PI / 2) + (72 * Math.PI / 180) , end: Math.PI / 2}]; //30%
+    {start: 90, end: 270}, //50% 
+    {start: 270, end: 342}, //20%
+    {start: 342 , end: 90}  //30%
+  ]; 
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"];
   months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
@@ -81,10 +83,9 @@ export class HomeComponent implements OnInit {
     this.selectedMonth = this.Month;
     this.lastCheck = this.Month + " " + d.getDate() + ", " + this.Year;
     
+    this.convertToRadians(this.slices);
     this.drawPieChart(this.ctx, this.canvas, 290, this.slices, true);
-    this.drawPieChart(this.ctx3, this.canvas3, 320, this.slices, false);
-    this.drawBarChart(this.ctx2);
-    this.drawBarChart(this.ctx4);
+    this.drawBarChart(this.ctx2, this.canvas2);
   }
   drawPieChart(c, canvas, radius, slices, animate){
     /* Information needed
@@ -149,7 +150,7 @@ export class HomeComponent implements OnInit {
       j++;
       }, 20);
   }
-  drawBarChart(ctx){
+  drawBarChart(ctx, canvas){
     /* Information needed 
     min and max budget amounts to create the x-axis intervals
     category names for y-axis labels
@@ -161,6 +162,7 @@ export class HomeComponent implements OnInit {
     value to stop the bars at 
     End Calculations needed*/
     
+    ctx.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height);
     ctx.beginPath();
     ctx.moveTo(150, 30);
     ctx.lineTo(150, 700);
@@ -168,6 +170,7 @@ export class HomeComponent implements OnInit {
     ctx.stroke();
     this.drawXAxis(ctx, this.barchartData);
     this.drawYAxis(ctx, this.barchartData);
+    this.drawBarChartData(ctx, this.barchartData);
   }
   drawXAxis(ctx, barChartData){
     ctx.font = '14pt Helvetica';
@@ -183,7 +186,7 @@ export class HomeComponent implements OnInit {
     let xlabel = xinterval;
 
     for(let i = 0; i < 10; i++){
-      ctx.strokeStyle = 'black';
+      ctx.fillStyle = 'black';
       ctx.beginPath();
       ctx.moveTo(X, Ybottom);
       ctx.lineTo(X, Yorigin);
@@ -218,7 +221,6 @@ export class HomeComponent implements OnInit {
     let Y = 700;
     let Ymax = 50;
     let gap = (Y - Ymax) / interval;
-    let Xmax = this.getMax(barChartData);
   
     for(let i = 0; i < interval; i++){
       Y -= gap;
@@ -236,48 +238,97 @@ export class HomeComponent implements OnInit {
         label += "...";
       }
       ctx.fillText(label, Xbottom - 10, Y + 5);
+    } 
+  }
+  drawBarChartData(ctx, barChartData){
+    let interval = barChartData.length;
 
+    let width = 40;
+    //change width based on interval (max 20)
+    if(interval <= 15 && interval > 10){
+      width = 35;
+    } else if(interval > 15){
+      width = 30;
+    }
+
+    let Xorigin = 150;
+    let Y = 700;
+    let Ymax = 50;
+    let gap = (Y - Ymax) / interval;
+    let Xmax = this.getMax(barChartData);
+ 
+    for(let i = 0; i < barChartData.length; i++){
+      Y -= gap;
       let dataBudgetLength: number = barChartData[i].budget * 900.00 / Xmax;
-      let dataUsedLength: number = barChartData[i].used * 900 / Xmax;
+      //let dataUsedLength: number = barChartData[i].used * 900 / Xmax;
 
+      //1st Bar
+      ctx.fillStyle = "rgba(93, 173, 226, 1)";
+      ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
+
+      //Static Bar Graph
+      /*
       if(dataBudgetLength > dataUsedLength){
         //1st Bar
         ctx.fillStyle = "rgba(93, 173, 226, 1)";
-        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataBudgetLength, width);
+        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
       
         //2nd Bar
         ctx.fillStyle = "rgba(231, 76, 60, 1)";
-        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataUsedLength, width);
+        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataUsedLength, width);
 
       } else if(dataBudgetLength < dataUsedLength){
         //2nd Bar
         ctx.fillStyle = "rgba(231, 76, 60, 1)";
-        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataUsedLength, width);
+        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataUsedLength, width);
 
         //1st Bar
         ctx.fillStyle = "rgba(93, 173, 226, 1)";
-        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataBudgetLength, width);
+        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
       } else{
         //1st Bar
         ctx.fillStyle = "#BB8FCE";
-        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataBudgetLength, width);
+        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
+      }
+      */
+    }
+
+    setTimeout(() => {
+      for(let i = 0; i < barChartData.length; i++){
+        this.animateBarChartData(ctx, width, barChartData, i);
+      }
+    }, 1000);
+    
+  }
+  animateBarChartData(ctx, width, barChartData, index){
+    let interval = barChartData.length;
+    let Xorigin = 150;
+    let Y = 700;
+    let Ymax = 50;
+    let gap = (Y - Ymax) / interval;
+    let Xmax = this.getMax(barChartData);
+    let step = 1;
+    Y-= gap * (index + 1);
+    let maxStep = barChartData[index].used * 900 / Xmax;
+    ctx.fillStyle = "rgba(231, 76, 60, 0.5)";
+
+    let animationInterval = setInterval(() => {
+      if(step >= maxStep){
+        return;
       }
 
-      
-      
-      /*
-      ctx.fillStyle = "#85CBE9";
-      let i = 1;
-      setInterval(() => {
-        if(i === Y){
-          i = 1;
-        }
-        ctx.fillRect(Xorigin + 0.1 + i, Y - (width / 2), 1, width);
-        i++;
-      }, 10);
-      */
-
-    } 
+      ctx.fillRect(Xorigin + 0.1 + step, Y - (width / 2), 1, width);
+      step += 1;
+    }, 1);
+    setTimeout(() => {
+      clearInterval(animationInterval);
+    }, 30000);
+  }
+  refreshExpenseBarChart(){
+    this.drawBarChart(this.ctx4, this.canvas4);
+  }
+  refreshOverviewBarChart(){
+    this.drawBarChart(this.ctx2, this.canvas2);
   }
   getMax(barChartData){
     let max = 0;
@@ -294,5 +345,26 @@ export class HomeComponent implements OnInit {
       max++;
     }
     return Math.ceil(max);
+  }
+  convertToRadians(pie: pieslice[]){
+    for(let i = 0; i < pie.length; i++){
+      pie[i].start = pie[i].start * Math.PI / 180;
+      pie[i].end = pie[i].end * Math.PI / 180;
+    }
+  }
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    console.log('tabChangeEvent => ', tabChangeEvent);
+    console.log('index => ', tabChangeEvent.index);
+    switch(tabChangeEvent.index){
+      case 0:
+        this.drawBarChart(this.ctx2, this.canvas2);
+        break;
+      case 1: 
+        this.drawPieChart(this.ctx3, this.canvas3, 320, this.slices, false);
+        break;
+      case 2:
+        this.drawBarChart(this.ctx4, this.canvas4);
+        break;
+    }
   }
 }

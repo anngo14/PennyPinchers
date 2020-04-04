@@ -228,6 +228,10 @@
     margin-top: 0;
     height: 35em;
 }
+#expenseBarChart{
+    width: 100%;
+    height: 100%;
+}
 .expandedHeader{
     display: flex;
     flex-direction: row;

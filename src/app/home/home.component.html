@@ -20,7 +20,7 @@
   </mat-grid-list>
 <mat-divider></mat-divider>
 <mat-card class="mainContainer">
-    <mat-tab-group>
+    <mat-tab-group (selectedTabChange)='tabChanged($event)'>
         <mat-tab label='Overview'>
             <mat-grid-list cols='2' rowHeight='37em'>
                 <mat-grid-tile>
@@ -144,7 +144,7 @@
                         </div>
                         <div class='chartContainer'>
                             <div class='overviewChart'>
-                                <canvas #overviewBarChart id='overviewBarChart' width="1200px" height="800px"></canvas>
+                                <canvas #overviewBarChart id='overviewBarChart' width="1200px" height="800px" (click)='refreshOverviewBarChart()'></canvas>
                             </div>
                             <div class='overviewBudgetContentBig'>
                                 <mat-accordion style='margin: 1em'>
@@ -434,7 +434,7 @@
                             </div>
                             <div class='expenseChart'>
                                 <mat-card class='expenseBarChartCard'>
-                                    <canvas #expenseBarChart id='expenseBarChart' width="1000px" height="800px"></canvas>
+                                    <canvas #expenseBarChart id='expenseBarChart' width="1200px" height="800px"  (click)="refreshExpenseBarChart()"></canvas>
                                 </mat-card>
                             </div>
                         </div>
