@@ -4,6 +4,7 @@ import { budget } from '../models/budget';
 import { pieslice } from '../models/pieslice';
 import { barchart } from '../models/barchart';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { BudgetObj } from '../models/BudgetObj';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,35 @@ export class HomeComponent implements OnInit {
   private ctx3: CanvasRenderingContext2D;
   private ctx4: CanvasRenderingContext2D;
 
+  BudgetObject: BudgetObj = {
+    monthlyIncome: 70000 / 12,
+    date: "May 2020",
+    categories: [
+      {
+        type: 0,
+        percentage: 0.5,
+        items: [
+          {title: "Rent", amount: 1200}, 
+          {title: "Utilities", amount: 150}
+        ]
+      },
+      {
+        type: 1,
+        percentage: 0.3,
+        items: [
+          {title: "Shopping", amount: 200},
+          {title: "Movies", amount: 35}
+        ]
+      },
+      {
+        type: 2,
+        percentage: 0.2,
+        items: [
+          {title: "Goal", amount: 200}
+        ]
+      }
+    ]
+  };
   barchartData: barchart[] = [
     {title: "Rent", budget: 1500, used: 1000},
     {title: 'Utilities', budget: 150, used: 53.23},
@@ -47,17 +77,12 @@ export class HomeComponent implements OnInit {
   Month:any = "Month";
   Year:any = "Year";
   lastCheck: any;
-  budgetAmount: number = 4123.32;
-  budgetAllocated: number = 4020.00;
-  needPercentage: number = 50;
-  wantPercentage: number = 30;
-  savingPercentage: number = 20;
-  needCategories: expense[] = [{title: "Rent", amount: "1200"}, {title: 'Utilities', amount: '45'}];
-  wantCategories: expense[] = [{title: "Shopping", amount: '250'}, {title: 'Movies', amount: '35'}];
-  savingCategories: expense[] = [{title: 'Goal', amount: '400'}];
+
   needsUnallocated: number = 0;
   wantsUnallocated: number = 0;
   savingUnallocated: number = 0;
+  budgetAllocated: number = 0;
+
   allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, 
     {title: 'Utilities', budget: 50, used: 45}, 
     {title: 'Shopping', budget: 400, used: 250}, 
@@ -90,9 +115,10 @@ export class HomeComponent implements OnInit {
     this.drawPieChart(this.ctx, this.canvas, 290, this.slices, true);
     this.drawBarChart(this.ctx2, this.canvas2);
 
-    this.needsUnallocated = this.getUnallocated(this.needCategories, this.needPercentage / 100);
-    this.wantsUnallocated = this.getUnallocated(this.wantCategories, this.wantPercentage / 100);
-    this.savingUnallocated = this.getUnallocated(this.savingCategories, this.savingPercentage / 100);
+    this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+    this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+    this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+    this.budgetAllocated = this.getAllocated();
   }
   drawPieChart(c, canvas, radius, slices, animate){
     /* Information needed
@@ -375,10 +401,19 @@ export class HomeComponent implements OnInit {
     }
   }
   getUnallocated(a: any[], percent){
-    let budget = this.budgetAmount * percent;
+    let budget = this.BudgetObject.monthlyIncome * percent;
     for(let i = 0; i < a.length; i++){
       budget -= a[i].amount;
     }
     return budget;
+  }
+  getAllocated(){
+    let sum = 0;
+    for(let i = 0; i < this.BudgetObject.categories.length; i++){
+      for(let j = 0; j < this.BudgetObject.categories[i].items.length; j++){
+        sum += this.BudgetObject.categories[i].items[j].amount;
+      }
+    }
+    return sum;
   }
 }

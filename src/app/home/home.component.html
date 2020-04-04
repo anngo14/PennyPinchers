@@ -49,14 +49,14 @@
                                                         <span>Needs</span>
                                                     </div>
                                                     <div class='collapsedDescription'>
-                                                        <span>{{needPercentage}}%</span>
+                                                        <span>{{BudgetObject.categories[0].percentage | percent}}</span>
                                                     </div>
                                                 </div>   
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <h2>Categories</h2>
                                         <mat-list>
-                                            <mat-list-item *ngFor="let c of needCategories">
+                                            <mat-list-item *ngFor="let c of BudgetObject.categories[0].items">
                                                 <div class='overviewBudgetListItem'>
                                                     <div class='overviewBudgetListHeader'>
                                                         <span>{{c.title}}</span>
@@ -77,14 +77,14 @@
                                                         <span>Wants</span>
                                                     </div>
                                                     <div class='collapsedDescription'>
-                                                        <span>{{wantPercentage}}%</span>
+                                                        <span>{{BudgetObject.categories[1].percentage | percent}}</span>
                                                     </div>
                                                 </div>   
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <h2>Categories</h2>
                                         <mat-list>
-                                            <mat-list-item *ngFor='let c of wantCategories'>
+                                            <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
                                                 <div class='overviewBudgetListItem'>
                                                     <div class='overviewBudgetListHeader'>
                                                         <span>{{c.title}}</span>
@@ -105,14 +105,14 @@
                                                         <span>Saving</span>
                                                     </div>
                                                     <div class='collapsedDescription'>
-                                                        <span>{{savingPercentage}}%</span>
+                                                        <span>{{BudgetObject.categories[2].percentage | percent}}</span>
                                                     </div>
                                                 </div>   
                                             </mat-panel-title>
                                         </mat-expansion-panel-header>
                                         <h2>Categories</h2>
                                         <mat-list>
-                                            <mat-list-item *ngFor="let c of savingCategories">
+                                            <mat-list-item *ngFor="let c of BudgetObject.categories[2].items">
                                                 <div class='overviewBudgetListItem'>
                                                     <div class='overviewBudgetListHeader'>
                                                         <span>{{c.title}}</span>
@@ -206,20 +206,20 @@
                         <div class='budgetHeaderContainer'>
                             <div class="budgetHeader1">
                                 <span class='budgetHeader'>Available Budget: &nbsp;</span>
-                                <span class='budgetHeader'>{{budgetAmount | currency}}</span><br>
+                                <span class='budgetHeader'>{{BudgetObject.monthlyIncome | currency}}</span><br>
                                 <span class='budgetSubheader'>Allocated Budget: &nbsp;</span>
                                 <span class='budgetSubheader'>{{budgetAllocated | currency}}</span>
                             </div>
                             <div class='budgetHeader2'>
                                 <div class='arrow'>
-                                   <mat-icon *ngIf='budgetAmount - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                   <mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
                                     <ng-template #secondCheck><mat-icon *ngIf='budgetAmount - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                     <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                                 </div>
                                 <div class='budgetSavings'>
-                                    <span *ngIf="budgetAmount - budgetAllocated > 0; else checkBudgetSaving2">+ {{budgetAmount - budgetAllocated | currency}}</span>
+                                    <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated > 0; else checkBudgetSaving2">+ {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
                                     <ng-template #checkBudgetSaving2>
-                                        <span *ngIf="budgetAmount - budgetAllocated < 0; else checkBudgetSaving3">- {{budgetAmount - budgetAllocated | currency}}</span>
+                                        <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated < 0; else checkBudgetSaving3">- {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
                                     </ng-template>
                                     <ng-template #checkBudgetSavings3>
                                         <span>{{budgetAmount - budgetAllocated | currency}}</span>
@@ -244,10 +244,10 @@
                                                             <span>Needs</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>50%</span>
+                                                            <span>{{BudgetObject.categories[0].percentage | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{budgetAmount * 0.5 | currency}}</span>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[0].percentage | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -263,7 +263,7 @@
                                                 </div>
                                             </div>
                                             <mat-list>
-                                                <mat-list-item *ngFor='let c of needCategories'>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[0].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
@@ -283,10 +283,10 @@
                                                             <span>Wants</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>30%</span>
+                                                            <span>{{BudgetObject.categories[1].percentage | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{budgetAmount * 0.3 | currency}}</span>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[1].percentage | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -301,7 +301,7 @@
                                                     <span id='unallocatedAmt'>{{wantsUnallocated | currency}}</span>
                                                 </div>
                                             </div>                                            <mat-list>
-                                                <mat-list-item *ngFor='let c of wantCategories'>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
@@ -322,10 +322,10 @@
                                                             <span>Saving</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>20%</span>
+                                                            <span>{{BudgetObject.categories[2].percentage | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{budgetAmount * 0.2 | currency}}</span>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[2].percentage | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -341,7 +341,7 @@
                                                 </div>
                                             </div>                                            
                                             <mat-list>
-                                                <mat-list-item *ngFor='let c of savingCategories'>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[2].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
