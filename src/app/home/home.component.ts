@@ -55,6 +55,9 @@ export class HomeComponent implements OnInit {
   needCategories: expense[] = [{title: "Rent", amount: "1200"}, {title: 'Utilities', amount: '45'}];
   wantCategories: expense[] = [{title: "Shopping", amount: '250'}, {title: 'Movies', amount: '35'}];
   savingCategories: expense[] = [{title: 'Goal', amount: '400'}];
+  needsUnallocated: number = 0;
+  wantsUnallocated: number = 0;
+  savingUnallocated: number = 0;
   allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, 
     {title: 'Utilities', budget: 50, used: 45}, 
     {title: 'Shopping', budget: 400, used: 250}, 
@@ -86,6 +89,10 @@ export class HomeComponent implements OnInit {
     this.convertToRadians(this.slices);
     this.drawPieChart(this.ctx, this.canvas, 290, this.slices, true);
     this.drawBarChart(this.ctx2, this.canvas2);
+
+    this.needsUnallocated = this.getUnallocated(this.needCategories, this.needPercentage / 100);
+    this.wantsUnallocated = this.getUnallocated(this.wantCategories, this.wantPercentage / 100);
+    this.savingUnallocated = this.getUnallocated(this.savingCategories, this.savingPercentage / 100);
   }
   drawPieChart(c, canvas, radius, slices, animate){
     /* Information needed
@@ -262,7 +269,7 @@ export class HomeComponent implements OnInit {
       let dataBudgetLength: number = barChartData[i].budget * 900.00 / Xmax;
       //let dataUsedLength: number = barChartData[i].used * 900 / Xmax;
 
-      //1st Bar
+      //static 1st Bar
       ctx.fillStyle = "rgba(93, 173, 226, 1)";
       ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
 
@@ -366,5 +373,12 @@ export class HomeComponent implements OnInit {
         this.drawBarChart(this.ctx4, this.canvas4);
         break;
     }
+  }
+  getUnallocated(a: any[], percent){
+    let budget = this.budgetAmount * percent;
+    for(let i = 0; i < a.length; i++){
+      budget -= a[i].amount;
+    }
+    return budget;
   }
 }

@@ -247,7 +247,7 @@
                                                             <span>50%</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{budgetAllocated * 0.5 | currency}}</span>
+                                                            <span>{{budgetAmount * 0.5 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -257,6 +257,10 @@
                                                 <mat-chip-list>
                                                     <mat-chip>Add a New Needs Category +</mat-chip>
                                                 </mat-chip-list>
+                                                <div class='unalloctedContainer'>
+                                                    <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
+                                                    <span id='unallocatedAmt'>{{needsUnallocated | currency}}</span>
+                                                </div>
                                             </div>
                                             <mat-list>
                                                 <mat-list-item *ngFor='let c of needCategories'>
@@ -264,7 +268,6 @@
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
                                                         </div>
-                                                        <div></div>
                                                         <div class='overviewBudgetListDescription'>
                                                             <span>{{c.amount | currency}}</span>
                                                         </div>
@@ -283,7 +286,7 @@
                                                             <span>30%</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{budgetAllocated * 0.3 | currency}}</span>
+                                                            <span>{{budgetAmount * 0.3 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -293,6 +296,10 @@
                                                 <mat-chip-list>
                                                     <mat-chip>Add a New Wants Category +</mat-chip>
                                                 </mat-chip-list>
+                                                <div class='unalloctedContainer'>
+                                                    <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
+                                                    <span id='unallocatedAmt'>{{wantsUnallocated | currency}}</span>
+                                                </div>
                                             </div>                                            <mat-list>
                                                 <mat-list-item *ngFor='let c of wantCategories'>
                                                     <div class='overviewBudgetListItem'>
@@ -318,7 +325,7 @@
                                                             <span>20%</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{budgetAllocated * 0.2 | currency}}</span>
+                                                            <span>{{budgetAmount * 0.2 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -328,7 +335,12 @@
                                                 <mat-chip-list>
                                                     <mat-chip>Add a New Saving Category +</mat-chip>
                                                 </mat-chip-list>
-                                            </div>                                            <mat-list>
+                                                <div class='unalloctedContainer'>
+                                                    <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
+                                                    <span id='unallocatedAmt'>{{savingUnallocated | currency}}</span>
+                                                </div>
+                                            </div>                                            
+                                            <mat-list>
                                                 <mat-list-item *ngFor='let c of savingCategories'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
