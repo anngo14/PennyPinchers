@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { expense } from '../models/expense';
 import { budget } from '../models/budget';
 import { pieslice } from '../models/pieslice';
+import { barchart } from '../models/barchart';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,12 @@ export class HomeComponent implements OnInit {
   private ctx3: CanvasRenderingContext2D;
   private ctx4: CanvasRenderingContext2D;
 
+  barchartData: barchart[] = [
+    {title: "Rent", budget: 1500, used: 1000},
+    {title: 'Utilities', budget: 150, used: 53.23},
+    {title: 'Shopping', budget: 200, used: 342.34},
+    {title: 'Entertainment', budget: 400, used: 400}
+  ];
   slices: pieslice[] = [
     {start: Math.PI / 2, end: (Math.PI / 2) + Math.PI}, //50% 
     {start: 3 * Math.PI / 2, end: (3 * Math.PI / 2) + (72 * Math.PI / 180)}, //20%
@@ -155,20 +162,25 @@ export class HomeComponent implements OnInit {
     End Calculations needed*/
     
     ctx.beginPath();
-    ctx.moveTo(100, 30);
-    ctx.lineTo(100, 500);
-    ctx.lineTo(900, 500);
+    ctx.moveTo(150, 30);
+    ctx.lineTo(150, 700);
+    ctx.lineTo(1050, 700);
     ctx.stroke();
-    this.drawXAxis(ctx);
+    this.drawXAxis(ctx, this.barchartData);
+    this.drawYAxis(ctx, this.barchartData);
   }
-  drawXAxis(ctx){
-    ctx.font = '10pt Helvetica';
+  drawXAxis(ctx, barChartData){
+    ctx.font = '14pt Helvetica';
     ctx.textAlign = 'center';
-    let X = 180;
-    let Yorigin = 500;
-    let Ybottom = 510;
+    let X = 240;
+    let Yorigin = 700;
+    let Ybottom = 710;
     let Ytop = 30;
-    let interval = 80;
+    let interval = 90;
+
+    let max = this.getMax(barChartData);
+    let xinterval = max / 10;
+    let xlabel = xinterval;
 
     for(let i = 0; i < 10; i++){
       ctx.strokeStyle = 'black';
@@ -178,7 +190,8 @@ export class HomeComponent implements OnInit {
       ctx.stroke();
 
       //x-axis labels
-      ctx.fillText("Label", X, Ybottom + 20);
+      ctx.fillText(xlabel, X, Ybottom + 20);
+      xlabel += xinterval;
       //background lines
       ctx.strokeStyle = '#DDDDDD';
       ctx.beginPath();
@@ -188,24 +201,25 @@ export class HomeComponent implements OnInit {
       X += interval;
     }
     ctx.strokeStyle = 'black';
-
-    this.drawYAxis(5, ctx);
   }
-  drawYAxis(interval: number, ctx){
-    let width = 40;
+  drawYAxis(ctx, barChartData){
+    let interval = barChartData.length;
+
+    let width = 45;
     //change width based on interval (max 20)
     if(interval <= 15 && interval > 10){
-      width = 25;
+      width = 35;
     } else if(interval > 15){
-      width = 20;
+      width = 30;
     }
 
-    let Xorigin = 100;
-    let Xbottom = 90;
-    let Y = 490;
+    let Xorigin = 150;
+    let Xbottom = 140;
+    let Y = 700;
     let Ymax = 50;
     let gap = (Y - Ymax) / interval;
-    Y = 500;
+    let Xmax = this.getMax(barChartData);
+  
     for(let i = 0; i < interval; i++){
       Y -= gap;
       ctx.beginPath();
@@ -215,15 +229,70 @@ export class HomeComponent implements OnInit {
       //y-axis labels
       ctx.textAlign = 'right';
       ctx.fillStyle = 'black';
-      ctx.font = '12pt Helvetica';
-      ctx.fillText("Label", Xbottom - 10, Y + 5);
+      ctx.font = '18pt Helvetica';
+      let label: string = barChartData[i].title;
+      if(label.length > 10){
+        label = barChartData[i].title.substring(0, 9);
+        label += "...";
+      }
+      ctx.fillText(label, Xbottom - 10, Y + 5);
 
-      //1st Bar
+      let dataBudgetLength: number = barChartData[i].budget * 900.00 / Xmax;
+      let dataUsedLength: number = barChartData[i].used * 900 / Xmax;
+
+      if(dataBudgetLength > dataUsedLength){
+        //1st Bar
+        ctx.fillStyle = "rgba(93, 173, 226, 1)";
+        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataBudgetLength, width);
+      
+        //2nd Bar
+        ctx.fillStyle = "rgba(231, 76, 60, 1)";
+        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataUsedLength, width);
+
+      } else if(dataBudgetLength < dataUsedLength){
+        //2nd Bar
+        ctx.fillStyle = "rgba(231, 76, 60, 1)";
+        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataUsedLength, width);
+
+        //1st Bar
+        ctx.fillStyle = "rgba(93, 173, 226, 1)";
+        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataBudgetLength, width);
+      } else{
+        //1st Bar
+        ctx.fillStyle = "#BB8FCE";
+        ctx.fillRect(Xorigin + 1, Y - (width / 2), dataBudgetLength, width);
+      }
+
+      
+      
+      /*
       ctx.fillStyle = "#85CBE9";
-      ctx.fillRect(Xorigin + 1, Y - (width / 2), Y, width);
-      //2nd Bar
-      ctx.fillStyle = "#ABE985";
-      ctx.fillRect(Xorigin + 1, Y - (width / 2), (Math.random() * 2) * Y, width);
+      let i = 1;
+      setInterval(() => {
+        if(i === Y){
+          i = 1;
+        }
+        ctx.fillRect(Xorigin + 0.1 + i, Y - (width / 2), 1, width);
+        i++;
+      }, 10);
+      */
+
+    } 
+  }
+  getMax(barChartData){
+    let max = 0;
+    for(let i = 0; i < barChartData.length; i++){
+      if(barChartData[i].budget > max){
+        max = barChartData[i].budget;
+      }
+      if(barChartData[i].used > max){
+        max = barChartData[i].used;
+      }
     }
+    max = Math.ceil(max);
+    while(max % 5 != 0){
+      max++;
+    }
+    return Math.ceil(max);
   }
 }
