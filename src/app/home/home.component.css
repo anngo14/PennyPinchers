@@ -250,3 +250,8 @@
     font-size: 12pt;
     font-weight: 500;
 }
+#expenseList{
+    height: 35em;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+}

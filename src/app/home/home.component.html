@@ -148,7 +148,7 @@
                             </div>
                             <div class='overviewBudgetContentBig'>
                                 <mat-accordion style='margin: 1em'>
-                                    <mat-expansion-panel *ngFor='let c of allCategories' class='collapsedListItem'>
+                                    <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem'>
                                         <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                             <mat-panel-title>
                                                 <div class='collapsedItem'>
@@ -400,9 +400,9 @@
                                         <mat-chip>Add a New Expense +</mat-chip>
                                     </mat-chip-list>
                                 </div>
-                                <div class='overviewBudgetContentBig'>
+                                <div id='expenseList'>
                                     <mat-accordion style='margin: 1em;'>
-                                        <mat-expansion-panel *ngFor='let c of allCategories' class='collapsedListItem'>
+                                        <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>

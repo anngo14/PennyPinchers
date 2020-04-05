@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { expense } from '../models/expense';
-import { budget } from '../models/budget';
 import { pieslice } from '../models/pieslice';
-import { barchart } from '../models/barchart';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { BudgetObj } from '../models/BudgetObj';
+import { ExpenseObj } from '../models/ExpenseObj';
 
 @Component({
   selector: 'app-home',
@@ -59,18 +57,21 @@ export class HomeComponent implements OnInit {
       }
     ]
   };
-  barchartData: barchart[] = [
-    {title: "Rent", budget: 1500, used: 1000},
-    {title: 'Utilities', budget: 150, used: 53.23},
-    {title: 'Shopping', budget: 200, used: 342.34},
-    {title: 'Entertainment', budget: 400, used: 400}
-  ];
-  slices: pieslice[] = [
-    {start: 90, end: 270}, //50% 
-    {start: 270, end: 342}, //20%
-    {start: 342 , end: 90}  //30%
-  ]; 
-  colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"];
+  ExpenseObject: ExpenseObj = {
+    date: "May 2020",
+    items: [
+      {title: "Rent", budget: 1500, used: 1000},
+      {title: 'Utilities', budget: 150, used: 53.23},
+      {title: 'Shopping', budget: 200, used: 342.34},
+      {title: 'Entertainment', budget: 400, used: 400},
+      {title: 'Groceries', budget: 300, used: 198.23}
+    ]
+  }
+  
+  overviewSlices: pieslice[];
+  detailedSlices: pieslice[];
+
+  colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
   months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
   selectedMonth;
@@ -83,15 +84,6 @@ export class HomeComponent implements OnInit {
   savingUnallocated: number = 0;
   budgetAllocated: number = 0;
 
-  allCategories: budget[] = [{title: "Rent", budget: 1500, used: 1200}, 
-    {title: 'Utilities', budget: 50, used: 45}, 
-    {title: 'Shopping', budget: 400, used: 250}, 
-    {title: 'Movies', budget: 35, used: 35},
-    {title: 'test', budget: 1, used: 1}, 
-    {title:'tile2', budget:2, used:2}, 
-    {title: 'test3', budget:3, used:3}, 
-    {title:'test4', budget:4, used:4}, 
-    {title:'test5', budget:5, used:5}];
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
 
@@ -111,8 +103,11 @@ export class HomeComponent implements OnInit {
     this.selectedMonth = this.Month;
     this.lastCheck = this.Month + " " + d.getDate() + ", " + this.Year;
     
-    this.convertToRadians(this.slices);
-    this.drawPieChart(this.ctx, this.canvas, 290, this.slices, true);
+    this.overviewSlices = this.getHighPie();
+
+    this.convertToRadians(this.overviewSlices);
+
+    this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true);
     this.drawBarChart(this.ctx2, this.canvas2);
 
     this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
@@ -121,16 +116,6 @@ export class HomeComponent implements OnInit {
     this.budgetAllocated = this.getAllocated();
   }
   drawPieChart(c, canvas, radius, slices, animate){
-    /* Information needed
-    budget percentages, if custom otherwise 50-30-20
-    categories and budget in each budget slice ([rent, 3300.12],...)
-    colors
-    End Information needed
-    Calculations needed
-    convert degress to radians to draw pie slices 
-    End Calculations needed
-    Still Need to figure out labels on pie chart */
-
     let xorigin = canvas.nativeElement.width / 2
     let yorigin = canvas.nativeElement.height / 2;
     
@@ -155,7 +140,7 @@ export class HomeComponent implements OnInit {
       c.fill();
     }
   }
-  animatePieChart(c, canvas, radius, slice){
+  animatePieChart(c, canvas, radius, slices){
     let xorigin = canvas.nativeElement.width / 2;
     let yorigin = canvas.nativeElement.height / 2;
     let j = 1;
@@ -167,10 +152,10 @@ export class HomeComponent implements OnInit {
       }  
       let step = j * Math.PI / 180;
       //draw new pie slice with a new step
-      for(let i = 0; i < this.slices.length; i++){
+      for(let i = 0; i < slices.length; i++){
         c.beginPath();
         c.moveTo(xorigin, yorigin);
-        c.arc(xorigin, yorigin, radius, slice[i].start + step, slice[i].end + step);
+        c.arc(xorigin, yorigin, radius, slices[i].start + step, slices[i].end + step);
         c.fillStyle = this.colors[i];
         c.fill();
       }
@@ -184,26 +169,15 @@ export class HomeComponent implements OnInit {
       }, 20);
   }
   drawBarChart(ctx, canvas){
-    /* Information needed 
-    min and max budget amounts to create the x-axis intervals
-    category names for y-axis labels
-    budget amount and amount used ["Category 1", 2000, 1351.65] for mat expansion panel
-    colors for the bar chart 
-    End Information needed 
-    Calculations needed
-    calculate the x-axis intervals so that there are always 10 intervals between
-    value to stop the bars at 
-    End Calculations needed*/
-    
     ctx.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height);
     ctx.beginPath();
     ctx.moveTo(150, 30);
     ctx.lineTo(150, 700);
     ctx.lineTo(1050, 700);
     ctx.stroke();
-    this.drawXAxis(ctx, this.barchartData);
-    this.drawYAxis(ctx, this.barchartData);
-    this.drawBarChartData(ctx, this.barchartData);
+    this.drawXAxis(ctx, this.ExpenseObject.items);
+    this.drawYAxis(ctx, this.ExpenseObject.items);
+    this.drawBarChartData(ctx, this.ExpenseObject.items);
   }
   drawXAxis(ctx, barChartData){
     ctx.font = '14pt Helvetica';
@@ -293,37 +267,10 @@ export class HomeComponent implements OnInit {
     for(let i = 0; i < barChartData.length; i++){
       Y -= gap;
       let dataBudgetLength: number = barChartData[i].budget * 900.00 / Xmax;
-      //let dataUsedLength: number = barChartData[i].used * 900 / Xmax;
 
-      //static 1st Bar
+      //Static Budget Bar
       ctx.fillStyle = "rgba(93, 173, 226, 1)";
       ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
-
-      //Static Bar Graph
-      /*
-      if(dataBudgetLength > dataUsedLength){
-        //1st Bar
-        ctx.fillStyle = "rgba(93, 173, 226, 1)";
-        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
-      
-        //2nd Bar
-        ctx.fillStyle = "rgba(231, 76, 60, 1)";
-        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataUsedLength, width);
-
-      } else if(dataBudgetLength < dataUsedLength){
-        //2nd Bar
-        ctx.fillStyle = "rgba(231, 76, 60, 1)";
-        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataUsedLength, width);
-
-        //1st Bar
-        ctx.fillStyle = "rgba(93, 173, 226, 1)";
-        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
-      } else{
-        //1st Bar
-        ctx.fillStyle = "#BB8FCE";
-        ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
-      }
-      */
     }
 
     setTimeout(() => {
@@ -331,7 +278,6 @@ export class HomeComponent implements OnInit {
         this.animateBarChartData(ctx, width, barChartData, i);
       }
     }, 1000);
-    
   }
   animateBarChartData(ctx, width, barChartData, index){
     let interval = barChartData.length;
@@ -350,7 +296,7 @@ export class HomeComponent implements OnInit {
         return;
       }
 
-      ctx.fillRect(Xorigin + 0.1 + step, Y - (width / 2), 1, width);
+      ctx.fillRect(Xorigin + step, Y - (width / 2), 1, width);
       step += 1;
     }, 1);
     setTimeout(() => {
@@ -373,10 +319,12 @@ export class HomeComponent implements OnInit {
         max = barChartData[i].used;
       }
     }
+
     max = Math.ceil(max);
     while(max % 5 != 0){
       max++;
     }
+
     return Math.ceil(max);
   }
   convertToRadians(pie: pieslice[]){
@@ -386,14 +334,12 @@ export class HomeComponent implements OnInit {
     }
   }
   tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-    console.log('tabChangeEvent => ', tabChangeEvent);
-    console.log('index => ', tabChangeEvent.index);
     switch(tabChangeEvent.index){
       case 0:
         this.drawBarChart(this.ctx2, this.canvas2);
         break;
       case 1: 
-        this.drawPieChart(this.ctx3, this.canvas3, 320, this.slices, false);
+        this.drawPieChart(this.ctx3, this.canvas3, 320, this.overviewSlices, false);
         break;
       case 2:
         this.drawBarChart(this.ctx4, this.canvas4);
@@ -405,6 +351,7 @@ export class HomeComponent implements OnInit {
     for(let i = 0; i < a.length; i++){
       budget -= a[i].amount;
     }
+
     return budget;
   }
   getAllocated(){
@@ -414,6 +361,18 @@ export class HomeComponent implements OnInit {
         sum += this.BudgetObject.categories[i].items[j].amount;
       }
     }
+
     return sum;
+  }
+  getHighPie(){
+    let slices = [];
+    let startingAngle = 90;
+    for(let i = 0; i < this.BudgetObject.categories.length; i++){
+      let endingAngle = startingAngle + (this.BudgetObject.categories[i].percentage * 360);
+      slices.push({start: startingAngle, end: endingAngle});
+      startingAngle = endingAngle;
+    }
+
+    return slices;
   }
 }
