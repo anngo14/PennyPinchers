@@ -23,6 +23,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -32,6 +33,10 @@ import { ArchiveComponent } from './archive/archive.component';
 import { EditComponent } from './edit/edit.component';
 import { SettingsComponent } from './settings/settings.component';
 import { InitialComponent } from './initial/initial.component';
+import { ExpenseDialogComponent } from './expense-dialog/expense-dialog.component';
+import { NeedsDialogComponent } from './needs-dialog/needs-dialog.component';
+import { WantsDialogComponent } from './wants-dialog/wants-dialog.component';
+import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
 
 
 @NgModule({
@@ -44,7 +49,11 @@ import { InitialComponent } from './initial/initial.component';
     ArchiveComponent,
     EditComponent,
     SettingsComponent,
-    InitialComponent
+    InitialComponent,
+    ExpenseDialogComponent,
+    NeedsDialogComponent,
+    WantsDialogComponent,
+    SavingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -67,8 +76,16 @@ import { InitialComponent } from './initial/initial.component';
     MatSlideToggleModule,
     MatExpansionModule,
     MatChipsModule,
+    MatDialogModule,
     FormsModule,
     BrowserAnimationsModule
+  ],
+
+  entryComponents: [
+    ExpenseDialogComponent,
+    NeedsDialogComponent,
+    WantsDialogComponent,
+    SavingDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

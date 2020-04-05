@@ -213,7 +213,7 @@
                             <div class='budgetHeader2'>
                                 <div class='arrow'>
                                    <mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                    <ng-template #secondCheck><mat-icon *ngIf='budgetAmount - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <ng-template #secondCheck><mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                     <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                                 </div>
                                 <div class='budgetSavings'>
@@ -255,7 +255,7 @@
                                             <div class='expandedHeader'>
                                                 <h2>Categories</h2>
                                                 <mat-chip-list>
-                                                    <mat-chip>Add a New Needs Category +</mat-chip>
+                                                    <mat-chip (click)='openNeedsDialog()'>Add a New Needs Category +</mat-chip>
                                                 </mat-chip-list>
                                                 <div class='unalloctedContainer'>
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
@@ -294,7 +294,7 @@
                                             <div class='expandedHeader'>
                                                 <h2>Categories</h2>
                                                 <mat-chip-list>
-                                                    <mat-chip>Add a New Wants Category +</mat-chip>
+                                                    <mat-chip (click)='openWantsDialog()'>Add a New Wants Category +</mat-chip>
                                                 </mat-chip-list>
                                                 <div class='unalloctedContainer'>
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
@@ -333,7 +333,7 @@
                                             <div class='expandedHeader'>
                                                 <h2>Categories</h2>
                                                 <mat-chip-list>
-                                                    <mat-chip>Add a New Saving Category +</mat-chip>
+                                                    <mat-chip (click)='openSavingDialog()'>Add a New Saving Category +</mat-chip>
                                                 </mat-chip-list>
                                                 <div class='unalloctedContainer'>
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
@@ -372,24 +372,19 @@
                         Can I afford this lifestyle?
                         Am I spending more than I can save?
                         What do I need to spend money on?-->
-                        <div>
-                            <mat-list>
-
-                            </mat-list>
-                        </div>
                         <div class='budgetHeader2'>
                             <div class='arrow'>
-                               <mat-icon *ngIf='budgetAmount - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                <ng-template #secondCheck><mat-icon *ngIf='budgetAmount - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                               <mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                <ng-template #secondCheck><mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                 <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                             </div>
                             <div class='budgetSavings'>
-                                <span *ngIf="budgetAmount - budgetAllocated > 0; else checkBudgetSaving2">+ {{budgetAmount - budgetAllocated | currency}}</span>
+                                <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated > 0; else checkBudgetSaving2">+ {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
                                 <ng-template #checkBudgetSaving2>
-                                    <span *ngIf="budgetAmount - budgetAllocated < 0; else checkBudgetSaving3">- {{budgetAmount - budgetAllocated | currency}}</span>
+                                    <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated < 0; else checkBudgetSaving3">- {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
                                 </ng-template>
                                 <ng-template #checkBudgetSavings3>
-                                    <span>{{budgetAmount - budgetAllocated | currency}}</span>
+                                    <span>{{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
                                 </ng-template>
                             </div>
                         </div>
@@ -397,7 +392,7 @@
                             <div class='expenseCategories'>
                                 <div class='expenseAddContainer'>
                                     <mat-chip-list>
-                                        <mat-chip>Add a New Expense +</mat-chip>
+                                        <mat-chip (click)='openExpenseList()'>Add a New Expense +</mat-chip>
                                     </mat-chip-list>
                                 </div>
                                 <div id='expenseList'>

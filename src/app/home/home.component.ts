@@ -3,6 +3,11 @@ import { pieslice } from '../models/pieslice';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { BudgetObj } from '../models/BudgetObj';
 import { ExpenseObj } from '../models/ExpenseObj';
+import { MatDialog } from '@angular/material/dialog';
+import { ExpenseDialogComponent } from '../expense-dialog/expense-dialog.component';
+import { NeedsDialogComponent } from '../needs-dialog/needs-dialog.component';
+import { WantsDialogComponent } from '../wants-dialog/wants-dialog.component';
+import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -87,7 +92,7 @@ export class HomeComponent implements OnInit {
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.ctx = this.canvas.nativeElement.getContext("2d");
@@ -374,5 +379,17 @@ export class HomeComponent implements OnInit {
     }
 
     return slices;
+  }
+  openExpenseList(){
+    const dialogRef = this.dialog.open(ExpenseDialogComponent);
+  }
+  openNeedsDialog(){
+    const dialogRef = this.dialog.open(NeedsDialogComponent);
+  }
+  openWantsDialog(){
+    const dialogRef = this.dialog.open(WantsDialogComponent);
+  }
+  openSavingDialog(){
+    const dialogRef = this.dialog.open(SavingDialogComponent);
   }
 }
