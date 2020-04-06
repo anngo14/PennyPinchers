@@ -25,6 +25,6 @@
 </mat-list>
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="wants">Cancel</button>
-    <button mat-button [mat-dialog-close]="wants" cdkFocusInitial>Save</button>
+    <button mat-button [mat-dialog-close]="wants" (click)='saveWants()' cdkFocusInitial>Save</button>
   </mat-dialog-actions>
 

@@ -51,4 +51,13 @@ export class SavingDialogComponent implements OnInit {
     }
     this.data.expenseList.splice(index, 1);
   }
+  saveSavings(){
+    for(let i = 0; i < this.saving.length; i++){
+      for(let j = 0; j < this.data.expenseList.length; j++){
+        if(this.saving[i].title === this.data.expenseList[j].title && this.saving[i].amount != this.data.expenseList[j].budget){
+          this.data.expenseList[j].budget = this.saving[i].amount;
+        }
+      }
+    }
+  }
 }

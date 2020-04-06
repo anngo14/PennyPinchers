@@ -51,4 +51,13 @@ export class UnategorizedDialogComponent implements OnInit {
     }
     this.data.expenseList.splice(index, 1);
   }
+  saveUncategorized(){
+    for(let i = 0; i < this.uncategorized.length; i++){
+      for(let j = 0; j < this.data.expenseList.length; j++){
+        if(this.uncategorized[i].title === this.data.expenseList[j].title && this.uncategorized[i].amount != this.data.expenseList[j].budget){
+          this.data.expenseList[j].budget = this.uncategorized[i].amount;
+        }
+      }
+    }
+  }
 }

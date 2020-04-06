@@ -52,4 +52,13 @@ export class NeedsDialogComponent implements OnInit {
     }
     this.data.expenseList.splice(index, 1);
   }
+  saveNeeds(){
+    for(let i = 0; i < this.needs.length; i++){
+      for(let j = 0; j < this.data.expenseList.length; j++){
+        if(this.needs[i].title === this.data.expenseList[j].title && this.needs[i].amount != this.data.expenseList[j].budget){
+          this.data.expenseList[j].budget = this.needs[i].amount;
+        }
+      }
+    }
+  }
 }

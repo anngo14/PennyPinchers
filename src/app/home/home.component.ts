@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
   ExpenseObject: ExpenseObj = {
     date: "May 2020",
     items: [
-      {title: "Rent", budget: 1500, used: 1000},
+      {title: "Rent", budget: 1200, used: 1000},
       {title: 'Utilities', budget: 150, used: 53.23},
       {title: 'Shopping', budget: 200, used: 342.34},
       {title: 'Entertainment', budget: 400, used: 400},
@@ -311,7 +311,7 @@ export class HomeComponent implements OnInit {
 
       ctx.fillRect(Xorigin + step, Y - (width / 2), 1, width);
       step += 1;
-    }, 1);
+    }, 0);
     setTimeout(() => {
       clearInterval(animationInterval);
     }, 30000);

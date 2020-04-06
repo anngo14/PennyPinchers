@@ -25,6 +25,6 @@
 </mat-list>
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="uncategorized">Cancel</button>
-    <button mat-button [mat-dialog-close]="uncategorized" cdkFocusInitial>Save</button>
+    <button mat-button [mat-dialog-close]="uncategorized" (click)='saveUncategorized()' cdkFocusInitial>Save</button>
   </mat-dialog-actions>
 
