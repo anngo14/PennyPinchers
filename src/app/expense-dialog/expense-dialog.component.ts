@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExpenseDialogComponent implements OnInit {
 
+  expenses: any[] = [];
+
   constructor() { }
 
   ngOnInit() {

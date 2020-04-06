@@ -1,0 +1,24 @@
+#expenseHeader{
+    font-weight: 300;
+}
+#formField{
+    width: 20em;
+    margin-right: 1em;
+}
+#formField2{
+    width: 10em;
+    margin-right: 2em;
+}
+.expenseListTitle{
+    font-size: 22pt;
+    font-weight: 200;
+    width: 10em;
+}
+.expenseListAmount{
+    font-size: 20pt;
+    width: 5em;
+}
+#expenseListContainer{
+    height: 20em;
+    overflow-y: auto;
+}

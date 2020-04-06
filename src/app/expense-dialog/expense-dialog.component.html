@@ -1,1 +1,27 @@
-<p>expense-dialog works!</p>
+<h2>Expenses</h2>
+<h3 id='expenseHeader'>Add a new Expense</h3>
+<div>
+    <mat-form-field id='formField'>
+        <mat-label>Title</mat-label>
+        <input matInput type="text">
+    </mat-form-field>
+    <mat-form-field id='formField2'>
+        <mat-label>Cost</mat-label>
+        <input matInput type="number">
+    </mat-form-field>
+    <button mat-stroked-button>Add</button>
+</div>
+<h4>Existing Expenses</h4>
+<mat-list id='expenseListContainer'>
+    <mat-list-item *ngIf="expenses.length === 0; else expenseList">
+        <h4 mat-line>No Categories</h4>
+    </mat-list-item>
+    <mat-list-item #expenseList *ngFor='let e of expenses'>
+        <p class='expenseListTitle'>Rent &nbsp;</p>
+        <p class='expenseListAmount'>{{1500 | currency}}</p>
+    </mat-list-item>
+</mat-list>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
