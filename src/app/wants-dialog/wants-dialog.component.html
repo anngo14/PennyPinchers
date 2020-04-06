@@ -1,1 +1,30 @@
-<p>wants-dialog works!</p>
+<h2>Wants</h2>
+<h3 id='wantsHeader'>Add a new Category</h3>
+<div>
+    <mat-form-field id='formField'>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" [(ngModel)]='wantsTitle' name='wantsTitle'>
+    </mat-form-field>
+    <mat-form-field id='formField2'>
+        <mat-label>Budget Amount</mat-label>
+        <input matInput type="number" [(ngModel)]='wantsAmount' name='wantsAmount'>
+    </mat-form-field>
+    <button mat-stroked-button (click)='addNewWant()'>Add</button>
+</div>
+<h4>Existing Wants</h4>
+<mat-list id='wantListContainer'>
+    <mat-list-item *ngIf="wants.length === 0; else wantList">
+        <h4 mat-line>No Categories</h4>
+    </mat-list-item>
+    <mat-list-item #wantList *ngFor='let w of wants; let index = index;'>
+        <mat-icon mat-list-icon (click)='deleteWant(w)'>cancel</mat-icon>
+        <input class='wantListTitle' type='text' [(ngModel)]=wants[index].title value={{w.title}}>
+        <p class="wantListAmountLabel">$</p>
+        <input class='wantListAmount' type='number' [(ngModel)]=wants[index].amount placeholder={{w.amount}}>
+    </mat-list-item>
+</mat-list>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="wants">Cancel</button>
+    <button mat-button [mat-dialog-close]="wants" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
+

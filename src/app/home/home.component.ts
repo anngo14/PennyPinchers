@@ -403,7 +403,7 @@ export class HomeComponent implements OnInit {
 
       this.BudgetObject.categories[3].items.push(uncategorized);
       this.budgetAllocated = this.getAllocated();
-    })
+    });
   }
   openNeedsDialog(){
     const needsDialogRef = this.dialog.open(NeedsDialogComponent, {
@@ -411,18 +411,33 @@ export class HomeComponent implements OnInit {
     });
     needsDialogRef.afterClosed().subscribe(result => {
       this.budgetAllocated = this.getAllocated();
-      console.log(this.budgetAllocated);
-      console.log(typeof(this.budgetAllocated));
       this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
-    })
+    });
   }
   openWantsDialog(){
-    const dialogRef = this.dialog.open(WantsDialogComponent);
+    const wantsDialogRef = this.dialog.open(WantsDialogComponent, {
+      data: { wants: this.BudgetObject.categories[1].items}
+    });
+    wantsDialogRef.afterClosed().subscribe(result => {
+      this.budgetAllocated = this.getAllocated();
+      this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+    });
   }
   openSavingDialog(){
-    const dialogRef = this.dialog.open(SavingDialogComponent);
+    const savingDialogRef = this.dialog.open(SavingDialogComponent, {
+      data: { saving: this.BudgetObject.categories[2].items}
+    });
+    savingDialogRef.afterClosed().subscribe(result => {
+      this.budgetAllocated = this.getAllocated();
+      this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+    });
   }
   openUncategorizedDialog(){
-    const dialogRef = this.dialog.open(UnategorizedDialogComponent);
+    const savingDialogRef = this.dialog.open(UnategorizedDialogComponent, {
+      data: { uncategorized: this.BudgetObject.categories[3].items}
+    });
+    savingDialogRef.afterClosed().subscribe(result => {
+      this.budgetAllocated = this.getAllocated();
+    });
   }
 }

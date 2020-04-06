@@ -1,1 +1,30 @@
-<p>unategorized-dialog works!</p>
+<h2>Uncategorized</h2>
+<h3 id='uncategorizedHeader'>Add a new Category</h3>
+<div>
+    <mat-form-field id='formField'>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" [(ngModel)]='uncategorizedTitle' name='uncategorizedTitle'>
+    </mat-form-field>
+    <mat-form-field id='formField2'>
+        <mat-label>Budget Amount</mat-label>
+        <input matInput type="number" [(ngModel)]='uncategorizedAmount' name='uncategorizedAmount'>
+    </mat-form-field>
+    <button mat-stroked-button (click)='addNewUncategorized()'>Add</button>
+</div>
+<h4>Existing Uncategorized</h4>
+<mat-list id='uncategorizedListContainer'>
+    <mat-list-item *ngIf="uncategorized.length === 0; else uncategorizedList">
+        <h4 mat-line>No Categories</h4>
+    </mat-list-item>
+    <mat-list-item #uncategorizedList *ngFor='let u of uncategorized; let index = index;'>
+        <mat-icon mat-list-icon (click)='deleteUncategorized(u)'>cancel</mat-icon>
+        <input class='uncategorizedListTitle' type='text' [(ngModel)]=uncategorized[index].title value={{u.title}}>
+        <p class="uncategorizedListAmountLabel">$</p>
+        <input class='uncategorizedListAmount' type='number' [(ngModel)]=uncategorized[index].amount placeholder={{u.amount}}>
+    </mat-list-item>
+</mat-list>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="uncategorized">Cancel</button>
+    <button mat-button [mat-dialog-close]="uncategorized" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
+

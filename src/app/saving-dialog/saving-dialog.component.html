@@ -1,1 +1,30 @@
-<p>saving-dialog works!</p>
+<h2>Saving</h2>
+<h3 id='savingHeader'>Add a new Category</h3>
+<div>
+    <mat-form-field id='formField'>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" [(ngModel)]='savingTitle' name='savingTitle'>
+    </mat-form-field>
+    <mat-form-field id='formField2'>
+        <mat-label>Budget Amount</mat-label>
+        <input matInput type="number" [(ngModel)]='savingAmount' name='savingAmount'>
+    </mat-form-field>
+    <button mat-stroked-button (click)='addNewSaving()'>Add</button>
+</div>
+<h4>Existing Saving</h4>
+<mat-list id='savingListContainer'>
+    <mat-list-item *ngIf="saving.length === 0; else savingList">
+        <h4 mat-line>No Categories</h4>
+    </mat-list-item>
+    <mat-list-item #savingList *ngFor='let s of saving; let index = index;'>
+        <mat-icon mat-list-icon (click)='deleteSaving(s)'>cancel</mat-icon>
+        <input class='savingListTitle' type='text' [(ngModel)]=saving[index].title value={{s.title}}>
+        <p class="savingListAmountLabel">$</p>
+        <input class='savingListAmount' type='number' [(ngModel)]=saving[index].amount placeholder={{s.amount}}>
+    </mat-list-item>
+</mat-list>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="saving">Cancel</button>
+    <button mat-button [mat-dialog-close]="saving" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>
+
