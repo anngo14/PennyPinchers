@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { expense } from '../models/expense';
 import { income } from '../models/income';
 
 @Component({
@@ -35,7 +34,7 @@ export class EditComponent implements OnInit {
     this.expenseTitle = "";
     this.expenseAmount = "";
   }
-  deleteExpense(e: expense){
+  deleteExpense(e){
     let index = this.expenses.indexOf(e);
     this.expenses.splice(index, 1);
     if(this.expenses.length === 0){

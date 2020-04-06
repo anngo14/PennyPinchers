@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { expense } from '../models/expense';
 import { income } from '../models/income';
+import { budgetCategoryList } from '../models/budgetCategoryList';
 
 @Component({
   selector: 'app-initial',
@@ -10,7 +10,7 @@ import { income } from '../models/income';
 })
 export class InitialComponent implements OnInit {
 
-  expenses: expense[] = [];
+  expenses: budgetCategoryList[] = [];
   custom: boolean = false;
   firstName: string = "";
   lastName: string = "";
@@ -18,20 +18,20 @@ export class InitialComponent implements OnInit {
   needPercentage: number = 50;
   wantPercentage: number = 30;
   savingPercentage: number = 20;
-  expenseTitle = "";
-  expenseAmt = "";
-  needTitle = "";
-  needAmt = "";
+  expenseTitle: string;
+  expenseAmt: number;
+  needTitle: string;
+  needAmt: number;
   needs: any = [];
-  needsExpense: expense[] = [];
-  wantTitle = "";
-  wantAmt = "";
+  needsExpense: budgetCategoryList[] = [];
+  wantTitle: string;
+  wantAmt: number;
   wants: any = [];
-  wantsExpense: expense[] = [];
-  savingTitle = "";
-  savingAmt = "";
+  wantsExpense: budgetCategoryList[] = [];
+  savingTitle: string;
+  savingAmt: number;
   savings: any = [];
-  savingExpense: expense[] = [];
+  savingExpense: budgetCategoryList[] = [];
   incomes: income[] = [{income: "", frequency: "", hoursWeekly: 0, type: ""}];
 
   constructor(private r: Router) { }
@@ -44,7 +44,7 @@ export class InitialComponent implements OnInit {
     }
   }
   addNeedCategory(){
-    if(this.needTitle === "" || this.needAmt === ""){
+    if(this.needTitle === "" || Number.isNaN(this.needAmt)){
       return;
     }
 
@@ -53,9 +53,9 @@ export class InitialComponent implements OnInit {
       amount: this.needAmt
     };
     this.needs.push(category);
-    this.needsExpense.push({title: this.needTitle, amount: ""});
+    this.needsExpense.push({title: this.needTitle, amount: null});
     this.needTitle = "";
-    this.needAmt = "";
+    this.needAmt = null;
   }
   deleteCategory(c){
     let index = this.needs.indexOf(c);
@@ -63,7 +63,7 @@ export class InitialComponent implements OnInit {
     this.needs.splice(index, 1);
   }
   addWantCategory(){
-    if(this.wantTitle === "" || this.wantAmt === ""){
+    if(this.wantTitle === "" || Number.isNaN(this.wantAmt)){
       return;
     }
 
@@ -72,9 +72,9 @@ export class InitialComponent implements OnInit {
       amount: this.wantAmt
     };
     this.wants.push(category);
-    this.wantsExpense.push({title: this.wantTitle, amount: ""});
+    this.wantsExpense.push({title: this.wantTitle, amount: null});
     this.wantTitle = "";
-    this.wantAmt = "";
+    this.wantAmt = null;
   }
   deleteWantCategory(c){
     let index = this.wants.indexOf(c);
@@ -82,7 +82,7 @@ export class InitialComponent implements OnInit {
     this.wants.splice(index, 1);
   }
   addSavingCategory(){
-    if(this.savingTitle === "" || this.savingAmt === ""){
+    if(this.savingTitle === "" || Number.isNaN(this.savingAmt)){
       return;
     }
 
@@ -91,9 +91,9 @@ export class InitialComponent implements OnInit {
       amount: this.savingAmt
     };
     this.savings.push(category);
-    this.savingExpense.push({title: this.savingTitle, amount: ""});
+    this.savingExpense.push({title: this.savingTitle, amount: null});
     this.savingTitle = "";
-    this.savingAmt = "";
+    this.savingAmt = null;
   }
   deleteSavingCategory(c){
     let index = this.savings.indexOf(c);
@@ -104,7 +104,7 @@ export class InitialComponent implements OnInit {
     this.custom = !this.custom;
   }
   addExpense(){
-    if(this.expenseTitle === "" || this.expenseAmt === ""){
+    if(this.expenseTitle === "" || Number.isNaN(this.expenseAmt)){
       return;
     }
     
@@ -114,9 +114,9 @@ export class InitialComponent implements OnInit {
     };
     this.expenses.push(monthlyExpense);
     this.expenseTitle = "";
-    this.expenseAmt = "";
+    this.expenseAmt = null;
   }
-  deleteExpense(e: expense){
+  deleteExpense(e: budgetCategoryList){
     let index = this.expenses.indexOf(e);
     this.expenses.splice(index, 1);
   }
@@ -162,28 +162,28 @@ export class InitialComponent implements OnInit {
   calculateNeedExpenses(){
     let expense = 0;
     for(let i = 0; i < this.needsExpense.length; i++){
-      expense += Number.parseFloat(this.needsExpense[i].amount);
+      expense += this.needsExpense[i].amount;
     }
     return expense;
   }
   calculateWantExpenses(){
     let expense = 0;
     for(let i = 0; i < this.wantsExpense.length; i++){
-      expense += Number.parseFloat(this.wantsExpense[i].amount);
+      expense += this.wantsExpense[i].amount;
     }
     return expense;
   }
   calculateSavingExpenses(){
     let expense = 0;
     for(let i = 0; i < this.savingExpense.length; i++){
-      expense += Number.parseFloat(this.savingExpense[i].amount);
+      expense += this.savingExpense[i].amount;
     }
     return expense;
   }
   calculateUncategorizedExpenses(){
     let expense = 0;
     for(let i = 0; i < this.expenses.length; i++){
-      expense += Number.parseFloat(this.expenses[i].amount);
+      expense += this.expenses[i].amount;
     }
     return expense;
   }

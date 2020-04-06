@@ -396,8 +396,6 @@ export class HomeComponent implements OnInit {
               uncategorizedList: this.BudgetObject.categories[3].items}
     });
     expenseDialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
       this.budgetAllocated = this.getAllocated();
     });
   }
