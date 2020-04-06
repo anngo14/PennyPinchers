@@ -28,10 +28,28 @@ export class NeedsDialogComponent implements OnInit {
       amount: this.needsAmount
     };
 
+    let expense = {
+      title: this.needsTitle,
+      budget: this.needsAmount,
+      used: this.needsAmount
+    };
+
     this.needs.push(need);
+    this.data.expenseList.push(expense);
+
+    this.needsTitle = "";
+    this.needsAmount = null;
   }
   deleteNeed(n){
     let index = this.needs.indexOf(n);
     this.needs.splice(index, 1);
+    
+    for(let i = 0; i < this.data.expenseList.length; i++){
+      if(this.data.expenseList[i].title === n.title && this.data.expenseList[i].budget === n.amount){
+        index = i;
+        break;
+      }
+    }
+    this.data.expenseList.splice(index, 1);
   }
 }

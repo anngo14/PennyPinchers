@@ -372,7 +372,6 @@ export class HomeComponent implements OnInit {
     for(let i = 0; i < this.BudgetObject.categories.length; i++){
       for(let j = 0; j < this.BudgetObject.categories[i].items.length; j++){
         sum += this.BudgetObject.categories[i].items[j].amount;
-        console.log(sum);
       }
     }
 
@@ -393,21 +392,19 @@ export class HomeComponent implements OnInit {
   }
   openExpenseList(){
     const expenseDialogRef = this.dialog.open(ExpenseDialogComponent, {
-      data: { expenseList: this.ExpenseObject.items}
+      data: { expenseList: this.ExpenseObject.items,
+              uncategorizedList: this.BudgetObject.categories[3].items}
     });
     expenseDialogRef.afterClosed().subscribe(result => {
-      let uncategorized = {
-        title: result[result.length - 1].title,
-        amount: result[result.length - 1].budget
-      };
+      console.log(result);
 
-      this.BudgetObject.categories[3].items.push(uncategorized);
       this.budgetAllocated = this.getAllocated();
     });
   }
   openNeedsDialog(){
     const needsDialogRef = this.dialog.open(NeedsDialogComponent, {
-      data: { needs: this.BudgetObject.categories[0].items}
+      data: { needs: this.BudgetObject.categories[0].items,
+              expenseList: this.ExpenseObject.items}
     });
     needsDialogRef.afterClosed().subscribe(result => {
       this.budgetAllocated = this.getAllocated();
@@ -416,7 +413,8 @@ export class HomeComponent implements OnInit {
   }
   openWantsDialog(){
     const wantsDialogRef = this.dialog.open(WantsDialogComponent, {
-      data: { wants: this.BudgetObject.categories[1].items}
+      data: { wants: this.BudgetObject.categories[1].items,
+              expenseList: this.ExpenseObject.items}
     });
     wantsDialogRef.afterClosed().subscribe(result => {
       this.budgetAllocated = this.getAllocated();
@@ -425,7 +423,8 @@ export class HomeComponent implements OnInit {
   }
   openSavingDialog(){
     const savingDialogRef = this.dialog.open(SavingDialogComponent, {
-      data: { saving: this.BudgetObject.categories[2].items}
+      data: { saving: this.BudgetObject.categories[2].items,
+              expenseList: this.ExpenseObject.items}
     });
     savingDialogRef.afterClosed().subscribe(result => {
       this.budgetAllocated = this.getAllocated();
@@ -434,7 +433,8 @@ export class HomeComponent implements OnInit {
   }
   openUncategorizedDialog(){
     const savingDialogRef = this.dialog.open(UnategorizedDialogComponent, {
-      data: { uncategorized: this.BudgetObject.categories[3].items}
+      data: { uncategorized: this.BudgetObject.categories[3].items,
+              expenseList: this.ExpenseObject.items}
     });
     savingDialogRef.afterClosed().subscribe(result => {
       this.budgetAllocated = this.getAllocated();

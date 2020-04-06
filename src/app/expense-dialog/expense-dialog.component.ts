@@ -29,7 +29,15 @@ export class ExpenseDialogComponent implements OnInit {
       budget: this.expenseAmount,
       used: this.expenseAmount
     };
+    let uncategorized = {
+      title: this.expenseTitle,
+      amount: this.expenseAmount
+    };
 
     this.expenses.push(expense);
+    this.data.uncategorizedList.push(uncategorized);
+
+    this.expenseTitle = "";
+    this.expenseAmount = null;
   }
 }

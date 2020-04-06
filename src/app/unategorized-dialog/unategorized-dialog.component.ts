@@ -27,11 +27,28 @@ export class UnategorizedDialogComponent implements OnInit {
       title: this.uncategorizedTitle,
       amount: this.uncategorizedAmount
     };
+    let expense = {
+      title: this.uncategorizedTitle,
+      budget: this.uncategorizedAmount,
+      used: 0
+    };
 
     this.uncategorized.push(item);
+    this.data.expenseList.push(expense);
+
+    this.uncategorizedTitle = "";
+    this.uncategorizedAmount = null;
   }
   deleteUncategorized(u){
     let index = this.uncategorized.indexOf(u);
     this.uncategorized.splice(index, 1);
+
+    for(let i = 0; i < this.data.expenseList.length; i++){
+      if(this.data.expenseList[i].title === u.title && this.data.expenseList[i].budget === u.amount){
+        index = i;
+        break;
+      }
+    }
+    this.data.expenseList.splice(index, 1);
   }
 }

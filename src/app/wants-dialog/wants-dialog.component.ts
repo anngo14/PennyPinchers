@@ -27,11 +27,28 @@ export class WantsDialogComponent implements OnInit {
       title: this.wantsTitle,
       amount: this.wantsAmount
     };
+    let expense = {
+      title: this.wantsTitle,
+      budget: this.wantsAmount,
+      used: 0
+    };
 
     this.wants.push(want);
+    this.data.expenseList.push(expense);
+
+    this.wantsTitle = "";
+    this.wantsAmount = null;
   }
   deleteWant(w){
     let index = this.wants.indexOf(w);
     this.wants.splice(index, 1);
+
+    for(let i = 0; i < this.data.expenseList.length; i++){
+      if(this.data.expenseList[i].title === w.title && this.data.expenseList[i].budget == w.amount){
+        index = i;
+        break;
+      }
+    }
+    this.data.expenseList.splice(index, 1);
   }
 }
