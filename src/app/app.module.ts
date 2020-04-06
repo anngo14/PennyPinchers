@@ -37,6 +37,7 @@ import { ExpenseDialogComponent } from './expense-dialog/expense-dialog.componen
 import { NeedsDialogComponent } from './needs-dialog/needs-dialog.component';
 import { WantsDialogComponent } from './wants-dialog/wants-dialog.component';
 import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
+import { UnategorizedDialogComponent } from './unategorized-dialog/unategorized-dialog.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
     ExpenseDialogComponent,
     NeedsDialogComponent,
     WantsDialogComponent,
-    SavingDialogComponent
+    SavingDialogComponent,
+    UnategorizedDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
     ExpenseDialogComponent,
     NeedsDialogComponent,
     WantsDialogComponent,
-    SavingDialogComponent
+    SavingDialogComponent,
+    UnategorizedDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

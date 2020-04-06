@@ -8,6 +8,7 @@ import { ExpenseDialogComponent } from '../expense-dialog/expense-dialog.compone
 import { NeedsDialogComponent } from '../needs-dialog/needs-dialog.component';
 import { WantsDialogComponent } from '../wants-dialog/wants-dialog.component';
 import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component';
+import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -409,5 +410,8 @@ export class HomeComponent implements OnInit {
   }
   openSavingDialog(){
     const dialogRef = this.dialog.open(SavingDialogComponent);
+  }
+  openUncategorizedDialog(){
+    const dialogRef = this.dialog.open(UnategorizedDialogComponent);
   }
 }
