@@ -17,9 +17,9 @@
         <h4 mat-line>No Categories</h4>
     </mat-list-item>
     <mat-list-item #expenseList *ngFor='let e of expenses; let index = index;'>
-        <input class='expenseListTitle' [(ngModel)]=expenses[index].title value={{e.title}}>
+        <input class='expenseListTitle' type='text' [(ngModel)]=expenses[index].title value={{e.title}}>
         <p class="expenseListAmountLabel">$</p>
-        <input class='expenseListAmount' [(ngModel)]=expenses[index].used placeholder={{e.budget}}>
+        <input class='expenseListAmount' type='number' [(ngModel)]=expenses[index].used placeholder={{e.budget}}>
     </mat-list-item>
 </mat-list>
 <mat-dialog-actions align="end">

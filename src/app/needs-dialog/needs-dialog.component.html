@@ -1,1 +1,29 @@
-<p>needs-dialog works!</p>
+<h2>Needs</h2>
+<h3 id='needsHeader'>Add a new Category</h3>
+<div>
+    <mat-form-field id='formField'>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" [(ngModel)]='needsTitle' name='needsTitle'>
+    </mat-form-field>
+    <mat-form-field id='formField2'>
+        <mat-label>Budget Amount</mat-label>
+        <input matInput type="number" [(ngModel)]='needsAmount' name='needsAmount'>
+    </mat-form-field>
+    <button mat-stroked-button (click)='addNewNeed()'>Add</button>
+</div>
+<h4>Existing Needs</h4>
+<mat-list id='needListContainer'>
+    <mat-list-item *ngIf="needs.length === 0; else needList">
+        <h4 mat-line>No Categories</h4>
+    </mat-list-item>
+    <mat-list-item #needList *ngFor='let n of needs; let index = index;'>
+        <mat-icon mat-list-icon (click)='deleteNeed(n)'>cancel</mat-icon>
+        <input class='needListTitle' type='text' [(ngModel)]=needs[index].title value={{n.title}}>
+        <p class="needListAmountLabel">$</p>
+        <input class='needListAmount' type='number' [(ngModel)]=needs[index].amount placeholder={{n.amount}}>
+    </mat-list-item>
+</mat-list>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="needs">Cancel</button>
+    <button mat-button [mat-dialog-close]="needs" cdkFocusInitial>Save</button>
+  </mat-dialog-actions>

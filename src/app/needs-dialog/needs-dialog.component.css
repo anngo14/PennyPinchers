@@ -1,0 +1,34 @@
+#needHeader{
+    font-weight: 300;
+}
+#formField{
+    width: 20em;
+    margin-right: 1em;
+}
+#formField2{
+    width: 10em;
+    margin-right: 2em;
+}
+.needListTitle{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 22pt;
+    font-weight: 200;
+    width: 10em;
+    border: none;
+}
+.needListAmount{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 20pt;
+    width: 5em;
+    border: none;
+}
+.needListAmount::placeholder{
+    opacity: 0.25;
+}
+#needListContainer{
+    height: 15em;
+    overflow-y: auto;
+}
+.needListAmountLabel{
+    font-size: 20pt;
+}

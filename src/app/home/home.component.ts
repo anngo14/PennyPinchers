@@ -9,6 +9,7 @@ import { NeedsDialogComponent } from '../needs-dialog/needs-dialog.component';
 import { WantsDialogComponent } from '../wants-dialog/wants-dialog.component';
 import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component';
 import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized-dialog.component';
+import { budgetCategoryList } from '../models/budgetCategoryList';
 
 @Component({
   selector: 'app-home',
@@ -83,12 +84,12 @@ export class HomeComponent implements OnInit {
   detailedSlices: pieslice[];
 
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
-  months =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
   selectedMonth;
-  Month:any = "Month";
-  Year:any = "Year";
-  lastCheck: any;
+  Month: string;
+  Year: number;
+  lastCheck: string;
 
   needsUnallocated: number = 0;
   wantsUnallocated: number = 0;
@@ -321,8 +322,8 @@ export class HomeComponent implements OnInit {
   refreshOverviewBarChart(){
     this.drawBarChart(this.ctx2, this.canvas2);
   }
-  getMax(barChartData){
-    let max = 0;
+  getMax(barChartData): number{
+    let max: number = 0;
     for(let i = 0; i < barChartData.length; i++){
       if(barChartData[i].budget > max){
         max = barChartData[i].budget;
@@ -358,26 +359,28 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
-  getUnallocated(a: any[], percent){
-    let budget = this.BudgetObject.monthlyIncome * percent;
+  getUnallocated(a: budgetCategoryList[], percent): number{
+    let budget: number = this.BudgetObject.monthlyIncome * percent;
     for(let i = 0; i < a.length; i++){
       budget -= a[i].amount;
     }
 
     return budget;
   }
-  getAllocated(){
-    let sum = 0;
+  getAllocated(): number{
+    let sum: number = 0;
     for(let i = 0; i < this.BudgetObject.categories.length; i++){
       for(let j = 0; j < this.BudgetObject.categories[i].items.length; j++){
         sum += this.BudgetObject.categories[i].items[j].amount;
+        console.log(sum);
       }
     }
 
     this.profit = this.BudgetObject.monthlyIncome - sum;
+
     return sum;
   }
-  getHighPie(){
+  getHighPie(): pieslice[]{
     let slices = [];
     let startingAngle = 90;
     for(let i = 0; i < this.BudgetObject.categories.length; i++){
@@ -403,7 +406,15 @@ export class HomeComponent implements OnInit {
     })
   }
   openNeedsDialog(){
-    const dialogRef = this.dialog.open(NeedsDialogComponent);
+    const needsDialogRef = this.dialog.open(NeedsDialogComponent, {
+      data: { needs: this.BudgetObject.categories[0].items}
+    });
+    needsDialogRef.afterClosed().subscribe(result => {
+      this.budgetAllocated = this.getAllocated();
+      console.log(this.budgetAllocated);
+      console.log(typeof(this.budgetAllocated));
+      this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+    })
   }
   openWantsDialog(){
     const dialogRef = this.dialog.open(WantsDialogComponent);
