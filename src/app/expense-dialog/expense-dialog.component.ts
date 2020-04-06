@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-expense-dialog',
@@ -8,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
 export class ExpenseDialogComponent implements OnInit {
 
   expenses: any[] = [];
+  expenseTitle: string;
+  expenseAmount: number;
 
-  constructor() { }
+  constructor(public expenseDialogRef: MatDialogRef<ExpenseDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    this.expenses = this.data.expenseList;
   }
+  
+  addNewExpense(){
+    if(this.expenseTitle.trim() === "" || this.expenseAmount === undefined || this.expenseAmount === null){
+      return;
+    }
 
+    let expense = {
+      title: this.expenseTitle,
+      budget: this.expenseAmount,
+      used: this.expenseAmount
+    };
+
+    this.expenses.push(expense);
+  }
 }

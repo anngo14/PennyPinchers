@@ -10,15 +10,25 @@
     margin-right: 2em;
 }
 .expenseListTitle{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 22pt;
     font-weight: 200;
     width: 10em;
+    border: none;
 }
 .expenseListAmount{
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     font-size: 20pt;
     width: 5em;
+    border: none;
+}
+.expenseListAmount::placeholder{
+    opacity: 0.25;
 }
 #expenseListContainer{
-    height: 20em;
+    height: 15em;
     overflow-y: auto;
+}
+.expenseListAmountLabel{
+    font-size: 20pt;
 }

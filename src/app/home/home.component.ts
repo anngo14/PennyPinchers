@@ -59,6 +59,11 @@ export class HomeComponent implements OnInit {
         items: [
           {title: "Goal", amount: 200}
         ]
+      },
+      {
+        type: 3,
+        percentage: null,
+        items: []
       }
     ]
   };
@@ -88,6 +93,7 @@ export class HomeComponent implements OnInit {
   wantsUnallocated: number = 0;
   savingUnallocated: number = 0;
   budgetAllocated: number = 0;
+  profit: number = 0;
 
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
@@ -367,6 +373,7 @@ export class HomeComponent implements OnInit {
       }
     }
 
+    this.profit = this.BudgetObject.monthlyIncome - sum;
     return sum;
   }
   getHighPie(){
@@ -381,7 +388,18 @@ export class HomeComponent implements OnInit {
     return slices;
   }
   openExpenseList(){
-    const dialogRef = this.dialog.open(ExpenseDialogComponent);
+    const expenseDialogRef = this.dialog.open(ExpenseDialogComponent, {
+      data: { expenseList: this.ExpenseObject.items}
+    });
+    expenseDialogRef.afterClosed().subscribe(result => {
+      let uncategorized = {
+        title: result[result.length - 1].title,
+        amount: result[result.length - 1].budget
+      };
+
+      this.BudgetObject.categories[3].items.push(uncategorized);
+      this.budgetAllocated = this.getAllocated();
+    })
   }
   openNeedsDialog(){
     const dialogRef = this.dialog.open(NeedsDialogComponent);

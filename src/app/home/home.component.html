@@ -125,6 +125,34 @@
                                             </mat-list-item>
                                         </mat-list>
                                     </mat-expansion-panel>
+                                    <mat-expansion-panel *ngIf="BudgetObject.categories[3].items.length > 0">
+                                        <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                            <mat-panel-title>
+                                                <div class='collapsedItem'>
+                                                    <div class='collapsedHeader'>
+                                                        <span>Uncategorized</span>
+                                                    </div>
+                                                    <div class='collapsedDescription'>
+                                                        <span>{{BudgetObject.categories[3].percentage}}</span>
+                                                    </div>
+                                                </div>   
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <h2>Categories</h2>
+                                        <mat-list>
+                                            <mat-list-item *ngFor="let c of BudgetObject.categories[3].items">
+                                                <div class='overviewBudgetListItem'>
+                                                    <div class='overviewBudgetListHeader'>
+                                                        <span>{{c.title}}</span>
+                                                    </div>
+                                                    <div></div>
+                                                    <div class='overviewBudgetListDescription'>
+                                                        <span>{{c.amount | currency}}</span>
+                                                    </div>
+                                                </div>
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </mat-expansion-panel>
                                 </mat-accordion>
                             </div>
                         </div>
@@ -212,17 +240,17 @@
                             </div>
                             <div class='budgetHeader2'>
                                 <div class='arrow'>
-                                   <mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                    <ng-template #secondCheck><mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                   <mat-icon *ngIf='profit > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf='profit < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                     <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                                 </div>
                                 <div class='budgetSavings'>
-                                    <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated > 0; else checkBudgetSaving2">+ {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
+                                    <span *ngIf="profit > 0; else checkBudgetSaving2">+ {{profit | currency}}</span>
                                     <ng-template #checkBudgetSaving2>
-                                        <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated < 0; else checkBudgetSaving3">- {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
+                                        <span *ngIf="profit < 0; else checkBudgetSaving3">{{profit | currency}}</span>
                                     </ng-template>
                                     <ng-template #checkBudgetSavings3>
-                                        <span>{{budgetAmount - budgetAllocated | currency}}</span>
+                                        <span>{{profit | currency}}</span>
                                     </ng-template>
                                 </div>
                             </div>
@@ -354,6 +382,40 @@
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
+                                        <mat-expansion-panel *ngIf='BudgetObject.categories[3].items.length > 0'>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Uncategorized</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>{{BudgetObject.categories[3].percentage}}</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'></div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip (click)='openUncategorizedDialog()'>Add a New Uncategorized Category +</mat-chip>
+                                                </mat-chip-list>
+                                            </div>                                            
+                                            <mat-list>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[3].items'>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
                             </div>
@@ -374,17 +436,17 @@
                         What do I need to spend money on?-->
                         <div class='budgetHeader2'>
                             <div class='arrow'>
-                               <mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                <ng-template #secondCheck><mat-icon *ngIf='BudgetObject.monthlyIncome - budgetAllocated < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                               <mat-icon *ngIf='profit > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                <ng-template #secondCheck><mat-icon *ngIf='profit < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                 <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                             </div>
                             <div class='budgetSavings'>
-                                <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated > 0; else checkBudgetSaving2">+ {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
-                                <ng-template #checkBudgetSaving2>
-                                    <span *ngIf="BudgetObject.monthlyIncome - budgetAllocated < 0; else checkBudgetSaving3">- {{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
+                                <span *ngIf="profit > 0; else checkExpenseSaving2">+ {{profit | currency}}</span>
+                                <ng-template #checkExpenseSaving2>
+                                    <span *ngIf="profit < 0; else checkExpenseSaving3">{{profit | currency}}</span>
                                 </ng-template>
-                                <ng-template #checkBudgetSavings3>
-                                    <span>{{BudgetObject.monthlyIncome - budgetAllocated | currency}}</span>
+                                <ng-template #checkExpenseSavings3>
+                                    <span>{{profit | currency}}</span>
                                 </ng-template>
                             </div>
                         </div>

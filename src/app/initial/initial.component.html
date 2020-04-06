@@ -201,7 +201,7 @@
                     </mat-list-item>
                     <mat-list-item #expenseNeeds *ngFor="let c of needsExpense; let index = index;">
                         <div class='needListItem'>
-                            <input class='expenseListItemTitle' type="text" [(ngModel)]="needsExpense[index].title" >
+                            <input class='expenseListItemTitle' type="text" [(ngModel)]="needsExpense[index].title">
                             <p class="expenseListItemAmountLabel">$</p>
                             <input type="number" class='expenseListItemAmount' [(ngModel)]="needsExpense[index].amount" placeholder={{needs[index].amount}}>
                         </div>
