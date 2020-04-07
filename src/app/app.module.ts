@@ -30,7 +30,6 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { GoalsComponent } from './goals/goals.component';
 import { ArchiveComponent } from './archive/archive.component';
-import { EditComponent } from './edit/edit.component';
 import { SettingsComponent } from './settings/settings.component';
 import { InitialComponent } from './initial/initial.component';
 import { ExpenseDialogComponent } from './expense-dialog/expense-dialog.component';
@@ -38,6 +37,7 @@ import { NeedsDialogComponent } from './needs-dialog/needs-dialog.component';
 import { WantsDialogComponent } from './wants-dialog/wants-dialog.component';
 import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
 import { UnategorizedDialogComponent } from './unategorized-dialog/unategorized-dialog.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 @NgModule({
@@ -48,14 +48,14 @@ import { UnategorizedDialogComponent } from './unategorized-dialog/unategorized-
     HomeComponent,
     GoalsComponent,
     ArchiveComponent,
-    EditComponent,
     SettingsComponent,
     InitialComponent,
     ExpenseDialogComponent,
     NeedsDialogComponent,
     WantsDialogComponent,
     SavingDialogComponent,
-    UnategorizedDialogComponent
+    UnategorizedDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +88,8 @@ import { UnategorizedDialogComponent } from './unategorized-dialog/unategorized-
     NeedsDialogComponent,
     WantsDialogComponent,
     SavingDialogComponent,
-    UnategorizedDialogComponent
+    UnategorizedDialogComponent,
+    EditDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

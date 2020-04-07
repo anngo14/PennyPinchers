@@ -9,7 +9,7 @@
 }
 .incomeContainer{
     height: 20em;
-    width: 40em;
+    width: 42em;
     overflow-y: auto;
 }
 .expenseList{
@@ -150,4 +150,5 @@
 }
 #hourField{
     margin-left: 1em;
+    width: 8em;
 }

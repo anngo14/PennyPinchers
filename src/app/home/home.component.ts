@@ -10,6 +10,7 @@ import { WantsDialogComponent } from '../wants-dialog/wants-dialog.component';
 import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component';
 import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized-dialog.component';
 import { budgetCategoryList } from '../models/budgetCategoryList';
+import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -539,5 +540,7 @@ export class HomeComponent implements OnInit {
       this.budgetAllocated = this.getAllocated(4);
     });
   }
-  
+  openEditDialog(){
+    const editDialogRef = this.dialog.open(EditDialogComponent);
+  }
 }

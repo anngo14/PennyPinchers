@@ -6,7 +6,7 @@
     <mat-grid-tile colspan='3'></mat-grid-tile>
   </mat-grid-list>
 <mat-divider></mat-divider>-->
-<mat-grid-list cols='1' rowHeight='45em'>
+<mat-grid-list cols='1' rowHeight='35em'>
     <mat-grid-tile>
         <mat-card class="settingsCard">
             <div class="settingsContent">
@@ -27,14 +27,6 @@
                         <input matInput type="text" required>
                     </mat-form-field>
                 </form>
-                <mat-divider></mat-divider>
-                <h2 class='subHeader'>Budget</h2>
-                <div class='budgetSettings'>
-                    <span>Mode: </span>
-                    <span style='font-weight: bold;'>{{mode}}</span><br><br>
-                    <mat-slide-toggle color='primary' (change)=onToggle($event)>Custom Budget</mat-slide-toggle>
-                </div>
-                <br>
                 <mat-divider></mat-divider>
                 <button mat-flat-button color="warn" id="deleteAccountButton">Delete Account</button>
             </div>

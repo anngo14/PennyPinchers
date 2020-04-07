@@ -262,6 +262,13 @@
                                 </mat-card>
                             </div>
                             <div class="budgetCategories">
+                                <div id='editBudgetChip'>
+                                    <mat-chip-list>
+                                        <mat-chip (click)="openEditDialog()">
+                                            Edit Budget &nbsp;<mat-icon>edit</mat-icon>
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
                                 <div class='overviewBudgetContent'>
                                     <mat-accordion>
                                         <mat-expansion-panel (opened)='drawDetailedPie(0)' (closed)='drawOriginalPie()'>

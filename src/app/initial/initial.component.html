@@ -17,7 +17,11 @@
             </mat-form-field><br>
             <h2>Income</h2>
             <div class='incomeContainer'>
-                <div *ngFor="let income of incomes">
+                <div *ngFor="let income of incomes; let index = index;">
+                    <h3 *ngIf='index == 0; else additionalHeader' mat-subheader>Main Income</h3>
+                    <ng-template #additionalHeader>
+                        <h3 mat-subheader>Additional Income</h3>
+                    </ng-template>
                     <mat-form-field class='formField'>
                         <mat-label>Income</mat-label>
                         <input matInput type="number" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
@@ -48,7 +52,7 @@
                             </mat-select>
                         </mat-form-field>
                         <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
-                        <mat-icon *ngIf="incomes.length > 1" mat-list-icon style="margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
+                        <mat-icon *ngIf="incomes.length > 1 && index > 0" mat-list-icon style="margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
                         <br>
                     </div>
                 </div>

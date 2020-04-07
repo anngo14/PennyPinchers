@@ -1,5 +1,5 @@
 export interface income {
-    income: string,
+    income: number,
     frequency: string,
     hoursWeekly: number,
     type: string

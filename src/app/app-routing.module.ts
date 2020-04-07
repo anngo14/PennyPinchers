@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { GoalsComponent } from './goals/goals.component';
-import { EditComponent } from './edit/edit.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { SettingsComponent } from './settings/settings.component';
 import { InitialComponent } from './initial/initial.component';
@@ -16,7 +15,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'home', component: HomeComponent},
   { path: 'goals', component: GoalsComponent},
-  { path: 'edit', component: EditComponent},
   { path: 'archive', component: ArchiveComponent},
   { path: 'settings', component: SettingsComponent},
   { path: 'initial', component: InitialComponent}

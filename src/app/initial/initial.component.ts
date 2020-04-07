@@ -32,7 +32,7 @@ export class InitialComponent implements OnInit {
   savingAmt: number;
   savings: any = [];
   savingExpense: budgetCategoryList[] = [];
-  incomes: income[] = [{income: "", frequency: "", hoursWeekly: 0, type: ""}];
+  incomes: income[] = [{income: null, frequency: "", hoursWeekly: 0, type: ""}];
 
   constructor(private r: Router) { }
 
@@ -122,7 +122,7 @@ export class InitialComponent implements OnInit {
   }
   addIncomeSource(){
     let income = {
-      income: "",
+      income: null,
       frequency: "",
       hoursWeekly: 0,
       type: ""
@@ -138,22 +138,22 @@ export class InitialComponent implements OnInit {
     for(let i = 0; i < this.incomes.length; i++){
       switch(this.incomes[i].frequency){
         case "one-time":
-          monthlyIncome += Number.parseFloat(this.incomes[i].income);
+          monthlyIncome += this.incomes[i].income;
           break;
         case "per hour":
-          monthlyIncome += (Number.parseFloat(this.incomes[i].income) * this.incomes[i].hoursWeekly * 4);
+          monthlyIncome += this.incomes[i].income * this.incomes[i].hoursWeekly * 4;
           break;
         case "per week":
-          monthlyIncome += (Number.parseFloat(this.incomes[i].income) * 4);
+          monthlyIncome += this.incomes[i].income * 4;
           break;
         case "bi-weekly":
-          monthlyIncome += (Number.parseFloat(this.incomes[i].income) * 2);
+          monthlyIncome += this.incomes[i].income * 2;
           break;
         case "per month":
-          monthlyIncome += Number.parseFloat(this.incomes[i].income);
+          monthlyIncome += this.incomes[i].income;
           break;
         case "per year":
-          monthlyIncome += (Number.parseFloat(this.incomes[i].income) / 12);
+          monthlyIncome += this.incomes[i].income / 12;
           break;
       }
     }
