@@ -1,1 +1,67 @@
-<p>edit-dialog works!</p>
+<h1>Edit Information</h1>
+<mat-divider></mat-divider>
+<h2>Income</h2>
+<div class='incomeContainer'>
+    <div *ngFor="let income of incomes; let index = index;">
+        <h3 *ngIf='index == 0; else additionalHeader' mat-subheader>Main Income</h3>
+        <ng-template #additionalHeader>
+            <h3 mat-subheader>Additional Income</h3>
+        </ng-template>
+        <mat-form-field class='formField'>
+            <mat-label>Income</mat-label>
+            <input matInput type="number" [(ngModel)]='income.income' name='incomeAmt' placeholder="$0.00" required>
+        </mat-form-field>
+        <mat-form-field class='formField2'>
+            <mat-label>Frequency</mat-label>
+            <mat-select required [(value)]='income.frequency'>
+                <mat-option>---</mat-option>
+                <mat-option value='one-time'>one-time</mat-option>
+                <mat-option value='per hour'>hourly</mat-option>
+                <mat-option value='per week'>weekly</mat-option>
+                <mat-option value='bi-weekly'>bi-weekly</mat-option>
+                <mat-option value='per month'>per month</mat-option>
+                <mat-option value='per year'>per year</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field id='hourField' *ngIf='income.frequency === "per hour"'>
+            <mat-label>Avg Hours per Week</mat-label>
+            <input matInput type="number" [(ngModel)]='income.hoursWeekly' name='hoursPerWeek' placeholder="40" required>
+        </mat-form-field><br>
+        <div class='incomeSecondRow'>
+            <mat-form-field class='formField'>
+                <mat-label>Income Type</mat-label>
+                <mat-select required [(value)]='income.type'>
+                    <mat-option>---</mat-option>
+                    <mat-option value='Part-Time'>Part-Time</mat-option>
+                    <mat-option value='Full-Time'>Full-Time</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-stroked-button id='addButton' (click)="addIncomeSource()">Add additional income</button>
+            <mat-icon *ngIf="incomes.length > 1 && index > 0" mat-list-icon id='trashIcon' (click)='deleteIncome(income)'>delete</mat-icon>
+            <br>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<h2>Budget</h2>
+<div class='budgetContainer'>
+    <div class='budgetCategory'>
+        <span class='budgetHeader'>Needs</span>
+        <input matInput type="number" class='percentInput' [(ngModel)]='needsPercent' name='needsPercent'>
+        <span class='budgetPercent'>%</span>
+    </div>
+    <div class='budgetCategory'>
+        <span class='budgetHeader'>Wants</span>
+        <input matInput type="number" class='percentInput' [(ngModel)]='wantsPercent' name='wantsPercent'>
+        <span class='budgetPercent'>%</span>
+    </div>
+    <div class='budgetCategory'>
+        <span class='budgetHeader'>Saving</span>
+        <input matInput type="number" class='percentInput' [(ngModel)]='savingPercent' name='savingPercent'>
+        <span class='budgetPercent'>%</span>
+    </div>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="data">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

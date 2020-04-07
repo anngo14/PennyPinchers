@@ -1,0 +1,48 @@
+.incomeSecondRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.incomeContainer{
+    height: 20em;
+    width: 44em;
+    overflow-y: auto;
+}
+.formField{
+    width: 20em;
+}
+.formField2{
+    width: 10em;
+    margin-left: 2em;
+}
+#hourField{
+    margin-left: 1em;
+    width: 9em;
+}
+#addButton{
+    margin-left: 2em;
+}
+#trashIcon{
+    margin-left: 0.25em;
+}
+.budgetContainer{
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.budgetCategory{
+    width: 12em;
+}
+.budgetHeader{
+    font-size: 24pt;
+    font-weight: 200;
+}
+.percentInput{
+    text-align: right;
+    font-size: 24pt;
+    width: 2em;
+}
+.budgetPercent{
+    font-size: 24pt;
+}

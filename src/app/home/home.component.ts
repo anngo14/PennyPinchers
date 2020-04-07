@@ -37,6 +37,14 @@ export class HomeComponent implements OnInit {
   private ctx4: CanvasRenderingContext2D;
 
   BudgetObject: BudgetObj = {
+    incomes: [
+      {
+        income: 70000,
+        frequency: "per year",
+        hoursWeekly: null,
+        type: "Full-Time"
+      }
+    ],
     monthlyIncome: 70000 / 12,
     date: "May 2020",
     categories: [
@@ -541,6 +549,8 @@ export class HomeComponent implements OnInit {
     });
   }
   openEditDialog(){
-    const editDialogRef = this.dialog.open(EditDialogComponent);
+    const editDialogRef = this.dialog.open(EditDialogComponent, {
+      data: { budget: this.BudgetObject}
+    });
   }
 }
