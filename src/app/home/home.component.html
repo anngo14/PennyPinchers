@@ -264,7 +264,7 @@
                             <div class="budgetCategories">
                                 <div class='overviewBudgetContent'>
                                     <mat-accordion>
-                                        <mat-expansion-panel>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(0)' (closed)='drawOriginalPie()'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -303,7 +303,7 @@
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
-                                        <mat-expansion-panel>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(1)' (closed)='drawOriginalPie()'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -342,7 +342,7 @@
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
-                                        <mat-expansion-panel>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(2)' (closed)='drawOriginalPie()'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -434,20 +434,28 @@
                         Can I afford this lifestyle?
                         Am I spending more than I can save?
                         What do I need to spend money on?-->
-                        <div class='budgetHeader2'>
-                            <div class='arrow'>
-                               <mat-icon *ngIf='profit > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                <ng-template #secondCheck><mat-icon *ngIf='profit < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
-                                <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
+                        <div class='budgetHeaderContainer'>
+                            <div class="budgetHeader1">
+                                <span class='budgetHeader'>Available Budget: &nbsp;</span>
+                                <span class='budgetHeader'>{{BudgetObject.monthlyIncome | currency}}</span><br>
+                                <span class='budgetSubheader'>Allocated Budget: &nbsp;</span>
+                                <span class='budgetSubheader'>{{budgetAllocated | currency}}</span>
                             </div>
-                            <div class='budgetSavings'>
-                                <span *ngIf="profit > 0; else checkExpenseSaving2">+ {{profit | currency}}</span>
-                                <ng-template #checkExpenseSaving2>
-                                    <span *ngIf="profit < 0; else checkExpenseSaving3">{{profit | currency}}</span>
-                                </ng-template>
-                                <ng-template #checkExpenseSavings3>
-                                    <span>{{profit | currency}}</span>
-                                </ng-template>
+                            <div class='budgetHeader2'>
+                                <div class='arrow'>
+                                   <mat-icon *ngIf='profit > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf='profit < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
+                                </div>
+                                <div class='budgetSavings'>
+                                    <span *ngIf="profit > 0; else checkExpenseSaving2">+ {{profit | currency}}</span>
+                                    <ng-template #checkExpenseSaving2>
+                                        <span *ngIf="profit < 0; else checkExpenseSaving3">{{profit | currency}}</span>
+                                    </ng-template>
+                                    <ng-template #checkExpenseSavings3>
+                                        <span>{{profit | currency}}</span>
+                                    </ng-template>
+                                </div>
                             </div>
                         </div>
                         <div class='expenseMainContainer'>

@@ -84,6 +84,12 @@ export class HomeComponent implements OnInit {
   detailedSlices: pieslice[];
 
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
+  moreColors: string[] = [
+    "#C29FF9", "#79F581", "#A1B0EE", "#EEA1EE", "#FFBA4B", "#92FFEB",
+    "#4C9F25", "#9F3B25", "#9FCCC5", "#FFC036", "#F3B1D5", "#AAA8B6",
+    "#D5E0F5", "#FEC843", "#B9A5FF", "#FF7878", "#D5F5F3", "#F9FFAA",
+    "black"
+  ];
   months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   pastMonths;
   selectedMonth;
@@ -117,18 +123,17 @@ export class HomeComponent implements OnInit {
     this.lastCheck = this.Month + " " + d.getDate() + ", " + this.Year;
     
     this.overviewSlices = this.getHighPie();
-
     this.convertToRadians(this.overviewSlices);
 
-    this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true);
+    this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
     this.drawBarChart(this.ctx2, this.canvas2);
 
     this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
     this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
     this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
-    this.budgetAllocated = this.getAllocated();
+    this.budgetAllocated = this.getAllocated(4);
   }
-  drawPieChart(c, canvas, radius, slices, animate){
+  drawPieChart(c, canvas, radius, slices, animate, colors){
     let xorigin = canvas.nativeElement.width / 2
     let yorigin = canvas.nativeElement.height / 2;
     
@@ -143,7 +148,7 @@ export class HomeComponent implements OnInit {
         c.moveTo(xorigin, yorigin);
         c.arc(xorigin, yorigin, radius, slices[i].start, slices[i].end);
         c.lineTo(xorigin, yorigin);
-        c.fillStyle = this.colors[i];
+        c.fillStyle = colors[i];
         c.fill();
       }
       //Inner White Circle
@@ -352,7 +357,7 @@ export class HomeComponent implements OnInit {
         this.drawBarChart(this.ctx2, this.canvas2);
         break;
       case 1: 
-        this.drawPieChart(this.ctx3, this.canvas3, 320, this.overviewSlices, false);
+        this.drawPieChart(this.ctx3, this.canvas3, 320, this.overviewSlices, false, this.colors);
         break;
       case 2:
         this.drawBarChart(this.ctx4, this.canvas4);
@@ -367,22 +372,45 @@ export class HomeComponent implements OnInit {
 
     return budget;
   }
-  getAllocated(): number{
+  getAllocated(type: number): number{
     let sum: number = 0;
-    for(let i = 0; i < this.BudgetObject.categories.length; i++){
-      for(let j = 0; j < this.BudgetObject.categories[i].items.length; j++){
-        sum += this.BudgetObject.categories[i].items[j].amount;
-      }
+    switch(type){
+      case 0:
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          sum += this.BudgetObject.categories[type].items[i].amount;
+        }
+        break;
+      case 1: 
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          sum += this.BudgetObject.categories[type].items[i].amount;
+        }
+        break;
+      case 2:
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          sum += this.BudgetObject.categories[type].items[i].amount;
+        }
+        break;
+      case 3:
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          sum += this.BudgetObject.categories[type].items[i].amount;
+        }
+        break;
+      case 4:
+        for(let i = 0; i < this.BudgetObject.categories.length; i++){
+          for(let j = 0; j < this.BudgetObject.categories[i].items.length; j++){
+            sum += this.BudgetObject.categories[i].items[j].amount;
+          }
+        }
+        this.profit = this.BudgetObject.monthlyIncome - sum;
+        break;
     }
-
-    this.profit = this.BudgetObject.monthlyIncome - sum;
-
+    
     return sum;
   }
   getHighPie(): pieslice[]{
     let slices = [];
     let startingAngle = 90;
-    for(let i = 0; i < this.BudgetObject.categories.length; i++){
+    for(let i = 0; i < this.BudgetObject.categories.length - 1; i++){
       let endingAngle = startingAngle + (this.BudgetObject.categories[i].percentage * 360);
       slices.push({start: startingAngle, end: endingAngle});
       startingAngle = endingAngle;
@@ -390,13 +418,81 @@ export class HomeComponent implements OnInit {
 
     return slices;
   }
+  drawDetailedPie(type: number){
+    let slices = [];
+    console.log(this.BudgetObject.categories[type].items);
+
+    let startingAngle;
+    let totalPieSlice;
+    let endingAngle;
+    let colors;
+    switch(type){
+      case 0:
+        startingAngle = this.overviewSlices[type].start * 180 / Math.PI;
+        let needPercent = this.BudgetObject.categories[type].percentage;
+        totalPieSlice = 360 * needPercent;
+        let needTotal = this.BudgetObject.monthlyIncome * needPercent;
+        endingAngle = 0;
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          let percentage = this.BudgetObject.categories[type].items[i].amount / needTotal;
+          endingAngle = startingAngle + (percentage * totalPieSlice);
+          slices.push({start: startingAngle, end: endingAngle});
+          startingAngle = endingAngle;
+        }
+        slices.push({start: endingAngle, end: this.overviewSlices[type].end * 180 / Math.PI})
+        this.convertToRadians(slices);
+        colors = this.moreColors.slice(0, 7);
+        colors[slices.length - 1] = "#F9E79F";
+        this.drawPieChart(this.ctx3, this.canvas3, 320, slices, false, colors);
+        break;
+      case 1:
+        startingAngle = this.overviewSlices[type].start * 180 / Math.PI; 
+        let wantPercent = this.BudgetObject.categories[type].percentage;
+        totalPieSlice = 360 * wantPercent;
+        let wantTotal = this.BudgetObject.monthlyIncome * wantPercent;
+        endingAngle = 0;
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          let percentage = this.BudgetObject.categories[type].items[i].amount / wantTotal;
+          endingAngle = startingAngle + (percentage * totalPieSlice);
+          slices.push({start: startingAngle, end: endingAngle});
+          startingAngle = endingAngle;
+        }
+        slices.push({start: endingAngle, end: this.overviewSlices[type].end * 180 / Math.PI})
+        this.convertToRadians(slices);
+        colors = this.moreColors.slice(6, 13);
+        colors[slices.length - 1] = "#2874A6";
+        this.drawPieChart(this.ctx3, this.canvas3, 320, slices, false, colors);
+        break;
+      case 2:
+        startingAngle = this.overviewSlices[type].start * 180 / Math.PI; 
+        let savingPercent = this.BudgetObject.categories[type].percentage;
+        totalPieSlice = 360 * savingPercent;
+        let savingTotal = this.BudgetObject.monthlyIncome * savingPercent;
+        endingAngle = 0;
+        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
+          let percentage = this.BudgetObject.categories[type].items[i].amount / savingTotal;
+          endingAngle = startingAngle + (percentage * totalPieSlice);
+          slices.push({start: startingAngle, end: endingAngle});
+          startingAngle = endingAngle;
+        }
+        slices.push({start: endingAngle, end: this.overviewSlices[type].end * 180 / Math.PI})
+        this.convertToRadians(slices);
+        colors = this.moreColors.slice(12, 19);
+        colors[slices.length - 1] = "#D5F5E3";
+        this.drawPieChart(this.ctx3, this.canvas3, 320, slices, false, colors);
+        break;
+    }
+  }
+  drawOriginalPie(){
+    this.drawPieChart(this.ctx3, this.canvas3, 320, this.overviewSlices, false, this.colors);
+  }
   openExpenseList(){
     const expenseDialogRef = this.dialog.open(ExpenseDialogComponent, {
       data: { expenseList: this.ExpenseObject.items,
               uncategorizedList: this.BudgetObject.categories[3].items}
     });
     expenseDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated();
+      this.budgetAllocated = this.getAllocated(4);
     });
   }
   openNeedsDialog(){
@@ -405,8 +501,9 @@ export class HomeComponent implements OnInit {
               expenseList: this.ExpenseObject.items}
     });
     needsDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated();
+      this.budgetAllocated = this.getAllocated(4);
       this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+      this.drawDetailedPie(0);
     });
   }
   openWantsDialog(){
@@ -415,8 +512,9 @@ export class HomeComponent implements OnInit {
               expenseList: this.ExpenseObject.items}
     });
     wantsDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated();
+      this.budgetAllocated = this.getAllocated(4);
       this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+      this.drawDetailedPie(1);
     });
   }
   openSavingDialog(){
@@ -425,8 +523,9 @@ export class HomeComponent implements OnInit {
               expenseList: this.ExpenseObject.items}
     });
     savingDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated();
+      this.budgetAllocated = this.getAllocated(4);
       this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+      this.drawDetailedPie(2);
     });
   }
   openUncategorizedDialog(){
@@ -435,7 +534,8 @@ export class HomeComponent implements OnInit {
               expenseList: this.ExpenseObject.items}
     });
     savingDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated();
+      this.budgetAllocated = this.getAllocated(4);
     });
   }
+  
 }
