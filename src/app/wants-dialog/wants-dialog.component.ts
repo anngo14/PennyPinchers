@@ -53,11 +53,8 @@ export class WantsDialogComponent implements OnInit {
   }
   saveWants(){
     for(let i = 0; i < this.wants.length; i++){
-      for(let j = 0; j < this.data.expenseList.length; j++){
-        if(this.wants[i].title === this.data.expenseList[j].title && this.wants[i].amount != this.data.expenseList[j].budget){
-          this.data.expenseList[j].budget = this.wants[i].amount;
-        }
-      }
+      this.data.expenseList[i + this.data.offset].title = this.wants[i].title;
+      this.data.expenseList[i + this.data.offset].budget = this.wants[i].amount;
     }
   }
 }
