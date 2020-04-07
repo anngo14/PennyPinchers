@@ -552,5 +552,11 @@ export class HomeComponent implements OnInit {
     const editDialogRef = this.dialog.open(EditDialogComponent, {
       data: { budget: this.BudgetObject}
     });
+    editDialogRef.afterClosed().subscribe(result => {
+      this.overviewSlices = this.getHighPie();
+      this.convertToRadians(this.overviewSlices);
+      this.drawOriginalPie();
+      this.profit = this.BudgetObject.monthlyIncome - this.budgetAllocated;
+    })
   }
 }
