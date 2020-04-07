@@ -9,7 +9,10 @@
         <mat-label>Cost</mat-label>
         <input matInput type="number" [(ngModel)]='expenseAmount' name='expenseAmount'>
     </mat-form-field>
-    <button mat-stroked-button (click)='addNewExpense()'>Add</button>
+    <button mat-stroked-button *ngIf='uncategorized.length < 6; else expenseButton' (click)='addNewExpense()'>Add</button>
+    <ng-template #expenseButton>
+        <button mat-stroked-button disabled>Add</button>
+    </ng-template>
 </div>
 <h4>Existing Expenses</h4>
 <mat-list id='expenseListContainer'>

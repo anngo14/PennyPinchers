@@ -9,7 +9,10 @@
         <mat-label>Budget Amount</mat-label>
         <input matInput type="number" [(ngModel)]='savingAmount' name='savingAmount'>
     </mat-form-field>
-    <button mat-stroked-button (click)='addNewSaving()'>Add</button>
+    <button mat-stroked-button *ngIf='saving.length < 6; else savingButton' (click)='addNewSaving()'>Add</button>
+    <ng-template #savingButton>
+        <button mat-stroked-button disabled>Add</button>
+    </ng-template>
 </div>
 <h4>Existing Saving</h4>
 <mat-list id='savingListContainer'>

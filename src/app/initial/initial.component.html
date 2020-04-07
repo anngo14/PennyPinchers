@@ -261,7 +261,10 @@
                     <mat-label>Expense</mat-label>
                     <input matInput type="number" placeholder="$0.00" [(ngModel)]='expenseAmt' name='expenseAmt'>
                 </mat-form-field>
-                <button mat-stroked-button style='margin-left: 2em' (click)='addExpense();'>Add</button><br>
+                <button mat-stroked-button style='margin-left: 2em' *ngIf='expenses.length < 6; else expenseButton' (click)='addExpense();'>Add</button><br>
+                <ng-template #expenseButton>
+                    <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+                </ng-template>
                 <mat-list class="expenseList">
                     <h3 mat-subheader>Uncategorized Expenses</h3>
                     <mat-list-item *ngIf="expenses.length === 0; else normalList">

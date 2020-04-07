@@ -9,7 +9,10 @@
         <mat-label>Budget Amount</mat-label>
         <input matInput type="number" [(ngModel)]='wantsAmount' name='wantsAmount'>
     </mat-form-field>
-    <button mat-stroked-button (click)='addNewWant()'>Add</button>
+    <button mat-stroked-button *ngIf='wants.length < 6; else wantButton' (click)='addNewWant()'>Add</button>
+    <ng-template #wantButton>
+        <button mat-stroked-button disabled>Add</button>
+    </ng-template>
 </div>
 <h4>Existing Wants</h4>
 <mat-list id='wantListContainer'>

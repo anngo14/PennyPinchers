@@ -9,7 +9,10 @@
         <mat-label>Budget Amount</mat-label>
         <input matInput type="number" [(ngModel)]='uncategorizedAmount' name='uncategorizedAmount'>
     </mat-form-field>
-    <button mat-stroked-button (click)='addNewUncategorized()'>Add</button>
+    <button mat-stroked-button *ngIf='uncategorized.length < 6; else uncategorizedButton' (click)='addNewUncategorized()'>Add</button>
+    <ng-template #uncategorizedButton>
+        <button mat-stroked-button disabled>Add</button>
+    </ng-template>
 </div>
 <h4>Existing Uncategorized</h4>
 <mat-list id='uncategorizedListContainer'>

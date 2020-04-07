@@ -9,7 +9,10 @@
         <mat-label>Budget Amount</mat-label>
         <input matInput type="number" [(ngModel)]='needsAmount' name='needsAmount'>
     </mat-form-field>
-    <button mat-stroked-button (click)='addNewNeed()'>Add</button>
+    <button mat-stroked-button *ngIf='needs.length < 6; else needsButton' (click)='addNewNeed()'>Add</button>
+    <ng-template #needsButton>
+        <button mat-stroked-button disabled>Add</button>
+    </ng-template>
 </div>
 <h4>Existing Needs</h4>
 <mat-list id='needListContainer'>

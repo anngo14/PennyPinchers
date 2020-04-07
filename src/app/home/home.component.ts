@@ -81,7 +81,6 @@ export class HomeComponent implements OnInit {
   }
   
   overviewSlices: pieslice[];
-  detailedSlices: pieslice[];
 
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
   moreColors: string[] = [
