@@ -12,5 +12,54 @@
 .goalCard{
     margin: 2em;
     height: 40em;
+}
+.goalItem{
+    color: #6E6E6E;
+    background-color: #CAE8FC;
+    width: 12em;
+    height: 14em;
+    text-align: center;
+}
+.goalItemComplete{
+    color: #6E6E6E;
+    background-color: #BEFFA8;
+    width: 12em;
+    height: 14em;
+    text-align: center;
+}
+#goalItemTitle{
+    height: 100%;
     width: 100%;
+    margin: 0;
+    font-size: 20pt;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#goalItemTitleContainer{
+    height: 3em;
+    width: 12em;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    position: relative;
+    margin-bottom: 1em;
+}
+#goalItemTitleContainer::-webkit-scrollbar{
+    display: none;
+}
+#goalItemPercent{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    font-size: 38pt;
+    font-weight: 200;
+}
+.goalListContainer{
+    margin: 1em;
+    height: 33em;
+    width: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
 }

@@ -6,27 +6,116 @@
     <mat-grid-tile colspan='3'></mat-grid-tile>
   </mat-grid-list>
 <mat-divider></mat-divider>
-<div class="longTermContainer">
-    <mat-grid-list cols="5" rowHeight="10em">
-        <mat-grid-tile>
-            <label>Goal Information</label>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="3">
-            <mat-progress-bar id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <label>Goal Percentage</label>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
-<mat-divider></mat-divider>
-<mat-grid-list cols='1' rowHeight='45em'>
+<!--<mat-grid-list cols='1' rowHeight='45em'>
     <mat-grid-tile>
         <mat-card class="goalCard">
             How much I have saved
             How much I want to save
             How long it would take to reach the goal at this rate
+
+            Progress Bar initial implementation
+            <div class="longTermContainer">
+                <mat-grid-list cols="5" rowHeight="10em">
+                    <mat-grid-tile>
+                        <label>Goal Information</label>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="3">
+                        <mat-progress-bar id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <label>Goal Percentage</label>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </div>
         </mat-card>
     </mat-grid-tile>
-</mat-grid-list>
-<div style="height: 10em"></div>
+</mat-grid-list>-->
+<mat-card class='goalCard'>
+    <mat-tab-group mat-align-tabs='center'>
+        <mat-tab label='All'>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class='goalListContainer'>
+                        <mat-grid-list cols='4' rowHeight='18em'>
+                            <mat-grid-tile *ngFor='let e of test'>
+                                <mat-card class='goalItem'*ngIf="goal < 100; else completedGoal">
+                                    <div id='goalItemTitleContainer'>
+                                        <p id='goalItemTitle'>Financial Goal 1</p>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                    <p id='goalItemPercent' >{{goal}}%</p>
+                                </mat-card>
+                                <ng-template #completedGoal>
+                                    <mat-card class='goalItemComplete'>
+                                        <div id='goalItemTitleContainer'>
+                                            <p id='goalItemTitle'>Financial Goal 1</p>
+                                        </div>
+                                        <mat-divider></mat-divider>
+                                        <p id='goalItemPercent' >{{goal}}%</p>
+                                    </mat-card>
+                                </ng-template>    
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label='In-Progress'>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class='goalListContainer'>
+                        <mat-grid-list cols='4' rowHeight='18em'>
+                            <mat-grid-tile *ngFor='let e of test2'>
+                                <mat-card class='goalItem'*ngIf="goal2 < 100; else completedGoal">
+                                    <div id='goalItemTitleContainer'>
+                                        <p id='goalItemTitle'>Financial Goal 1</p>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                    <p id='goalItemPercent' >{{goal2}}%</p>
+                                </mat-card>
+                                <ng-template #completedGoal>
+                                    <mat-card class='goalItemComplete'>
+                                        <div id='goalItemTitleContainer'>
+                                            <p id='goalItemTitle'>Financial Goal 1</p>
+                                        </div>
+                                        <mat-divider></mat-divider>
+                                        <p id='goalItemPercent' >{{goal2}}%</p>
+                                    </mat-card>
+                                </ng-template>    
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label='Completed'>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class='goalListContainer'>
+                        <mat-grid-list cols='4' rowHeight='18em'>
+                            <mat-grid-tile *ngFor='let e of test'>
+                                <mat-card class='goalItem'*ngIf="goal < 100; else completedGoal">
+                                    <div id='goalItemTitleContainer'>
+                                        <p id='goalItemTitle'>Financial Goal 1</p>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                    <p id='goalItemPercent' >{{goal}}%</p>
+                                </mat-card>
+                                <ng-template #completedGoal>
+                                    <mat-card class='goalItemComplete'>
+                                        <div id='goalItemTitleContainer'>
+                                            <p id='goalItemTitle'>Financial Goal 1</p>
+                                        </div>
+                                        <mat-divider></mat-divider>
+                                        <p id='goalItemPercent' >{{goal}}%</p>
+                                    </mat-card>
+                                </ng-template>    
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+<div style="height: 8em"></div>
