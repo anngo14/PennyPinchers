@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { income } from '../models/income';
 import { budgetCategoryList } from '../models/budgetCategoryList';
+import { BudgetObj } from '../models/BudgetObj';
+import { ExpenseObj } from '../models/ExpenseObj';
+import { expenseList } from '../models/expenseList';
 
 @Component({
   selector: 'app-initial',
@@ -10,7 +13,7 @@ import { budgetCategoryList } from '../models/budgetCategoryList';
 })
 export class InitialComponent implements OnInit {
 
-  expenses: budgetCategoryList[] = [];
+  expenses: expenseList[] = [];
   custom: boolean = false;
   firstName: string = "";
   lastName: string = "";
@@ -22,23 +25,59 @@ export class InitialComponent implements OnInit {
   expenseAmt: number;
   needTitle: string;
   needAmt: number;
-  needs: any = [];
-  needsExpense: budgetCategoryList[] = [];
+  needs: budgetCategoryList[] = [];
+  needsExpense: expenseList[] = [];
   wantTitle: string;
   wantAmt: number;
   wants: any = [];
-  wantsExpense: budgetCategoryList[] = [];
+  wantsExpense: expenseList[] = [];
   savingTitle: string;
   savingAmt: number;
   savings: any = [];
-  savingExpense: budgetCategoryList[] = [];
+  savingExpense: expenseList[] = [];
   incomes: income[] = [{income: null, frequency: "", hoursWeekly: 0, type: ""}];
+  date: string;
 
   constructor(private r: Router) { }
 
   ngOnInit() {
+    var d = new Date();
+    this.date = d.getMonth() + " " + d.getFullYear();
   }
   redirectToHome(){
+    let initialBudget: BudgetObj = {
+      incomes: this.incomes,
+      monthlyIncome: this.calculateMonthlyIncome(),
+      date: this.date,
+      categories: [
+        {
+          type: 0,
+          percentage: this.needPercentage,
+          items: this.needs
+        },
+        {
+          type: 1,
+          percentage: this.wantPercentage,
+          items: this.wants
+        },
+        {
+          type: 2,
+          percentage: this.savingPercentage,
+          items: this.savings
+        },
+        {
+          type: 3,
+          percentage: null,
+          items: null
+        }
+      ]
+    };
+    let initialExpense: ExpenseObj = {
+      date: this.date,
+      items: this.needsExpense.concat(this.wantsExpense).concat(this.savingExpense).concat(this.expenses)
+    };
+    console.log(initialBudget);
+    console.log(initialExpense);
     if(confirm("Are you sure this information is correct?")){
       this.r.navigate(['/home']);
     }
@@ -48,12 +87,8 @@ export class InitialComponent implements OnInit {
       return;
     }
 
-    let category = {
-      title: this.needTitle,
-      amount: this.needAmt
-    };
-    this.needs.push(category);
-    this.needsExpense.push({title: this.needTitle, amount: null});
+    this.needs.push({title: this.needTitle, amount: this.needAmt});
+    this.needsExpense.push({title: this.needTitle, budget: this.needAmt, used: null});
     this.needTitle = "";
     this.needAmt = null;
   }
@@ -67,12 +102,8 @@ export class InitialComponent implements OnInit {
       return;
     }
 
-    let category = {
-      title: this.wantTitle,
-      amount: this.wantAmt
-    };
-    this.wants.push(category);
-    this.wantsExpense.push({title: this.wantTitle, amount: null});
+    this.wants.push({title: this.wantTitle, amount: this.wantAmt});
+    this.wantsExpense.push({title: this.wantTitle, budget: this.wantAmt, used: null});
     this.wantTitle = "";
     this.wantAmt = null;
   }
@@ -86,12 +117,8 @@ export class InitialComponent implements OnInit {
       return;
     }
 
-    let category = {
-      title: this.savingTitle,
-      amount: this.savingAmt
-    };
-    this.savings.push(category);
-    this.savingExpense.push({title: this.savingTitle, amount: null});
+    this.savings.push({title: this.savingTitle, amount: this.savingAmt});
+    this.savingExpense.push({title: this.savingTitle, budget: this.savingAmt, used: null});
     this.savingTitle = "";
     this.savingAmt = null;
   }
@@ -108,15 +135,11 @@ export class InitialComponent implements OnInit {
       return;
     }
     
-    let monthlyExpense = {
-      title: this.expenseTitle,
-      amount: this.expenseAmt
-    };
-    this.expenses.push(monthlyExpense);
+    this.expenses.push({title: this.expenseTitle, budget: this.expenseAmt, used: this.expenseAmt});
     this.expenseTitle = "";
     this.expenseAmt = null;
   }
-  deleteExpense(e: budgetCategoryList){
+  deleteExpense(e){
     let index = this.expenses.indexOf(e);
     this.expenses.splice(index, 1);
   }
@@ -162,28 +185,28 @@ export class InitialComponent implements OnInit {
   calculateNeedExpenses(){
     let expense = 0;
     for(let i = 0; i < this.needsExpense.length; i++){
-      expense += this.needsExpense[i].amount;
+      expense += this.needsExpense[i].used;
     }
     return expense;
   }
   calculateWantExpenses(){
     let expense = 0;
     for(let i = 0; i < this.wantsExpense.length; i++){
-      expense += this.wantsExpense[i].amount;
+      expense += this.wantsExpense[i].used;
     }
     return expense;
   }
   calculateSavingExpenses(){
     let expense = 0;
     for(let i = 0; i < this.savingExpense.length; i++){
-      expense += this.savingExpense[i].amount;
+      expense += this.savingExpense[i].used;
     }
     return expense;
   }
   calculateUncategorizedExpenses(){
     let expense = 0;
     for(let i = 0; i < this.expenses.length; i++){
-      expense += this.expenses[i].amount;
+      expense += this.expenses[i].used;
     }
     return expense;
   }

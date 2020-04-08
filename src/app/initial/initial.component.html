@@ -207,7 +207,7 @@
                         <div class='needListItem'>
                             <input class='expenseListItemTitle' type="text" [(ngModel)]="needsExpense[index].title">
                             <p class="expenseListItemAmountLabel">$</p>
-                            <input type="number" class='expenseListItemAmount' [(ngModel)]="needsExpense[index].amount" placeholder={{needs[index].amount}}>
+                            <input type="number" class='expenseListItemAmount' [(ngModel)]="needsExpense[index].used" placeholder={{needsExpense[index].budget}}>
                         </div>
                     </mat-list-item>
                 </mat-list>
@@ -228,7 +228,7 @@
                         <div class='needListItem'>
                             <input class='expenseListItemTitle' type="text" [(ngModel)]="wantsExpense[index].title" >
                             <p class="expenseListItemAmountLabel">$</p>
-                            <input type="number" class='expenseListItemAmount' [(ngModel)]="wantsExpense[index].amount" placeholder={{wants[index].amount}}>
+                            <input type="number" class='expenseListItemAmount' [(ngModel)]="wantsExpense[index].used" placeholder={{wantsExpense[index].budget}}>
                         </div>
                     </mat-list-item>
                 </mat-list>
@@ -249,7 +249,7 @@
                         <div class='needListItem'>
                             <input class='expenseListItemTitle' type="text" [(ngModel)]="savingExpense[index].title" >
                             <p class="expenseListItemAmountLabel">$</p>
-                            <input type="number" class='expenseListItemAmount' [(ngModel)]="savingExpense[index].amount" placeholder={{savings[index].amount}}>
+                            <input type="number" class='expenseListItemAmount' [(ngModel)]="savingExpense[index].used" placeholder={{savingExpense[index].budget}}>
                         </div>
                     </mat-list-item>
                 </mat-list>
@@ -276,7 +276,7 @@
                     </mat-list-item>
                     <mat-list-item #normalList *ngFor='let expense of expenses' class="expenseContainer">
                         <h4 mat-line id='expenseTitle'>{{expense.title}}</h4>
-                        <p mat-line id='expenseAmt'>{{expense.amount | currency}}</p>
+                        <p mat-line id='expenseAmt'>{{expense.used | currency}}</p>
                         <mat-icon mat-list-icon (click)='deleteExpense(expense)'>cancel</mat-icon>
                     </mat-list-item>
                 </mat-list>

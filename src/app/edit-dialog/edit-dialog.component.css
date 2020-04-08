@@ -32,7 +32,7 @@
     justify-content: space-between;
 }
 .budgetCategory{
-    width: 12em;
+    width: 14em;
 }
 .budgetHeader{
     font-size: 24pt;
@@ -41,7 +41,7 @@
 .percentInput{
     text-align: right;
     font-size: 24pt;
-    width: 2em;
+    width: 2.5em;
 }
 .budgetPercent{
     font-size: 24pt;
