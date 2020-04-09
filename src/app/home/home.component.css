@@ -130,10 +130,14 @@
 .overviewBudgetListHeader{
     font-size: 22pt;
     font-weight: 200;
+    width: 20em;
+    overflow: hidden;
 }
 .overviewBudgetListDescription{
     font-size: 22pt;
     text-align: right;
+    width: 8em;
+    overflow: hidden;
 }
 .budgetHeader{
     font-size: 40pt;
