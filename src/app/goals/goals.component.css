@@ -16,7 +16,7 @@
 .goalItem{
     color: #6E6E6E;
     background-color: #CAE8FC;
-    width: 12em;
+    width: 14em;
     height: 14em;
     text-align: center;
     cursor: pointer;
@@ -24,7 +24,7 @@
 .goalItemComplete{
     color: #6E6E6E;
     background-color: #BEFFA8;
-    width: 12em;
+    width: 14em;
     height: 14em;
     text-align: center;
     cursor: pointer;
@@ -42,7 +42,7 @@
 }
 #goalItemTitleContainer{
     height: 3em;
-    width: 12em;
+    width: 14em;
     overflow-y: auto;
     -ms-overflow-style: none;
     position: relative;

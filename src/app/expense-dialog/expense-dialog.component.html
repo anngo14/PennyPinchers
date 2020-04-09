@@ -20,12 +20,11 @@
         <h4 mat-line>No Categories</h4>
     </mat-list-item>
     <mat-list-item #expenseList *ngFor='let e of expenses; let index = index;'>
-        <input class='expenseListTitle' type='text' [(ngModel)]=expenses[index].title value={{e.title}}>
+        <input class='expenseListTitle' type='text' [(ngModel)]=e.title value={{e.title}}>
         <p class="expenseListAmountLabel">$</p>
-        <input class='expenseListAmount' type='number' [(ngModel)]=expenses[index].used placeholder={{e.budget}}>
+        <input class='expenseListAmount' type='number' [(ngModel)]=e.used placeholder={{e.budget}}>
     </mat-list-item>
 </mat-list>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="expenses">Cancel</button>
-    <button mat-button [mat-dialog-close]="expenses" cdkFocusInitial>Save</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
 </mat-dialog-actions>

@@ -13,7 +13,7 @@ export class ExpenseDialogComponent implements OnInit {
   expenses: expenseList[] = [];
   expenseTitle: string;
   expenseAmount: number;
-  uncategorized: budgetCategoryList[];
+  uncategorized: budgetCategoryList[] = [];
 
   constructor(public expenseDialogRef: MatDialogRef<ExpenseDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -38,7 +38,7 @@ export class ExpenseDialogComponent implements OnInit {
     };
 
     this.expenses.push(expense);
-    this.data.uncategorizedList.push(uncategorized);
+    this.uncategorized.push(uncategorized);
 
     this.expenseTitle = "";
     this.expenseAmount = null;
