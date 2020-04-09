@@ -16,28 +16,38 @@ export class DetailedGoalComponent implements OnInit {
   depositAmt: number = null;
   createdDate: string;
   completedDate: string;
+  unparsedDate: string;
+  goalName: string;
+  goalSaved: number;
+  goalGoal: number;
 
   constructor(public detailedGoalRef: MatDialogRef<DetailedGoalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.goal = this.data.detail;
-    this.progressValue = this.data.detail.saved / this.data.detail.goal * 100;
+    this.goalName = this.goal.name;
+    this.goalGoal = this.goal.goal;
+    this.goalSaved = this.goal.saved;
+
+    this.progressValue = this.goalSaved / this.goalGoal * 100;
     this.progressValue = this.progressValue.toFixed(2);
     this.createdDate = this.parseDate(this.data.detail.created);
-    this.completedDate = this.parseDate(this.data.detail.completed);
+    if(this.data.detail.completed != null){
+      this.completedDate = this.parseDate(this.data.detail.completed);
+    }
   }
 
   addDeposit(){
     var d = new Date();
 
-    this.data.detail.saved += this.depositAmt;
+    this.goalSaved += this.depositAmt;
     this.depositAmt = null;
-    this.progressValue = this.data.detail.saved / this.data.detail.goal * 100;
+    this.progressValue = this.goalSaved / this.goalGoal * 100;
     this.progressValue = this.progressValue.toFixed(2);
 
-    if(this.data.detail.saved >= this.data.detail.goal){
-      this.data.detail.completed = d.getMonth() + " " + d.getDate() + " " + d.getFullYear();
-      this.completedDate = this.parseDate(this.data.detail.completed);
+    if(this.goalSaved >= this.goalGoal){
+      this.unparsedDate = d.getMonth() + " " + d.getDate() + " " + d.getFullYear();
+      this.completedDate = this.parseDate(this.unparsedDate);
     }
   }
   parseDate(d: string){
@@ -45,5 +55,10 @@ export class DetailedGoalComponent implements OnInit {
     let elements = d.split(" ");
     output += this.months[elements[0]] + " " + elements[1] + ", " + elements[2];
     return output;
+  }
+  save(){
+    this.data.detail.name = this.goalName;
+    this.data.detail.completed = this.unparsedDate;
+    this.data.detail.saved = this.goalSaved;
   }
 }

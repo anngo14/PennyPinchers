@@ -1,9 +1,9 @@
 <div class='goalHeading'>
-    <input id='goalName' type='text' [(ngModel)]='goal.name'>
+    <input id='goalName' type='text' [(ngModel)]='goalName'>
     <div id='dateContainer'>
         <span class='dateLabel'>Date Created: &nbsp;</span>
         <span class='date'>{{createdDate}}</span><br>
-        <div *ngIf='goal.completed != null'>
+        <div *ngIf='completedDate != null'>
             <span class='dateLabel'>Date Completed: &nbsp;</span>
             <span class='date'>{{completedDate}}</span>
         </div>
@@ -12,9 +12,9 @@
 <div class='goalSubheading'>
     <div id='goalContainer'>
         <span class='goalLabel'>Goal: &nbsp;</span>
-        <span class='goalAmount'>{{goal.goal | currency}}</span><br>
+        <span class='goalAmount'>{{goalGoal | currency}}</span><br>
         <span class='goalLabel'>Saved: &nbsp;</span>
-        <span class='goalAmount'>{{goal.saved | currency}}</span>
+        <span class='goalAmount'>{{goalSaved | currency}}</span>
     </div>
     <div>
         <mat-progress-bar *ngIf='progressValue < 100; else completedProgress' id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
@@ -44,5 +44,5 @@
 </div>
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true">Cancel</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+    <button mat-button [mat-dialog-close]="true" (click)='save()' cdkFocusInitial>Save</button>
 </mat-dialog-actions>
