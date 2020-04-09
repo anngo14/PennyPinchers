@@ -36,22 +36,22 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols='4' rowHeight='18em'>
-                            <mat-grid-tile *ngFor='let e of test'>
-                                <mat-card class='goalItem'*ngIf="goal < 100; else completedGoal">
+                        <mat-grid-list cols='3' rowHeight='18em'>
+                            <mat-grid-tile *ngFor='let g of goals'>
+                                <mat-card class='goalItem'*ngIf="g.saved / g.goal < 1; else completedGoal" (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
-                                        <p id='goalItemTitle'>Financial Goal 1</p>
+                                        <p id='goalItemTitle'>{{g.name}}</p>
                                     </div>
                                     <mat-divider></mat-divider>
-                                    <p id='goalItemPercent' >{{goal}}%</p>
+                                    <p id='goalItemPercent' >{{g.saved / g.goal | percent}}</p>
                                 </mat-card>
                                 <ng-template #completedGoal>
-                                    <mat-card class='goalItemComplete'>
+                                    <mat-card class='goalItemComplete' (click)='openDetailedGoal(g)'>
                                         <div id='goalItemTitleContainer'>
-                                            <p id='goalItemTitle'>Financial Goal 1</p>
+                                            <p id='goalItemTitle'>{{g.name}}</p>
                                         </div>
                                         <mat-divider></mat-divider>
-                                        <p id='goalItemPercent' >{{goal}}%</p>
+                                        <p id='goalItemPercent' >{{g.saved / g.goal | percent}}</p>
                                     </mat-card>
                                 </ng-template>    
                             </mat-grid-tile>
@@ -64,24 +64,15 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols='4' rowHeight='18em'>
-                            <mat-grid-tile *ngFor='let e of test2'>
-                                <mat-card class='goalItem'*ngIf="goal2 < 100; else completedGoal">
+                        <mat-grid-list cols='3' rowHeight='18em'>
+                            <mat-grid-tile *ngFor='let g of progressGoals'>
+                                <mat-card class='goalItem' (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
-                                        <p id='goalItemTitle'>Financial Goal 1</p>
+                                        <p id='goalItemTitle'>{{g.name}}</p>
                                     </div>
                                     <mat-divider></mat-divider>
-                                    <p id='goalItemPercent' >{{goal2}}%</p>
+                                    <p id='goalItemPercent' >{{g.saved / g.goal | percent}}</p>
                                 </mat-card>
-                                <ng-template #completedGoal>
-                                    <mat-card class='goalItemComplete'>
-                                        <div id='goalItemTitleContainer'>
-                                            <p id='goalItemTitle'>Financial Goal 1</p>
-                                        </div>
-                                        <mat-divider></mat-divider>
-                                        <p id='goalItemPercent' >{{goal2}}%</p>
-                                    </mat-card>
-                                </ng-template>    
                             </mat-grid-tile>
                         </mat-grid-list>
                     </mat-card>
@@ -92,24 +83,15 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols='4' rowHeight='18em'>
-                            <mat-grid-tile *ngFor='let e of test'>
-                                <mat-card class='goalItem'*ngIf="goal < 100; else completedGoal">
+                        <mat-grid-list cols='3' rowHeight='18em'>
+                            <mat-grid-tile *ngFor='let g of completedGoals'>
+                                <mat-card class='goalItemComplete' (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
-                                        <p id='goalItemTitle'>Financial Goal 1</p>
+                                        <p id='goalItemTitle'>{{g.name}}</p>
                                     </div>
                                     <mat-divider></mat-divider>
-                                    <p id='goalItemPercent' >{{goal}}%</p>
-                                </mat-card>
-                                <ng-template #completedGoal>
-                                    <mat-card class='goalItemComplete'>
-                                        <div id='goalItemTitleContainer'>
-                                            <p id='goalItemTitle'>Financial Goal 1</p>
-                                        </div>
-                                        <mat-divider></mat-divider>
-                                        <p id='goalItemPercent' >{{goal}}%</p>
-                                    </mat-card>
-                                </ng-template>    
+                                    <p id='goalItemPercent'>{{g.saved / g.goal | percent}}</p>
+                                </mat-card>    
                             </mat-grid-tile>
                         </mat-grid-list>
                     </mat-card>

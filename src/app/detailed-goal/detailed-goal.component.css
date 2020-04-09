@@ -1,0 +1,69 @@
+.goalHeading{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 65em;
+    justify-content: space-between;
+}
+.goalSubheading{
+    display: flex;
+    flex-direction: row;
+    width: 65em;
+    height: 10em;
+    align-items: center;
+    justify-content: space-between;
+}
+.dateLabel{
+    font-size: 20pt;
+}
+.date{
+    font-size: 20pt;
+    font-style: italic;
+    font-weight: 100;
+}
+#dateContainer{
+    width: 30em;
+    text-align: right;
+}
+#goalName{
+    font-size: 28pt;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-weight: 550;
+}
+.goalLabel{
+    font-size: 20pt;
+}
+.goalAmount{
+    font-size: 20pt;
+    font-weight: 200;;
+}
+#goalContainer{
+    width: 20em;
+}
+#goalProgressBar{
+    width: 35em;
+}
+#goalPercent{
+    font-size: 20pt;
+}
+#goalPercentContainer{
+    width: 8em;
+    text-align: center;
+}
+.depositContainer{
+    height: 5em;
+}
+#depositInput{
+    margin-top: 1em;
+    width: 20em;
+    margin-right: 1em;
+    font-size: 16pt;
+    text-align: center;
+}
+.depositInputContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

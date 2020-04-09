@@ -19,6 +19,7 @@
     width: 12em;
     height: 14em;
     text-align: center;
+    cursor: pointer;
 }
 .goalItemComplete{
     color: #6E6E6E;
@@ -26,12 +27,14 @@
     width: 12em;
     height: 14em;
     text-align: center;
+    cursor: pointer;
 }
 #goalItemTitle{
     height: 100%;
     width: 100%;
     margin: 0;
     font-size: 20pt;
+    font-weight: 500;
     position: absolute;
     top: 50%;
     left: 50%;

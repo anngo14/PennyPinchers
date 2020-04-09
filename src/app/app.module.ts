@@ -38,6 +38,7 @@ import { WantsDialogComponent } from './wants-dialog/wants-dialog.component';
 import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
 import { UnategorizedDialogComponent } from './unategorized-dialog/unategorized-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+import { DetailedGoalComponent } from './detailed-goal/detailed-goal.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     WantsDialogComponent,
     SavingDialogComponent,
     UnategorizedDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    DetailedGoalComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     WantsDialogComponent,
     SavingDialogComponent,
     UnategorizedDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    DetailedGoalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

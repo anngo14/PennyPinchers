@@ -1,0 +1,48 @@
+<div class='goalHeading'>
+    <input id='goalName' type='text' [(ngModel)]='goal.name'>
+    <div id='dateContainer'>
+        <span class='dateLabel'>Date Created: &nbsp;</span>
+        <span class='date'>{{createdDate}}</span><br>
+        <div *ngIf='goal.completed != null'>
+            <span class='dateLabel'>Date Completed: &nbsp;</span>
+            <span class='date'>{{completedDate}}</span>
+        </div>
+    </div>
+</div>
+<div class='goalSubheading'>
+    <div id='goalContainer'>
+        <span class='goalLabel'>Goal: &nbsp;</span>
+        <span class='goalAmount'>{{goal.goal | currency}}</span><br>
+        <span class='goalLabel'>Saved: &nbsp;</span>
+        <span class='goalAmount'>{{goal.saved | currency}}</span>
+    </div>
+    <div>
+        <mat-progress-bar *ngIf='progressValue < 100; else completedProgress' id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
+        <ng-template #completedProgress>
+            <mat-progress-bar id='goalProgressBar' mode='indeterminate'></mat-progress-bar>
+        </ng-template>
+    </div>
+    <div id='goalPercentContainer'>
+        <span id="goalPercent">{{progressValue}}%</span>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div class='depositContainer'>
+    <div class='depositInputContainer'>
+        <div>
+            <mat-form-field id='depositInput'>
+                <mat-label>Add to Goal</mat-label>
+                <input matInput type="number" placeholder="$0.00" [(ngModel)]='depositAmt' name='depositAmt'>
+            </mat-form-field>
+            <button mat-stroked-button *ngIf='depositAmt != null; else disabledDeposit' (click)='addDeposit()'>Deposit</button>
+            <ng-template #disabledDeposit>
+                <button mat-stroked-button disabled>Deposit</button>
+            </ng-template>
+        </div>
+    </div>
+    
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>
