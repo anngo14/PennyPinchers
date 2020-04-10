@@ -505,7 +505,7 @@ export class HomeComponent implements OnInit {
   }
   openNeedsDialog(){
     const needsDialogRef = this.dialog.open(NeedsDialogComponent, {
-      data: { needs: this.BudgetObject.categories[0].items,
+      data: { needs: this.BudgetObject.categories[0].items.slice(),
               expenseList: this.ExpenseObject.items}
     });
     needsDialogRef.afterClosed().subscribe(result => {

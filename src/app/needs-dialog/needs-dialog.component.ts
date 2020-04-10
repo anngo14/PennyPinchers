@@ -9,7 +9,7 @@ import { budgetCategoryList } from '../models/budgetCategoryList';
 })
 export class NeedsDialogComponent implements OnInit {
   needs: budgetCategoryList[] = [];
-  needsTitle: string;
+  needsTitle: string = "";
   needsAmount: number;
 
   constructor(public needsDialogRef: MatDialogRef<NeedsDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }

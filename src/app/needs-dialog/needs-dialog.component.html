@@ -3,7 +3,7 @@
 <div>
     <mat-form-field id='formField'>
         <mat-label>Title</mat-label>
-        <input matInput type="text" [(ngModel)]='needsTitle' name='needsTitle'>
+        <input matInput type="text" maxlength='30' [(ngModel)]='needsTitle' name='needsTitle'>
     </mat-form-field>
     <mat-form-field id='formField2'>
         <mat-label>Budget Amount</mat-label>
@@ -21,7 +21,7 @@
     </mat-list-item>
     <mat-list-item #needList *ngFor='let n of needs; let index = index;'>
         <mat-icon mat-list-icon (click)='deleteNeed(n)'>cancel</mat-icon>
-        <input class='needListTitle' type='text' [(ngModel)]=needs[index].title value={{n.title}}>
+        <input class='needListTitle' type='text' maxlength='30' [(ngModel)]=needs[index].title value={{n.title}}>
         <p class="needListAmountLabel">$</p>
         <input class='needListAmount' type='number' [(ngModel)]=needs[index].amount placeholder={{n.amount}}>
     </mat-list-item>

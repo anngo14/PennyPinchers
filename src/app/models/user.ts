@@ -1,5 +1,6 @@
 import { BudgetObj } from './BudgetObj';
 import { ExpenseObj } from './ExpenseObj';
+import { Goal } from './Goal';
 
 export interface user{
     first: string,
@@ -10,5 +11,6 @@ export interface user{
     currentBudget: BudgetObj,
     currentExpense: ExpenseObj,
     archiveBudget: BudgetObj[],
-    archiveExpense: ExpenseObj[]
+    archiveExpense: ExpenseObj[],
+    goals: Goal[]
 }

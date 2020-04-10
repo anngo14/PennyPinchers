@@ -124,6 +124,6 @@ export class GoalsComponent implements OnInit {
     this.newGoalName = null;
     this.newGoalGoal = null;
     this.newGoalSaved = null;
-    this.tabIndex = 1;
+    this.tabIndex = 0;
   }
 }

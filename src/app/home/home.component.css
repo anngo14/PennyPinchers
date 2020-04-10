@@ -131,13 +131,11 @@
     font-size: 22pt;
     font-weight: 200;
     width: 20em;
-    overflow: hidden;
 }
 .overviewBudgetListDescription{
     font-size: 22pt;
     text-align: right;
     width: 8em;
-    overflow: hidden;
 }
 .budgetHeader{
     font-size: 40pt;
@@ -197,7 +195,6 @@
     height: 100%;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
 #positiveTrend{
     font-size: 70pt;
     color: #AFFF64;
