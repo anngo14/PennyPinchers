@@ -16,7 +16,7 @@ export class DetailedGoalComponent implements OnInit {
   depositAmt: number = null;
   createdDate: string;
   completedDate: string;
-  unparsedDate: string;
+  unparsedDate: string = null;
   goalName: string;
   goalSaved: number;
   goalGoal: number;
@@ -58,7 +58,9 @@ export class DetailedGoalComponent implements OnInit {
   }
   save(){
     this.data.detail.name = this.goalName;
-    this.data.detail.completed = this.unparsedDate;
+    if(this.unparsedDate != null){
+      this.data.detail.completed = this.unparsedDate;
+    }
     this.data.detail.saved = this.goalSaved;
   }
 }
