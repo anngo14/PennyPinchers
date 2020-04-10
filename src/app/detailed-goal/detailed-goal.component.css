@@ -53,7 +53,7 @@
     text-align: center;
 }
 .depositContainer{
-    height: 5em;
+    height: 8em;
 }
 #depositInput{
     margin-top: 1em;
@@ -66,4 +66,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+#deleteContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#deleteButton{
+    width: 5em;
 }

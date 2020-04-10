@@ -63,4 +63,7 @@ export class DetailedGoalComponent implements OnInit {
     }
     this.data.detail.saved = this.goalSaved;
   }
+  deleteGoal(){
+    
+  }
 }

@@ -92,10 +92,16 @@ export class GoalsComponent implements OnInit {
     return goal;
   }
   openDetailedGoal(g: Goal){
+    let index = this.goals.indexOf(g);
     const detailedGoalRef = this.dialog.open(DetailedGoalComponent, {
-      data: {detail: g}
+      data: {
+        detail: g
+      }
     });
     detailedGoalRef.afterClosed().subscribe(result => {
+      if(result && confirm("Are you sure you want to delete this goal?")){
+        this.goals.splice(index, 1);
+      }
       this.completedGoals = this.getCompleted();
       this.progressGoals = this.getProgress();
     });

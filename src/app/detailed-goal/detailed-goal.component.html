@@ -43,13 +43,15 @@
                 <button mat-stroked-button *ngIf='depositAmt < 0; else regularButton' disabled>Deposit</button>
             </ng-template>
             <ng-template #regularButton>
-                <button mat-stroked-button (click)='addDeposit()' >Deposit</button>
+                <button mat-stroked-button (click)='addDeposit()'>Deposit</button>
             </ng-template>
         </div>
     </div>
-    
 </div>
-<mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true">Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)='save()' cdkFocusInitial>Save</button>
-</mat-dialog-actions>
+<div id='deleteContainer'>
+    <button mat-flat-button color='warn' id='deleteButton' [mat-dialog-close]='true' (click)='deleteGoal()'>Delete</button>
+    <div id='otherButtons'>
+        <button mat-button [mat-dialog-close]="false">Cancel</button>
+        <button mat-button [mat-dialog-close]="false" (click)='save()' cdkFocusInitial>Save</button>
+    </div>
+</div>
