@@ -6,32 +6,8 @@
     <mat-grid-tile colspan='3'></mat-grid-tile>
   </mat-grid-list>
 <mat-divider></mat-divider>
-<!--<mat-grid-list cols='1' rowHeight='45em'>
-    <mat-grid-tile>
-        <mat-card class="goalCard">
-            How much I have saved
-            How much I want to save
-            How long it would take to reach the goal at this rate
-
-            Progress Bar initial implementation
-            <div class="longTermContainer">
-                <mat-grid-list cols="5" rowHeight="10em">
-                    <mat-grid-tile>
-                        <label>Goal Information</label>
-                    </mat-grid-tile>
-                    <mat-grid-tile colspan="3">
-                        <mat-progress-bar id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <label>Goal Percentage</label>
-                    </mat-grid-tile>
-                </mat-grid-list>
-            </div>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>-->
 <mat-card class='goalCard'>
-    <mat-tab-group mat-align-tabs='center'>
+    <mat-tab-group mat-align-tabs='center' [(selectedIndex)]='tabIndex'>
         <mat-tab label='All'>
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
@@ -92,6 +68,39 @@
                                     <mat-divider></mat-divider>
                                     <p id='goalItemPercent'>{{g.saved / g.goal | percent}}</p>
                                 </mat-card>    
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label='+ New Goal'>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class='newGoalContainer'>
+                        <mat-grid-list cols='1' rowHeight='33em'>
+                            <mat-grid-tile>
+                                <mat-card class='createGoalCard'>
+                                    <div class='createHeading'>
+                                        <h2>Create a Goal</h2>
+                                        <span id='todayDate'>{{todaysDate}}</span>
+                                    </div>
+                                    <div>
+                                        <mat-form-field class='formField'>
+                                            <mat-label>Goal Title</mat-label>
+                                            <input matInput type="text" [(ngModel)]='newGoalName' name='newGoalName' required>
+                                        </mat-form-field><br>
+                                        <mat-form-field class='formField'>
+                                            <mat-label>Target</mat-label>
+                                            <input matInput type="number" [(ngModel)]='newGoalGoal' name='newGoalGoal' required>
+                                        </mat-form-field><br>
+                                        <mat-form-field class='formField'>
+                                            <mat-label>Saved (Optional)</mat-label>
+                                            <input matInput type="number" [(ngModel)]='newGoalSaved' name='newGoalSaved'>
+                                        </mat-form-field>
+                                    </div>
+                                    <button mat-flat-button id='formButton' color='primary' (click)='createGoal()'>Create</button>
+                                </mat-card>
                             </mat-grid-tile>
                         </mat-grid-list>
                     </mat-card>

@@ -66,3 +66,35 @@
     overflow-y: auto;
     -ms-overflow-style: none;
 }
+.newGoalContainer{
+    margin: 1em;
+    height: 33em;
+    width: 100%;
+    overflow-y: auto;
+}
+.createGoalCard{
+    width: 30em;
+    height: 30em;
+}
+.formField{
+    width: 100%;
+    font-size: 16pt;
+    margin-bottom: 1.5em;
+}
+.formField:last-child{
+    margin-bottom: 2.5em;
+}
+#formButton{
+    width: 100%;
+}
+.createHeading{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+#todayDate{
+    font-size: 16pt;
+    font-weight: 200;
+}

@@ -14,7 +14,11 @@
         <span class='goalLabel'>Goal: &nbsp;</span>
         <span class='goalAmount'>{{goalGoal | currency}}</span><br>
         <span class='goalLabel'>Saved: &nbsp;</span>
-        <span class='goalAmount'>{{goalSaved | currency}}</span>
+        <span class='goalAmount'>{{goalSaved | currency}}</span><br>
+        <div *ngIf='goalGoal - goalSaved > 0'>
+            <span class='goalLabel'>Remaning: &nbsp;</span>
+            <span class='goalAmount'>{{goalGoal - goalSaved | currency}}</span>
+        </div>
     </div>
     <div>
         <mat-progress-bar *ngIf='progressValue < 100; else completedProgress' id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>

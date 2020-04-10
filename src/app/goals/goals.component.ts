@@ -46,10 +46,18 @@ export class GoalsComponent implements OnInit {
       created: "2 4 2020",
       completed: "4 18 2020"
     }
-  ]
+  ];
+  months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
   progressValue;
   completedGoals: Goal[];
   progressGoals: Goal[];
+  todaysDate: string;
+  newGoalName: string = null;
+  newGoalGoal: number = null;
+  newGoalSaved: number = null;
+  unparsedDate: string;
+  tabIndex = 0;
   
   constructor(public dialog: MatDialog) { }
 
@@ -57,6 +65,10 @@ export class GoalsComponent implements OnInit {
     this.progressValue = 65;
     this.completedGoals = this.getCompleted();
     this.progressGoals = this.getProgress();
+
+    var d = new Date();
+    this.todaysDate = this.months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+    this.unparsedDate = d.getMonth() + " " + d.getDate() + " " + d.getFullYear();
   }
 
   getCompleted(){
@@ -88,5 +100,24 @@ export class GoalsComponent implements OnInit {
       this.progressGoals = this.getProgress();
     });
   }
+  createGoal(){
+    if(this.newGoalName.trim() === ("") || Number.isNaN(this.newGoalGoal)){
+      return;
+    }
+    this.goals.push({
+      name: this.newGoalName,
+      goal: this.newGoalGoal,
+      saved: this.newGoalSaved,
+      created: this.unparsedDate,
+      completed: null
+    });
 
+    this.completedGoals = this.getCompleted();
+    this.progressGoals = this.getProgress();
+
+    this.newGoalName = null;
+    this.newGoalGoal = null;
+    this.newGoalSaved = null;
+    this.tabIndex = 1;
+  }
 }
