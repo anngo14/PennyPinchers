@@ -1,5 +1,5 @@
 .initialContent{
-    height: 55em;
+    height: 100%;
     overflow-y: auto;
 }
 .incomeSecondRow{
@@ -151,4 +151,114 @@
 #hourField{
     margin-left: 1em;
     width: 8em;
+}
+.expenseAddButton{
+    margin-left: 2em;
+}
+.incomeAddButton{
+    margin-left: 1em;
+}
+.incomeTrash{
+    margin-left: 10px;
+}
+@media(max-width: 1516px){
+    .categoryExpenseContainer{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .categoryExpense{
+        width: 30%;
+    }
+    .categoryList2{
+        width: 100%;
+    }
+}
+@media(max-width: 1352px){
+    .expenseListItemTitle{
+        border: none;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 22pt;
+        font-weight: 200;
+        width: 20%;
+        margin-right: 1em;
+    }
+    .expenseListItemAmount{
+        border: none;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+        font-size: 20pt;
+        width: 20%;
+    }
+}
+@media(max-width: 1250px){
+    .reviewList{
+        width: 15em;
+    }
+}
+@media(max-width: 1006px){
+    .reviewContent{
+        width: 10em;
+    }
+}
+@media(max-width: 768px){
+    .categoryExpenseContainer{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .reviewContent{
+        width: 8em;
+    }
+    .reviewCategories{
+        flex-direction: column;
+    }
+}
+@media(max-width: 670px){
+    .reviewContent{
+        width: 5em;
+        font-size: 14pt;
+    }
+}
+@media(max-width: 642px){
+    .formField{
+        width: 15em;
+    }
+    .formField2{
+        width: 5em;
+    }
+}
+@media(max-width: 480px){
+    .formField{
+        width: 10em;
+    }
+    #hourField{
+        width: 5em;
+    }
+    .reviewContent{
+        width: 8em;
+    }
+    .reviewLabel:nth-child(n)::before{
+        content: "\A";
+        white-space: pre;
+    }
+}
+@media(max-width: 396px){
+    .expenseAddButton{
+        margin: 0;
+    }
+    #hourField{
+        width: 2.5em;
+    }
+    .incomeSecondRow{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .incomeAddButton{
+        margin: 0;
+    }
+    .incomeTrash{
+        margin-top: 10px;
+    }
 }

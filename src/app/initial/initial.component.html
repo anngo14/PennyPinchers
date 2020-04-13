@@ -51,8 +51,8 @@
                                 <mat-option value='Full-Time'>Full-Time</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <button mat-stroked-button style='margin-left: 1em' (click)="addIncomeSource()">Add additional income</button>
-                        <mat-icon *ngIf="incomes.length > 1 && index > 0" mat-list-icon style="margin-left: 10px" (click)='deleteIncome(income)'>delete</mat-icon>
+                        <button mat-stroked-button class='incomeAddButton' (click)="addIncomeSource()">Add additional income</button>
+                        <mat-icon *ngIf="incomes.length > 1 && index > 0" mat-list-icon class='incomeTrash' (click)='deleteIncome(income)'>delete</mat-icon>
                         <br>
                     </div>
                 </div>
@@ -93,9 +93,9 @@
                 <mat-label>Budget Amount</mat-label>
                 <input matInput type="number" placeholder="$0.00" [(ngModel)]='needAmt' name='needAmt'>
             </mat-form-field>
-            <button mat-stroked-button *ngIf="needs.length < 6; else needButton"style='margin-left: 2em' (click)='addNeedCategory();'>Add</button><br>
+            <button mat-stroked-button *ngIf="needs.length < 6; else needButton" class='expenseAddButton' (click)='addNeedCategory();'>Add</button><br>
             <ng-template #needButton>
-                <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+                <button mat-stroked-button class='expenseAddButton' disabled>Add</button>
             </ng-template>
             <mat-list class="categoryList">
                 <h3 mat-subheader> Need Categories (Rent, Utilities, Food,...)</h3>
@@ -128,9 +128,9 @@
                 <mat-label>Budget Amount</mat-label>
                 <input matInput type="number" placeholder="$0.00" [(ngModel)]='wantAmt' name='wantAmt'>
             </mat-form-field>
-            <button mat-stroked-button *ngIf="wants.length < 6; else wantButton"style='margin-left: 2em' (click)='addWantCategory();'>Add</button><br>
+            <button mat-stroked-button *ngIf="wants.length < 6; else wantButton" class='expenseAddButton' (click)='addWantCategory();'>Add</button><br>
             <ng-template #wantButton>
-                <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+                <button mat-stroked-button class='expenseAddButton' disabled>Add</button>
             </ng-template>
             <mat-list class="categoryList">
                 <h3 mat-subheader> Want Categories (Entertainment, Vacation, Shopping,...)</h3>
@@ -163,9 +163,9 @@
                 <mat-label>Budget Amount</mat-label>
                 <input matInput type="number" placeholder="$0.00" [(ngModel)]='savingAmt' name='savingAmt'>
             </mat-form-field>
-            <button mat-stroked-button *ngIf="savings.length < 6; else savingButton"style='margin-left: 2em' (click)='addSavingCategory();'>Add</button><br>
+            <button mat-stroked-button *ngIf="savings.length < 6; else savingButton"class='expenseAddButton' (click)='addSavingCategory();'>Add</button><br>
             <ng-template #savingButton>
-                <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+                <button mat-stroked-button class='expenseAddButton' disabled>Add</button>
             </ng-template>
             <mat-list class="categoryList">
                 <h3 mat-subheader> Saving Categories (Financial Goals,...)</h3>
@@ -186,6 +186,7 @@
         <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
+        <div style='height: 4em;'></div>
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup">
         <ng-template matStepLabel>Expense Information</ng-template>
@@ -265,9 +266,9 @@
                     <mat-label>Expense</mat-label>
                     <input matInput type="number" placeholder="$0.00" [(ngModel)]='expenseAmt' name='expenseAmt'>
                 </mat-form-field>
-                <button mat-stroked-button style='margin-left: 2em' *ngIf='expenses.length < 6; else expenseButton' (click)='addExpense();'>Add</button><br>
+                <button mat-stroked-button class='expenseAddButton' *ngIf='expenses.length < 6; else expenseButton' (click)='addExpense();'>Add</button><br>
                 <ng-template #expenseButton>
-                    <button mat-stroked-button style='margin-left: 2em' disabled>Add</button>
+                    <button mat-stroked-button class='expenseAddButton' disabled>Add</button>
                 </ng-template>
                 <mat-list class="expenseList">
                     <h3 mat-subheader>Uncategorized Expenses</h3>
@@ -286,6 +287,7 @@
         <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
+        <div style='height: 4em;'></div>
     </mat-step>
     <mat-step [stepControl]="fourthFormGroup">
         <ng-template matStepLabel>Review and Confirm</ng-template>
@@ -429,5 +431,6 @@
         <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)='redirectToHome()'>Confirm</button>
+        <div style='height: 4em;'></div>
     </mat-step>
 </mat-horizontal-stepper>
