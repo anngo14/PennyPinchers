@@ -9,14 +9,31 @@ import { transition, trigger, query, style, animate, state, keyframes } from '@a
   styleUrls: ['./register.component.css'],
   animations: [
     trigger('passwordHint', [
-      state('true', style({
+      state('1', style({
         transform: 'translate(200%, -85%)'
-        
       })),
-      state('false', style({})),
-      transition('* => true', animate("500ms", keyframes([
+      state('2', style({
+        transform: 'translate(160%, -85%)'
+      })),
+      state('3', style({
+        transform: 'translate(120%, -85%)'
+      })),
+      state('4', style({
+        transform: 'translate(90%, -85%)'
+      })),
+      state('0', style({})),
+      transition('* => 1', animate("500ms", keyframes([
         style({transform: 'translate(200%, -85%)'}), 
-      ])))
+      ]))),
+      transition('* => 2', animate("500ms", keyframes([
+        style({transform: 'translate(160%, -85%'})
+      ]))),
+      transition('* => 3', animate("500ms", keyframes([
+        style({transform: 'translate(120%, -85%'})
+      ]))),
+      transition('* => 4', animate("500ms", keyframes([
+        style({transform: 'translate(90%, -85%'})
+      ]))),
     ]),
     trigger('registerFail', [
       state('true', style({})),
@@ -42,7 +59,7 @@ export class RegisterComponent implements OnInit {
   emailInput = new FormControl('', [Validators.required]);
   passInput = new FormControl('', [Validators.required]);
   confirmInput = new FormControl('', [Validators.required]);
-  showHint: boolean = false;
+  showHint: number = 0;
   error: boolean = false;
 
   constructor(private r: Router) { }
@@ -64,7 +81,16 @@ export class RegisterComponent implements OnInit {
     //this.r.navigate(['/login']);
   }
   showPasswordHint(){
-    this.showHint = true;
+    let wwt = window.innerWidth;
+    if(wwt > 768){
+      this.showHint = 1;
+    } else if(wwt <= 768 && wwt > 550){
+      this.showHint = 2;
+    } else if(wwt <= 550 && wwt > 411){
+      this.showHint = 3;
+    } else if(wwt <= 411){
+      this.showHint = 4;
+    }
   }
   checkUpper(){
     if(this.password.match(/.*[A-Z].*/)){
