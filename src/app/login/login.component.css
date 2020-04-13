@@ -40,3 +40,17 @@
 #loginError{
     font-size: 12pt;
 }
+
+@media(max-width: 976px){
+
+    .loginCard{
+        width: 85%;
+        height: 350px;
+        position: relative;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, 31.5%);
+        display: flex;
+        flex-direction: column;
+    }
+}
