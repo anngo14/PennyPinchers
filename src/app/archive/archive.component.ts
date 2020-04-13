@@ -3,6 +3,7 @@ import { BudgetObj } from '../models/BudgetObj';
 import { ExpenseObj } from '../models/ExpenseObj';
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { pieslice } from '../models/pieslice';
+import { Goal } from '../models/Goal';
 
 @Component({
   selector: 'app-archive',
@@ -13,8 +14,11 @@ export class ArchiveComponent implements OnInit {
 
   @ViewChild('budgetPieChart', {static: true})
   canvas: ElementRef<HTMLCanvasElement>
+  @ViewChild('expenseBarChart', {static: true})
+  canvas2: ElementRef<HTMLCanvasElement>
 
   private ctx: CanvasRenderingContext2D;
+  private ctx2: CanvasRenderingContext2D;
 
   BudgetObject: BudgetObj = {
     incomes: [
@@ -68,7 +72,45 @@ export class ArchiveComponent implements OnInit {
       {title: 'Groceries', budget: 300, used: 198.23}
     ]
   };
+  goals: Goal[] = [
+    {
+      name: "Goal 1",
+      goal: 5000,
+      saved: 1230.56,
+      created: "4 2 2020",
+      completed: null
+    },
+    {
+      name: "Goal 2",
+      goal: 1000,
+      saved: 25,
+      created: "2 26 2019",
+      completed: null
+    },
+    {
+      name: "Goal 3",
+      goal: 50,
+      saved: 50,
+      created: "3 14 2020",
+      completed: "3 15 2020"
+    },
+    {
+      name: "Trip to Costa Rica",
+      goal: 3500,
+      saved: 1020.42,
+      created: "4 6 2020",
+      completed: null
+    },
+    {
+      name: "New PC",
+      goal: 1000,
+      saved: 1000,
+      created: "2 4 2020",
+      completed: "4 18 2020"
+    }
+  ];
 
+  months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
   moreColors: string[] = [
     "#C29FF9", "#79F581", "#A1B0EE", "#EEA1EE", "#FFBA4B", "#92FFEB",
@@ -116,6 +158,7 @@ export class ArchiveComponent implements OnInit {
 
   ngOnInit() {
     this.ctx = this.canvas.nativeElement.getContext("2d");
+    this.ctx2 = this.canvas2.nativeElement.getContext("2d");
 
     var d = new Date();
     for(let i = 0; i < 5; i++){
@@ -135,6 +178,7 @@ export class ArchiveComponent implements OnInit {
     this.convertToRadians(this.overviewSlices);
 
     this.drawPieChart(this.ctx, this.canvas, 250, this.overviewSlices, this.colors);
+    this.drawBarChart(this.ctx2, this.canvas2);
   }
 
   getUnallocated(a: budgetCategoryList[], percent): number{
@@ -247,5 +291,139 @@ export class ArchiveComponent implements OnInit {
     }
 
     return slices;
+  }
+  drawBarChart(ctx, canvas){
+    ctx.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height);
+    ctx.beginPath();
+    ctx.moveTo(150, 30);
+    ctx.lineTo(150, 700);
+    ctx.lineTo(1050, 700);
+    ctx.stroke();
+    this.drawXAxis(ctx, this.ExpenseObject.items);
+    this.drawYAxis(ctx, this.ExpenseObject.items);
+    this.drawBarChartData(ctx, this.ExpenseObject.items);
+  }
+  drawXAxis(ctx, barChartData){
+    ctx.font = '14pt Helvetica';
+    ctx.textAlign = 'center';
+    let X = 240;
+    let Yorigin = 700;
+    let Ybottom = 710;
+    let Ytop = 30;
+    let interval = 90;
+
+    let max = this.getMax(barChartData);
+    let xinterval = max / 10;
+    let xlabel = xinterval;
+
+    for(let i = 0; i < 10; i++){
+      ctx.fillStyle = 'black';
+      ctx.beginPath();
+      ctx.moveTo(X, Ybottom);
+      ctx.lineTo(X, Yorigin);
+      ctx.stroke();
+
+      //x-axis labels
+      ctx.fillText(xlabel, X, Ybottom + 20);
+      xlabel += xinterval;
+      //background lines
+      ctx.strokeStyle = '#DDDDDD';
+      ctx.beginPath();
+      ctx.moveTo(X, Yorigin);
+      ctx.lineTo(X, Ytop);
+      ctx.stroke();
+      X += interval;
+    }
+    ctx.strokeStyle = 'black';
+  }
+  drawYAxis(ctx, barChartData){
+    let interval = barChartData.length;
+
+    let width = 45;
+    //change width based on interval (max 20)
+    if(interval <= 15 && interval > 10){
+      width = 35;
+    } else if(interval > 15){
+      width = 30;
+    }
+
+    let Xorigin = 150;
+    let Xbottom = 140;
+    let Y = 700;
+    let Ymax = 50;
+    let gap = (Y - Ymax) / interval;
+  
+    for(let i = 0; i < interval; i++){
+      Y -= gap;
+      ctx.beginPath();
+      ctx.moveTo(Xorigin, Y);
+      ctx.lineTo(Xbottom, Y);
+      ctx.stroke();
+      //y-axis labels
+      ctx.textAlign = 'right';
+      ctx.fillStyle = 'black';
+      ctx.font = '18pt Helvetica';
+      let label: string = barChartData[i].title;
+      if(label.length > 10){
+        label = barChartData[i].title.substring(0, 9);
+        label += "...";
+      }
+      ctx.fillText(label, Xbottom - 10, Y + 5);
+    } 
+  }
+  drawBarChartData(ctx, barChartData){
+    let interval = barChartData.length;
+
+    let width = 40;
+    //change width based on interval (max 20)
+    if(interval <= 15 && interval > 10){
+      width = 35;
+    } else if(interval > 15){
+      width = 30;
+    }
+
+    let Xorigin = 150;
+    let Y = 700;
+    let Ymax = 50;
+    let gap = (Y - Ymax) / interval;
+    let Xmax = this.getMax(barChartData);
+ 
+    for(let i = 0; i < barChartData.length; i++){
+      Y -= gap;
+      let dataBudgetLength: number = barChartData[i].budget * 900.00 / Xmax;
+      let dataUsedLength: number = barChartData[i].used * 900.00 / Xmax;
+
+      //Static Budget Bar
+      ctx.fillStyle = "rgba(93, 173, 226, 1)";
+      ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataBudgetLength, width);
+
+      ctx.fillStyle = "rgba(231, 76, 60, 0.5)";
+      ctx.fillRect(Xorigin + 0.1, Y - (width / 2), dataUsedLength, width);
+
+    }
+  }
+  getMax(barChartData): number{
+    let max: number = 0;
+    for(let i = 0; i < barChartData.length; i++){
+      if(barChartData[i].budget > max){
+        max = barChartData[i].budget;
+      }
+      if(barChartData[i].used > max){
+        max = barChartData[i].used;
+      }
+    }
+
+    max = Math.ceil(max);
+    while(max % 5 != 0){
+      max++;
+    }
+
+    return Math.ceil(max);
+  }
+  parseDate(d: string){
+    let output: string = "";
+    let elements = d.split(" ");
+    output += this.months[elements[0]] + " " + elements[1] + ", " + elements[2];
+    return output;
   }
 }

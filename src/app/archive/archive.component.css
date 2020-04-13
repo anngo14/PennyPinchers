@@ -38,6 +38,7 @@
     height: 90%;
     width: 90%;
     margin: 1em;
+    margin-top: 2em;
 }
 .collapsedHeader{
     width: 300px;
@@ -112,6 +113,59 @@
     height: 100%;
 }
 .expandedBudgetCard{
-    height: 500px;
+    height: 520px;
+}
+.expandedContent{
+    height: 550px;
+}
+.expenseBarGraphCard{
+    width: 95%;
+    height: 90%;
+}
+#expenseList{
+    padding: 0 1em 1em 1em;
+    width: 95%;
+    height: 95%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+}
+#expenseBarChart{
+    width: 100%;
+    height: 100%;
+}
+.goalList{
     padding: 1em;
+    width: 65%;
+    height: 90%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+}
+.collapsedGoalHeading{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#collapsedGoalHeader{
+    width: 15em;
+}
+#collapsedGoalDescription{
+    width: 5em;
+}
+.goalDetail{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.goalLabel{
+    font-size: 18pt;
+}
+.goalContent{
+    font-size: 18pt;
+    font-weight: 200;
+}
+#goalProgressBar{
+    width: 25em;
 }
