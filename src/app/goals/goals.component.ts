@@ -126,4 +126,19 @@ export class GoalsComponent implements OnInit {
     this.newGoalSaved = null;
     this.tabIndex = 0;
   }
+  getGridCols(){
+    let wwt = window.innerWidth;
+    
+    if(wwt >= 1920){
+      return 5;
+    } else if(wwt < 1920 && wwt >= 1250){
+      return 4;
+    } else if(wwt < 1250 && wwt >= 685){
+      return 3;
+    } else if(wwt < 685 && wwt >= 505){
+      return 2;
+    } else {
+      return 1;
+    }
+  }
 }

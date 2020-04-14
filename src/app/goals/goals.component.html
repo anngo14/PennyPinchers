@@ -1,10 +1,9 @@
-<mat-grid-list cols="4" rowHeight="75px">
-    <mat-grid-tile rowspan='2'>
+<div class='headerContainer'>
+    <div class='headingContainer'>
         <h1>Financial Goals</h1>
-    </mat-grid-tile>
-    <mat-grid-tile colspan='3'></mat-grid-tile>
-    <mat-grid-tile colspan='3'></mat-grid-tile>
-  </mat-grid-list>
+    </div>
+    <div></div>
+</div>
 <mat-divider></mat-divider>
 <mat-card class='goalCard'>
     <mat-tab-group mat-align-tabs='center' [(selectedIndex)]='tabIndex'>
@@ -12,7 +11,7 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols='3' rowHeight='18em'>
+                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em'>
                             <mat-grid-tile *ngFor='let g of goals'>
                                 <mat-card class='goalItem'*ngIf="g.saved / g.goal < 1; else completedGoal" (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
@@ -40,7 +39,7 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols='3' rowHeight='18em'>
+                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em'>
                             <mat-grid-tile *ngFor='let g of progressGoals'>
                                 <mat-card class='goalItem' (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
@@ -59,7 +58,7 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols='3' rowHeight='18em'>
+                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em'>
                             <mat-grid-tile *ngFor='let g of completedGoals'>
                                 <mat-card class='goalItemComplete' (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
