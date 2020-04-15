@@ -347,19 +347,19 @@
                                                 </div>
                                             </mat-expansion-panel-header>
                                             <div class='goalDetail'>
-                                                <div>
+                                                <div class='goalDetailContainer'>
                                                     <span class='goalLabel'>Goal: &nbsp;</span>
                                                     <span class='goalContent'>{{g.goal | currency}}</span><br>
                                                     <span class='goalLabel'>Saved: &nbsp;</span>
                                                     <span class='goalContent'>{{g.saved | currency}}</span>
                                                 </div>
-                                                <div>
+                                                <div class='goalProgressBarContainer'>
                                                     <mat-progress-bar *ngIf='g.saved / g.goal < 1; else completedProgress' id="goalProgressBar" mode="buffer" [value]='g.saved/g.goal*100'></mat-progress-bar>
                                                     <ng-template #completedProgress>
                                                         <mat-progress-bar id='goalProgressBar' mode='indeterminate'></mat-progress-bar>
                                                     </ng-template>
                                                 </div>
-                                                <div>
+                                                <div class='goalDateContainer'>
                                                     <span class="goalLabel">Date Created: &nbsp;</span>
                                                     <span class='goalContent'>{{parseDate(g.created)}}</span><br>
                                                     <div *ngIf='g.completed != null'> 

@@ -200,6 +200,15 @@
     font-weight: 200;
 }
 #goalProgressBar{
+    width: 100%;
+}
+.goalDetailContainer{
+    width: 15em;
+}
+.goalDateContainer{
+    width: 20em;
+}
+.goalProgressBarContainer{
     width: 25em;
 }
 @media(max-width: 1900px){
@@ -219,6 +228,16 @@
         width: 75%;
     }
 }
+@media(max-width: 1400px){
+    .goalList{
+        width: 95%;
+    }
+}
+@media(max-width: 1200px){
+    .goalProgressBarContainer{
+        width: 20em;
+    }
+}
 @media(max-width: 1094px){
     .budgetPieChartCard{
         width: 600px;
@@ -226,6 +245,15 @@
     }
     .overviewBudgetContent{
         width: 85%;
+    }
+    .goalLabel{
+        font-size: 16pt;
+    }
+    .goalContent{
+        font-size: 16pt;
+    }
+    .goalProgressBarContainer{
+        width: 15em;
     }
 }
 @media(max-width: 980px){
@@ -241,6 +269,12 @@
     .collapsedDescription{
         width: 2em;
     }
+    .goalDateContainer{
+        width: 15em;
+    }
+    .goalDetailContainer{
+        width: 10em;
+    }
 }
 @media(max-width: 845px){
     .yearSelect{
@@ -248,6 +282,9 @@
     }
     .monthContainer{
         text-align: left;
+    }
+    .goalDateContainer{
+        width: 10em;
     }
 }
 @media(max-width: 797px){
@@ -263,6 +300,15 @@
     .profitContainer > h1{
         font-size: 18pt;
     }
+    .goalProgressBarContainer{
+        width: 10em;
+    }
+    .goalDetailContainer{
+        width: 8em;
+    }
+    .goalDateContainer{
+        width: 8em;
+    }
 }
 @media(max-width: 675px){
     .collapsedArchiveHeaderItem{
@@ -276,6 +322,12 @@
 @media(max-width: 640px){
     .collapsedDescription2{
         display: none;
+    }
+    .goalLabel{
+        font-size: 12pt;
+    }
+    .goalContent{
+        font-size: 12pt;
     }
 }
 @media(max-width: 600px){
@@ -299,6 +351,19 @@
     }
     .overviewBudgetListDescription{
         font-size: 18pt;
+    }
+    .goalDetail{
+        flex-direction: column;
+        height: 8em;
+    }
+    .goalDetailContainer{
+        width: 100%;
+    }
+    .goalProgressBarContainer{
+        width: 100%;
+    }
+    .goalDateContainer{
+        width: 100%;
     }
 }
 @media(max-width: 490px){
@@ -337,6 +402,9 @@
         align-items: center;
         justify-content: center;
     }
+    .goalList{
+        width: 100%;
+    }
 }
 @media(max-width: 450px){
     .overviewBudgetListItem{
@@ -349,7 +417,9 @@
     .collapsedHeader{
         font-size: 14pt;
     }
-    
+    .goalDetail{
+        justify-content: center;
+    }
 }
 @media(max-width: 400px){
     .monthContainer{
@@ -358,6 +428,9 @@
     .collapsedHeader{
         width: 3em;
     }
+    .goalProgressBarContainer{
+        display: none;
+    }
 }
 @media(max-width: 368px){
     .expandedBudgetCard{
@@ -365,6 +438,9 @@
     }
     .collapsedDescription{
         display: none;
+    }
+    .goalDetail{
+        height: 15em;
     }
 }
 @media(max-width: 350px){
@@ -380,5 +456,11 @@
     .budgetPieChartCard{
         width: 250px;
         height: 170px;
+    }
+    #collapsedGoalDescription{
+        display: none;
+    }
+    .goalDetail{
+        height: 17em;
     }
 }
