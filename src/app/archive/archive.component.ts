@@ -297,20 +297,20 @@ export class ArchiveComponent implements OnInit {
     ctx.beginPath();
     ctx.moveTo(150, 30);
     ctx.lineTo(150, 700);
-    ctx.lineTo(1050, 700);
+    ctx.lineTo(1300, 700);
     ctx.stroke();
     this.drawXAxis(ctx, this.ExpenseObject.items);
     this.drawYAxis(ctx, this.ExpenseObject.items);
     this.drawBarChartData(ctx, this.ExpenseObject.items);
   }
   drawXAxis(ctx, barChartData){
-    ctx.font = '14pt Helvetica';
+    ctx.font = '16pt Helvetica';
     ctx.textAlign = 'center';
-    let X = 240;
+    let X = 265;
     let Yorigin = 700;
     let Ybottom = 710;
     let Ytop = 30;
-    let interval = 90;
+    let interval = 115;
 
     let max = this.getMax(barChartData);
     let xinterval = max / 10;
@@ -390,8 +390,8 @@ export class ArchiveComponent implements OnInit {
  
     for(let i = 0; i < barChartData.length; i++){
       Y -= gap;
-      let dataBudgetLength: number = barChartData[i].budget * 900.00 / Xmax;
-      let dataUsedLength: number = barChartData[i].used * 900.00 / Xmax;
+      let dataBudgetLength: number = barChartData[i].budget * 1150.00 / Xmax;
+      let dataUsedLength: number = barChartData[i].used * 1150.00 / Xmax;
 
       //Static Budget Bar
       ctx.fillStyle = "rgba(93, 173, 226, 1)";

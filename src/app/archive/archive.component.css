@@ -1,10 +1,24 @@
 .archiveCard{
     margin: 2em;
     height: 55em;
-    width: 100%;
+}
+.headerContainer{
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.header{
+    margin-left: 8em;
+}
+.yearSelectContainer{
+    margin-right: 5em;
+    position: relative;
+    height: 100%;
 }
 .yearSelect{
-    margin-top: 2em;
+    margin-top: 1.5em;
     width: 20em;
 }
 .archiveContent{
@@ -23,22 +37,39 @@
     font-size: 62pt;
     color: #FFF864;
 }
-.archiveItem{
+.collapsedArchiveItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
-    height: 152px;
+    height: 150px;
+}
+.arrow{
+    margin-left: 2em;
+    width: 5em;
+}
+.profitContainer{
+    width: 10em;
+    text-align: center;
+}
+.collapsedArchiveHeaderItem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 10em;
+}
+.monthContainer{
+    width: 10em;
+    text-align: center;
 }
 .budgetQuick{
-    position: absolute;
-    top: 0;
-    margin: 0;
-    margin-top: 0.5em;
     font-size: 13pt;
 }
 .budgetPieChartCard{
     height: 90%;
-    width: 90%;
+    width: 844px;
     margin: 1em;
-    margin-top: 2em;
 }
 .collapsedHeader{
     width: 300px;
@@ -104,16 +135,18 @@
     width: 8em;
 }
 .overviewBudgetContent{
-    width: 100%;
+    width: 872px;
     height: 490px;
-    margin: 1em;
 }
 #budgetPieChart{
     width: 100%;
     height: 100%;
 }
 .expandedBudgetCard{
-    height: 520px;
+    width: 1720px;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
 }
 .expandedContent{
     height: 550px;
@@ -135,7 +168,7 @@
 }
 .goalList{
     padding: 1em;
-    width: 65%;
+    width: 1020px;
     height: 90%;
     overflow-y: auto;
     -ms-overflow-style: none;
@@ -168,4 +201,184 @@
 }
 #goalProgressBar{
     width: 25em;
+}
+@media(max-width: 1900px){
+    .expandedBudgetCard{
+        width: 90%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .budgetPieChartCard{
+        height: 490px;
+        width: 844px;
+    }
+    .goalList{
+        width: 75%;
+    }
+}
+@media(max-width: 1094px){
+    .budgetPieChartCard{
+        width: 600px;
+        height: 400px; 
+    }
+    .overviewBudgetContent{
+        width: 85%;
+    }
+}
+@media(max-width: 980px){
+    .arrow{
+        margin-left: 0;
+    }
+    .collapsedArchiveHeaderItem{
+        width: 8em;
+    }
+    .collapsedHeader{
+        width: 5em;
+    }
+    .collapsedDescription{
+        width: 2em;
+    }
+}
+@media(max-width: 845px){
+    .yearSelect{
+        width: 10em;
+    }
+    .monthContainer{
+        text-align: left;
+    }
+}
+@media(max-width: 797px){
+    .collapsedArchiveHeaderItem{
+        width: 6em;
+    }
+    .budgetQuick{
+        font-size: 12pt;
+    }
+    .profitContainer{
+        width: 8em;
+    }
+    .profitContainer > h1{
+        font-size: 18pt;
+    }
+}
+@media(max-width: 675px){
+    .collapsedArchiveHeaderItem{
+        display: none;
+    }
+    .budgetPieChartCard{
+        width: 500px;
+        height: 320px;
+    }
+}
+@media(max-width: 640px){
+    .collapsedDescription2{
+        display: none;
+    }
+}
+@media(max-width: 600px){
+    .header{
+        margin-left: 2em;
+    }
+    .budgetPieChartCard{
+        width: 300px;
+        height: 200px;
+    }
+    .expandedHeader{
+        flex-direction: column;
+    }
+    .expandedHeader h2{
+        margin-right: 0;
+    }
+}
+@media(max-width: 550px){
+    .overviewBudgetListHeader{
+        font-size: 18pt;
+    }
+    .overviewBudgetListDescription{
+        font-size: 18pt;
+    }
+}
+@media(max-width: 490px){
+    .headerContainer{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .header{
+        margin-left: 0;
+    }
+    .yearSelect{
+        margin-top: 0;
+    }
+    .yearSelectContainer{
+        margin-right: 0;
+    }
+    .expandedBudgetCard{
+        width: 85%;
+    }
+    .overviewBudgetListHeader{
+        font-size: 14pt;
+    }
+    .overviewBudgetListDescription{
+        font-size: 14pt;
+    }
+    .collapsedHeader{
+        font-size: 18pt;
+    }
+    .collapsedDescription{
+        font-size: 12pt;
+    }
+    .unallocatedContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media(max-width: 450px){
+    .overviewBudgetListItem{
+        width: 10em;
+        padding-right: 1em;
+    }
+    .overviewBudgetContentContainer{
+        overflow-x: auto;
+    }
+    .collapsedHeader{
+        font-size: 14pt;
+    }
+    
+}
+@media(max-width: 400px){
+    .monthContainer{
+        display: none;
+    }
+    .collapsedHeader{
+        width: 3em;
+    }
+}
+@media(max-width: 368px){
+    .expandedBudgetCard{
+        width: 80%;
+    }
+    .collapsedDescription{
+        display: none;
+    }
+}
+@media(max-width: 350px){
+    .arrow{
+        margin-left: -1em;
+    }
+    .profitContainer{
+        width: 6em;
+    }
+    .profitContainer > h1{
+        font-size: 14pt;
+    }
+    .budgetPieChartCard{
+        width: 250px;
+        height: 170px;
+    }
 }
