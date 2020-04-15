@@ -323,25 +323,18 @@
     .goalDetailContainer{
         width: 10em;
     }
-    .expandedExpenseCard{
-        overflow-x: auto;
-        align-items: flex-start;
-    }
     .expenseBarGraphCard{
-        width: 770px;
-        height: 500px;
+        width: 700;
+        height: 425px;
     }
     .expenseList{
-        width: 770px;
+        width: 100%;
     }
 }
 @media(max-width: 930px){
     .expandedExpenseCard{
         align-items: center;
         overflow-x: hidden;
-    }
-    .expenseList{
-        width: 100%;
     }
     .expenseBarGraphCard{
         width: 650px;
