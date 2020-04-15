@@ -238,58 +238,60 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <!-- Expanded Content -->
-                    <mat-grid-list cols='1' rowHeight='550px'>
-                        <mat-grid-tile>
-                            <mat-card class='expandedBudgetCard'>
-                                <div id='expenseList'>
-                                    <mat-accordion>
-                                        <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem'>
-                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
-                                                <mat-panel-title>
-                                                    <div class='collapsedItem'>
-                                                        <div class='collapsedHeader'>
-                                                            <span>{{c.title}}</span>
+                    <div class='expandedContent'>
+                        <mat-grid-list cols='1' rowHeight='550px'>
+                            <mat-grid-tile>
+                                <mat-card class='expandedExpenseCard'>
+                                    <mat-card class='expenseBarGraphCard'>
+                                        <canvas #expenseBarChart id='expenseBarChart' width="1400px" height="780px"></canvas>
+                                    </mat-card>
+                                    <div class='expenseList'>
+                                        <mat-accordion>
+                                            <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem; overviewBudgetContentContainer'>
+                                                <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                    <mat-panel-title>
+                                                        <div class='collapsedItem'>
+                                                            <div class='collapsedExpenseHeader'>
+                                                                <span>{{c.title}}</span>
+                                                            </div>
+                                                            <div class='collapsedExpenseDescription'>
+                                                                <span>Usage &nbsp;</span>
+                                                                <span>{{c.used / c.budget | percent}}</span>
+                                                            </div>
                                                         </div>
-                                                        <div class='collapsedDescription'>
-                                                            <span>Usage &nbsp;</span>
-                                                            <span>{{c.used / c.budget | percent}}</span>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <mat-list>
+                                                    <mat-list-item>
+                                                        <div class='overviewBudgetListItem'>
+                                                            <div class='overviewBudgetListHeader'>
+                                                                <span>Budget</span>
+                                                            </div>
+                                                            <div></div>
+                                                            <div class='overviewBudgetListDescription'>
+                                                                <span>{{c.budget | currency}}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </mat-panel-title>
-                                            </mat-expansion-panel-header>
-                                            <mat-list>
-                                                <mat-list-item>
-                                                    <div class='overviewBudgetListItem'>
-                                                        <div class='overviewBudgetListHeader'>
-                                                            <span>Budget</span>
+                                                    </mat-list-item>
+                                                    <mat-list-item>
+                                                        <div class='overviewBudgetListItem'>
+                                                            <div class='overviewBudgetListHeader'>
+                                                                <span>Used</span>
+                                                            </div>
+                                                            <div></div>
+                                                            <div class='overviewBudgetListDescription'>
+                                                                <span>{{c.used | currency}}</span>
+                                                            </div>
                                                         </div>
-                                                        <div></div>
-                                                        <div class='overviewBudgetListDescription'>
-                                                            <span>{{c.budget | currency}}</span>
-                                                        </div>
-                                                    </div>
-                                                </mat-list-item>
-                                                <mat-list-item>
-                                                    <div class='overviewBudgetListItem'>
-                                                        <div class='overviewBudgetListHeader'>
-                                                            <span>Used</span>
-                                                        </div>
-                                                        <div></div>
-                                                        <div class='overviewBudgetListDescription'>
-                                                            <span>{{c.used | currency}}</span>
-                                                        </div>
-                                                    </div>
-                                                </mat-list-item>
-                                            </mat-list>
-                                        </mat-expansion-panel>
-                                    </mat-accordion>
-                                </div>
-                                <mat-card class='expenseBarGraphCard'>
-                                    <canvas #expenseBarChart id='expenseBarChart' width="1400px" height="750px"></canvas>
+                                                    </mat-list-item>
+                                                </mat-list>
+                                            </mat-expansion-panel>
+                                        </mat-accordion>
+                                    </div>
                                 </mat-card>
-                            </mat-card>
-                        </mat-grid-tile>
-                    </mat-grid-list>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>
                 </mat-expansion-panel>
             </mat-accordion>
         </mat-tab>

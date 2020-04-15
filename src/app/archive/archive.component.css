@@ -92,6 +92,19 @@
     justify-content: center;
     align-items: center;
 }
+.collapsedExpenseHeader{
+    width: 300px;
+    font-size: 24pt;
+    font-weight: 200;
+}
+.collapsedExpenseDescription{
+    width: 150px;
+    font-size: 14pt;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .collapsedItem{
     width: 100%;
     height: 2.5em;
@@ -148,17 +161,23 @@
     display: flex;
     flex-direction: row;
 }
+.expandedExpenseCard{
+    width: 1720px;
+    height: 500px;
+    display: flex;
+    flex-direction: row-reverse;
+}
 .expandedContent{
     height: 550px;
 }
 .expenseBarGraphCard{
-    width: 95%;
-    height: 90%;
+    width: 50%;
+    height: 470px;
 }
-#expenseList{
+.expenseList{
     padding: 0 1em 1em 1em;
-    width: 95%;
-    height: 95%;
+    width: 50%;
+    height: 490px;
     overflow-y: auto;
     -ms-overflow-style: none;
 }
@@ -220,6 +239,23 @@
         overflow-y: auto;
         overflow-x: hidden;
     }
+    .expandedExpenseCard{
+        width: 90%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .expenseList{
+        min-height: 15em;
+        width: 75%;
+        margin-bottom: 1em;
+    }
+    .expenseBarGraphCard{
+        margin: 1em;
+        width: 75%;
+    }
     .budgetPieChartCard{
         height: 490px;
         width: 844px;
@@ -232,10 +268,22 @@
     .goalList{
         width: 95%;
     }
+    .expenseBarGraphCard{
+        width: 95%;
+    }
+    .expenseList{
+        width: 95%;
+    }
 }
 @media(max-width: 1200px){
     .goalProgressBarContainer{
         width: 20em;
+    }
+    .expenseBarGraphCard{
+        width: 100%;
+    }
+    .expenseList{
+        width: 100%;
     }
 }
 @media(max-width: 1094px){
@@ -275,6 +323,30 @@
     .goalDetailContainer{
         width: 10em;
     }
+    .expandedExpenseCard{
+        overflow-x: auto;
+        align-items: flex-start;
+    }
+    .expenseBarGraphCard{
+        width: 770px;
+        height: 500px;
+    }
+    .expenseList{
+        width: 770px;
+    }
+}
+@media(max-width: 930px){
+    .expandedExpenseCard{
+        align-items: center;
+        overflow-x: hidden;
+    }
+    .expenseList{
+        width: 100%;
+    }
+    .expenseBarGraphCard{
+        width: 650px;
+        height: 375px;
+    }
 }
 @media(max-width: 845px){
     .yearSelect{
@@ -285,6 +357,10 @@
     }
     .goalDateContainer{
         width: 10em;
+    }
+    .expenseBarGraphCard{
+        width: 620px;
+        height: 350px;
     }
 }
 @media(max-width: 797px){
@@ -309,6 +385,13 @@
     .goalDateContainer{
         width: 8em;
     }
+    .expenseBarGraphCard{
+        width: 500px;
+        height: 275px;
+    }
+    .collapsedExpenseDescription{
+        justify-content: flex-start;
+    }
 }
 @media(max-width: 675px){
     .collapsedArchiveHeaderItem{
@@ -317,6 +400,23 @@
     .budgetPieChartCard{
         width: 500px;
         height: 320px;
+    }
+    .collapsedExpenseHeader{
+        display: flex;
+        align-items: center;
+        font-size: 20pt;
+        width: 200px;
+        height: 32px;
+        overflow: hidden;
+        overflow-y: visible;
+    }
+    .collapsedExpenseDescription{
+        height: 30px;
+        font-size: 14pt;
+    }
+    .expenseBarGraphCard{
+        width: 475px;
+        height: 275px;
     }
 }
 @media(max-width: 640px){
@@ -328,6 +428,10 @@
     }
     .goalContent{
         font-size: 12pt;
+    }
+    .expenseBarGraphCard{
+        width: 450px;
+        height: 250px;
     }
 }
 @media(max-width: 600px){
@@ -343,6 +447,10 @@
     }
     .expandedHeader h2{
         margin-right: 0;
+    }
+    .expenseBarGraphCard{
+        width: 400px;
+        height: 220px;
     }
 }
 @media(max-width: 550px){
@@ -364,6 +472,21 @@
     }
     .goalDateContainer{
         width: 100%;
+    }
+    .collapsedExpenseHeader{
+        font-size: 16pt;
+        width: 100px;
+    }
+    .collapsedExpenseDescription{
+        font-size: 12pt;
+        width: 100px;
+    }
+    .collapsedItem{
+        justify-content: space-between;
+    }
+    .expenseBarGraphCard{
+        width: 340px;
+        height: 175px;
     }
 }
 @media(max-width: 490px){
@@ -405,6 +528,15 @@
     .goalList{
         width: 100%;
     }
+    .collapsedExpenseDescription > span:nth-child(1){
+        display: none;
+    }
+    .collapsedExpenseDescription{
+        width: 42px;
+    }
+    .expenseBarGraphCard{
+        display: none;
+    }
 }
 @media(max-width: 450px){
     .overviewBudgetListItem{
@@ -429,6 +561,9 @@
         width: 3em;
     }
     .goalProgressBarContainer{
+        display: none;
+    }
+    .collapsedExpenseDescription{
         display: none;
     }
 }
