@@ -286,3 +286,201 @@
 #editBudgetChip{
     margin-bottom: 1.5em;
 }
+
+@media(max-width: 1900px){
+    .budgetChart{
+        width: 45em;
+    }
+    .budgetPieChartCard{
+        height: 26em;
+    }
+}
+@media(max-width: 1700px){
+    .budgetPieChartCard{
+        height: 25em;
+    }
+}
+@media(max-width: 1550px){
+    .budgetPieChartCard{
+        height: 20em;
+    }
+}
+@media(max-width: 1400px){
+    .budgetPieChartCard{
+        height: 18em;
+    }
+    .budgetHeader{
+        font-size: 32pt;
+    }
+    .budgetSubheader{
+        font-size: 24pt;
+    }
+    .budgetSavings{
+        font-size: 32pt;
+    }
+    .budgetHeader1{
+        width: 37em;
+    }
+}
+@media(max-width: 1340px){
+    .collapsedHeader{
+        width: 5em;
+    }
+    .collapsedDescription{
+        width: 3em;
+    }
+}
+@media(max-width: 1160px){
+    .budgetPieChartCard{
+        height: 16em;
+    }
+}
+@media(max-width: 1080px){
+    .budgetHeaderContainer{
+        flex-direction: column;
+        align-items: center;
+    }
+    .budgetHeader1{
+        width: 100%;
+        text-align: center;
+    }
+    .budgetMainContainer{
+        flex-direction: column;
+        align-items: center;
+    }
+    .budgetChart{
+        width: 100%;
+    }
+    .budgetPieChartCard{
+        height: 26em;
+    }
+    .budgetCategories{
+        width: 100%;
+    }
+}
+@media(max-width: 920px){
+    .budgetPieChartCard{
+        height: 25em;
+    }
+}
+@media(max-width: 800px){
+    .monthSelect{
+        width: 15em;
+    }
+    .budgetPieChartCard{
+        height: 20em;
+    }
+}
+@media(max-width: 732px){
+    .budgetHeader{
+        font-size: 24pt;
+    }
+    .budgetSubheader{
+        font-size: 20pt;
+    }
+    .budgetSavings{
+        font-size: 24pt;
+    }
+}
+@media(max-width: 690px){
+    .homeHeader1{
+        margin-left: 2em;
+    }
+    .budgetPieChartCard{
+        height: 17em;
+    }
+}
+@media(max-width: 580px){
+    .monthSelect{
+        width: 10em;
+    }
+    .checkDateContainer{
+        flex-direction: column;
+    }
+    .homeHeaderContainer{
+        height: 15em;
+    }
+    .budgetPieChartCard{
+        height: 12em;
+    }
+    .collapsedHeader{
+        font-size: 18pt;
+    }
+    .collapsedDescription{
+        font-size: 12pt;
+    }
+    .collapsedDescription2{
+        font-size: 12pt;
+    }
+    .budgetHeader{
+        font-size: 18pt;
+    }
+    .budgetSubheader{
+        font-size: 14pt;
+    }
+    .budgetSavings{
+        font-size: 14pt;
+    }
+    
+}
+@media(max-width: 496px){
+    .homeHeaderContainer{
+        flex-direction: column;
+        align-items: center;
+    }
+    .homeHeader1{
+        margin-left: 0;
+    }
+    .homeHeader2{
+        margin-right: 0;
+    }
+    .homeHeaderContainer{
+        height: 17em;
+        justify-content: flex-start;
+    }
+    .collapsedDescription2{
+        display: none;
+    }
+    .budgetChart{
+        width: 30em;
+    }
+    .budgetPieChartCard{
+        height: 15em;
+    }
+}
+@media(max-width: 450px){
+    .budgetHeader{
+        font-size: 14pt;
+    }
+    .budgetSubheader{
+        font-size: 12pt;
+    }
+    .budgetHeader2{
+        flex-direction: column;
+    }
+    .arrow{
+        height: 4.5em;
+    }
+    .budgetSavings{
+        font-size: 12pt;
+    }
+}
+@media(max-width: 400px){
+    .budgetChart{
+        width: 20em;
+    }
+    .budgetPieChartCard{
+        height: 10em;
+    }
+    .budgetMainContainer{
+        height: 30em;
+    }
+    .collapsedHeader{
+        width: 3em;
+    }
+}
+@media(max-width: 337px){
+    .collapsedHeader{
+        font-size: 12pt;
+    }
+}
