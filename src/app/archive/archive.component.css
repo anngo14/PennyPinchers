@@ -317,6 +317,9 @@
     .collapsedDescription{
         width: 2em;
     }
+    .collapsedExpenseHeader{
+        width: 8em;
+    }
     .goalDateContainer{
         width: 15em;
     }
@@ -395,16 +398,9 @@
         height: 320px;
     }
     .collapsedExpenseHeader{
-        display: flex;
-        align-items: center;
         font-size: 20pt;
-        width: 200px;
-        height: 32px;
-        overflow: hidden;
-        overflow-y: visible;
     }
     .collapsedExpenseDescription{
-        height: 30px;
         font-size: 14pt;
     }
     .expenseBarGraphCard{
@@ -521,14 +517,21 @@
     .goalList{
         width: 100%;
     }
-    .collapsedExpenseDescription > span:nth-child(1){
-        display: none;
-    }
     .collapsedExpenseDescription{
-        width: 42px;
+        width: 2em;
+        font-size: 12pt;
+    }
+    .collapsedExpenseDescription :nth-child(1){
+        display: none;
     }
     .expenseBarGraphCard{
         display: none;
+    }
+    .expenseList{
+        height: 100%;
+    }
+    .expandedExpenseCard{
+        width: 85%;
     }
 }
 @media(max-width: 450px){
@@ -554,6 +557,12 @@
     .goalDetail{
         justify-content: center;
     }
+    .collapsedExpenseHeader{
+        font-size: 14pt;
+    }
+    .collapsedGoalHeading{
+        flex-direction: column;
+    }
 }
 @media(max-width: 400px){
     .monthContainer{
@@ -565,19 +574,47 @@
     .goalProgressBarContainer{
         display: none;
     }
+    .collapsedItem{
+        flex-direction: column;
+        height: 2.75em;
+    }
+    .collapsedExpenseHeader{
+        width: 100%;
+    }
     .collapsedExpenseDescription{
-        display: none;
+        width: 100%;
+    }
+    .goalDetail{
+        height: 20em;
+    }
+    .goalDetailContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .goalDateContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .goalLabel{
+        text-align: center;
+    }
+    .goalDetail{
+        text-align: center;
+    }
+    .goalCompleted{
+        text-align: center;
     }
 }
 @media(max-width: 368px){
     .expandedBudgetCard{
         width: 80%;
     }
-    .collapsedDescription{
-        display: none;
-    }
-    .goalDetail{
-        height: 15em;
+    .expandedExpenseCard{
+        width: 80%;
     }
 }
 @media(max-width: 350px){
@@ -593,11 +630,5 @@
     .budgetPieChartCard{
         width: 250px;
         height: 170px;
-    }
-    #collapsedGoalDescription{
-        display: none;
-    }
-    .goalDetail{
-        height: 17em;
     }
 }
