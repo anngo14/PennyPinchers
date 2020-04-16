@@ -20,7 +20,7 @@
             <span class='goalAmount'>{{goalGoal - goalSaved | currency}}</span>
         </div>
     </div>
-    <div>
+    <div class='goalProgressContainer'>
         <mat-progress-bar *ngIf='progressValue < 100; else completedProgress' id="goalProgressBar" mode="buffer" [value]='progressValue'></mat-progress-bar>
         <ng-template #completedProgress>
             <mat-progress-bar id='goalProgressBar' mode='indeterminate'></mat-progress-bar>
@@ -33,19 +33,17 @@
 <mat-divider></mat-divider>
 <div class='depositContainer'>
     <div class='depositInputContainer'>
-        <div>
-            <mat-form-field id='depositInput'>
-                <mat-label>Add to Goal</mat-label>
-                <input matInput type="number" placeholder="$0.00" [(ngModel)]='depositAmt' name='depositAmt'>
-            </mat-form-field>
-            <button mat-stroked-button *ngIf='depositAmt == null; else checkNegative' disabled>Deposit</button>
-            <ng-template #checkNegative>
-                <button mat-stroked-button *ngIf='depositAmt < 0; else regularButton' disabled>Deposit</button>
-            </ng-template>
-            <ng-template #regularButton>
-                <button mat-stroked-button (click)='addDeposit()'>Deposit</button>
-            </ng-template>
-        </div>
+        <mat-form-field id='depositInput'>
+            <mat-label>Add to Goal</mat-label>
+            <input matInput type="number" placeholder="$0.00" [(ngModel)]='depositAmt' name='depositAmt'>
+        </mat-form-field>
+        <button mat-stroked-button *ngIf='depositAmt == null; else checkNegative' disabled id='depositButton'>Deposit</button>
+        <ng-template #checkNegative>
+            <button mat-stroked-button *ngIf='depositAmt < 0; else regularButton' disabled id='depositButton'>Deposit</button>
+        </ng-template>
+        <ng-template #regularButton>
+            <button mat-stroked-button (click)='addDeposit()' id='depositButton'>Deposit</button>
+        </ng-template>
     </div>
 </div>
 <div id='deleteContainer'>

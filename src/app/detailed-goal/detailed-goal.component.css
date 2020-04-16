@@ -43,6 +43,9 @@
     width: 20em;
 }
 #goalProgressBar{
+    width: 100%;
+}
+.goalProgressContainer{
     width: 35em;
 }
 #goalPercent{
@@ -56,7 +59,6 @@
     height: 8em;
 }
 #depositInput{
-    margin-top: 1em;
     width: 20em;
     margin-right: 1em;
     font-size: 16pt;
@@ -65,7 +67,8 @@
 .depositInputContainer{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: center;
 }
 #deleteContainer{
     display: flex;
@@ -75,4 +78,135 @@
 }
 #deleteButton{
     width: 5em;
+}
+
+@media(max-width: 1360px){
+    .goalHeading{
+        width: 100%;
+    }
+    .goalSubheading{
+        width: 100%;
+    }
+    .goalProgressContainer{
+        width: 50%;
+    }
+}
+@media(max-width: 1287px){
+    #goalName{
+        width: 10em;
+    }
+    .goalProgressContainer{
+        width: 35%;
+    }
+}
+@media(max-width: 1041px){
+    .dateLabel{
+        font-size: 18pt;
+    }
+    .date{
+        font-size: 18pt;
+    }
+    #goalName{
+        font-size: 24pt;
+    }
+}
+@media(max-width: 930px){
+    #depositInput{
+        width: 15em;
+    }
+    .goalLabel{
+        font-size: 18pt;
+    }
+    .goalAmount{
+        font-size: 18pt;
+    }
+    #goalPercent{
+        font-size: 18pt;
+    }
+    #goalContainer{
+        width: 15em;
+    }
+    #goalPercentContainer{
+        width: 5em;
+    }
+    .goalProgressContainer{
+        width: 40%;
+    }
+    .dateLabel{
+        font-size: 14pt;
+    }
+    .date{
+        font-size: 14pt;
+    }
+}
+@media(max-width: 832px){
+    #goalName{
+        font-size: 20pt;
+    }
+}
+@media(max-width: 760px){
+    .goalHeading{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #dateContainer{
+        text-align: left;
+        width: 100%;
+    }
+    #depositInput{
+        width: 10em;
+        font-size: 14pt;
+    }
+    #goalName{
+        width: 100%;
+    }
+    .goalLabel{
+        font-size: 14pt;
+    }
+    .goalAmount{
+        font-size: 14pt;
+    }
+    #goalPercent{
+        font-size: 14pt;
+    }
+    #goalContainer{
+        width: 10em;
+    }
+}
+@media(max-width: 568px){
+    .goalSubheading{
+        flex-direction: column;
+        height: 7em;
+        margin: 1em 0;
+    }
+    #goalContainer{
+        width: 95%;
+    }
+    .goalProgressContainer{
+        width: 95%;
+    }
+    #goalPercentContainer{
+        width: 95%;
+    }
+}
+@media(max-width: 439px){
+    .depositInputContainer{
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+    #depositInput{
+        margin: 0;
+    }
+    .depositContainer{
+        height: 10em;
+    }
+}
+@media(max-width: 331px){
+    #deleteContainer{
+        flex-direction: column-reverse;
+    }
+    #otherButtons{
+        margin-bottom: 1em;
+    }
 }

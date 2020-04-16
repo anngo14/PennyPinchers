@@ -36,14 +36,14 @@ export class GoalsComponent implements OnInit {
       name: "Trip to Costa Rica",
       goal: 3500,
       saved: 1020.42,
-      created: "4 6 2020",
+      created: "11 6 2020",
       completed: null
     },
     {
       name: "New PC",
       goal: 1000,
       saved: 1000,
-      created: "2 4 2020",
+      created: "9 4 2020",
       completed: "4 18 2020"
     }
   ];

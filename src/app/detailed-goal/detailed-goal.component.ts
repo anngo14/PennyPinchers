@@ -51,9 +51,9 @@ export class DetailedGoalComponent implements OnInit {
     }
   }
   parseDate(d: string){
-    let output: string = "";
+    let output: any = "";
     let elements = d.split(" ");
-    output += this.months[elements[0]] + " " + elements[1] + ", " + elements[2];
+    output += this.months[Number.parseInt(elements[0]) - 1] + " " + elements[1] + ", " + elements[2];
     return output;
   }
   save(){
