@@ -46,7 +46,7 @@ export class DetailedGoalComponent implements OnInit {
     this.progressValue = this.progressValue.toFixed(2);
 
     if(this.goalSaved >= this.goalGoal){
-      this.unparsedDate = d.getMonth() + " " + d.getDate() + " " + d.getFullYear();
+      this.unparsedDate = d.getMonth() - 1 + " " + d.getDate() + " " + d.getFullYear();
       this.completedDate = this.parseDate(this.unparsedDate);
     }
   }

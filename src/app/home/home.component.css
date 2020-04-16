@@ -6,10 +6,37 @@
     margin: 2em;
     height: 40em;
 }
+.homeHeaderContainer{
+    display: flex;
+    flex-direction: row;
+    height: 150px;
+    justify-content: space-between;
+    align-items: center;
+}
+.homeHeader1{
+    margin-left: 8em;
+}
+.homeHeader2{
+    margin-right: 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.checkDateContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.overviewCardContainer{
+    display: flex;
+    flex-direction: row;
+    width: 114em;
+    height: 37em;
+}
 .overviewCard{
     margin: 1em;
     height: 33em;
-    width: 100%;
+    width: 50%;
     overflow-y: auto;
     -ms-overflow-style: none;
 }
@@ -22,7 +49,7 @@
 .budgetCard{
     margin: 1em;
     height: 33em;
-    width: 100%;
+    width: 1728px;
     overflow-y: auto;
     -ms-overflow-style: none;
 }
@@ -32,7 +59,7 @@
 .spendingCard{
     margin: 1em;
     height: 33em;
-    width: 100%;
+    width: 1792px;
     overflow-y: auto;
     -ms-overflow-style: none;
 }
