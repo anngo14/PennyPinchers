@@ -114,13 +114,13 @@
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
                                                     <span id='unallocatedAmt'>{{wantsUnallocated | currency}}</span>
                                                 </div>
-                                            </div>                                            <mat-list>
+                                            </div>                                            
+                                            <mat-list class='overviewBudgetListItemContainer'>
                                                 <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
                                                         </div>
-                                                        <div></div>
                                                         <div class='overviewBudgetListDescription'>
                                                             <span>{{c.amount | currency}}</span>
                                                         </div>
@@ -157,7 +157,6 @@
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
                                                         </div>
-                                                        <div></div>
                                                         <div class='overviewBudgetListDescription'>
                                                             <span>{{c.amount | currency}}</span>
                                                         </div>
@@ -188,7 +187,6 @@
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
                                                         </div>
-                                                        <div></div>
                                                         <div class='overviewBudgetListDescription'>
                                                             <span>{{c.amount | currency}}</span>
                                                         </div>

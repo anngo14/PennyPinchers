@@ -292,7 +292,7 @@
         height: 400px; 
     }
     .overviewBudgetContent{
-        width: 85%;
+        width: 100%;
     }
     .goalLabel{
         font-size: 16pt;
@@ -533,11 +533,20 @@
 }
 @media(max-width: 450px){
     .overviewBudgetListItem{
-        width: 10em;
-        padding-right: 1em;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
     }
-    .overviewBudgetContentContainer{
-        overflow-x: auto;
+    .overviewBudgetListHeader{
+        width: 100%;
+        text-align: center;
+    }
+    .overviewBudgetListDescription{
+        font-size: 12pt;
+        width: 100%;
+        text-align: center;
     }
     .collapsedHeader{
         font-size: 14pt;
