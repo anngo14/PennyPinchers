@@ -21,7 +21,7 @@
             <h4 mat-line>No Categories</h4>
         </mat-list-item>
         <mat-list-item #expenseList *ngFor='let e of expenses;' class='expenseListItemContainer'>
-            <div class='expenseListItem' style='height: 100%;'>
+            <div class='expenseListItem'>
                 <div>
                     <input class='expenseListTitle' type='text' [(ngModel)]=e.title value={{e.title}}>
                 </div>
