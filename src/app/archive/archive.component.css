@@ -230,7 +230,101 @@
 .goalProgressBarContainer{
     width: 25em;
 }
+
 @media(max-width: 1900px){
+    .expenseList{
+        min-height: 15em;
+        width: 75%;
+        margin-bottom: 1em;
+    }
+    .expenseBarGraphCard{
+        margin: 1em;
+        width: 75%;
+    }
+    .budgetPieChartCard{
+        width: 844px;
+        height: 440px;
+    }
+    .goalList{
+        width: 75%;
+    }
+    .overviewBudgetContent{
+        width: 42%;
+    }
+    .expandedBudgetCard{
+        width: 97%;
+    }
+}
+@media(max-width: 1700px){
+    .budgetPieChartCard{
+        width: 700px;
+        height: 440px;
+    }
+    .overviewBudgetContent{
+        width: 50%;
+    }
+}
+@media(max-width: 1550px){
+    .budgetPieChartCard{
+        height: 20em;
+    }
+    .overviewBudgetContent{
+        width: 65%;
+    }
+    .expenseBarGraphCard{
+        height: 400px;
+    }
+}
+@media(max-width: 1400px){
+    .budgetPieChartCard{
+        height: 18em;
+    }
+    .goalList{
+        width: 95%;
+    }
+    .expenseBarGraphCard{
+        width: 95%;
+    }
+    .expenseList{
+        width: 95%;
+    }
+    .expenseBarGraphCard{
+        height: 360px;
+    }
+}
+@media(max-width: 1340px){
+    .expandedBudgetCard{
+        width: 95%;
+    }
+    .overviewBudgetContent{
+        width: 64%;
+    }
+}
+@media(max-width: 1250px){
+    .expenseList{
+        width: 50%;
+    }
+    .budgetPieChartCard{
+        height: 14em;
+    }
+}
+@media(max-width: 1200px){
+    .goalProgressBarContainer{
+        width: 20em;
+    }
+    .overviewBudgetContent{
+        width: 70%;
+    }
+    .budgetPieChartCard{
+        height: 12em;
+    }
+}
+@media(max-width: 1160px){
+    .budgetPieChartCard{
+        height: 11em;
+    }
+}
+@media(max-width: 1094px){
     .expandedBudgetCard{
         width: 90%;
         flex-direction: column;
@@ -247,49 +341,8 @@
         overflow-y: auto;
         overflow-x: hidden;
     }
-    .expenseList{
-        min-height: 15em;
-        width: 75%;
-        margin-bottom: 1em;
-    }
-    .expenseBarGraphCard{
-        margin: 1em;
-        width: 75%;
-    }
     .budgetPieChartCard{
-        height: 490px;
-        width: 844px;
-    }
-    .goalList{
-        width: 75%;
-    }
-}
-@media(max-width: 1400px){
-    .goalList{
-        width: 95%;
-    }
-    .expenseBarGraphCard{
-        width: 95%;
-    }
-    .expenseList{
-        width: 95%;
-    }
-}
-@media(max-width: 1200px){
-    .goalProgressBarContainer{
-        width: 20em;
-    }
-    .expenseBarGraphCard{
-        width: 100%;
-    }
-    .expenseList{
-        width: 100%;
-    }
-}
-@media(max-width: 1094px){
-    .budgetPieChartCard{
-        width: 600px;
-        height: 400px; 
+        height: 28em;
     }
     .overviewBudgetContent{
         width: 100%;
@@ -302,6 +355,9 @@
     }
     .goalProgressBarContainer{
         width: 15em;
+    }
+    .expenseList{
+        width: 100%;
     }
 }
 @media(max-width: 980px){
