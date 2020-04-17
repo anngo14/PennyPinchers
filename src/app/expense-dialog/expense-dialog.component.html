@@ -1,34 +1,38 @@
-<h2>Expenses</h2>
-<h3 id='expenseHeader'>Add a new Expense</h3>
-<div class='formFieldContainer'>
-    <mat-form-field id='formField'>
-        <mat-label>Title</mat-label>
-        <input matInput type="text" [(ngModel)]='expenseTitle' name='expenseTitle'>
-    </mat-form-field>
-    <mat-form-field id='formField2'>
-        <mat-label>Cost</mat-label>
-        <input matInput type="number" [(ngModel)]='expenseAmount' name='expenseAmount'>
-    </mat-form-field>
-    <button mat-stroked-button *ngIf='uncategorized.length < 6; else expenseButton' (click)='addNewExpense()'>Add</button>
-    <ng-template #expenseButton>
-        <button mat-stroked-button disabled>Add</button>
-    </ng-template>
-</div>
-<h4>Existing Expenses</h4>
-<mat-list id='expenseListContainer'>
-    <mat-list-item *ngIf="expenses.length === 0; else expenseList">
-        <h4 mat-line>No Categories</h4>
-    </mat-list-item>
-    <mat-list-item #expenseList *ngFor='let e of expenses; let index = index;' class='expenseListItem'>
-        <div class='expenseListTitleContainer'>
-            <input class='expenseListTitle' type='text' [(ngModel)]=e.title value={{e.title}}>
-        </div>
-        <div class='expenseAmountContainer'>
-            <p class="expenseListAmountLabel">$</p>
-            <input class='expenseListAmount' type='number' [(ngModel)]=e.used placeholder={{e.budget}}>
-        </div>
-    </mat-list-item>
-</mat-list>
+<h2 id='expenseMainHeader'>Expenses</h2>
+<mat-dialog-content class='mat-typography'>
+    <h3 id='expenseHeader'>Add a new Expense</h3>
+    <div class='formFieldContainer'>
+        <mat-form-field id='formField'>
+            <mat-label>Title</mat-label>
+            <input matInput type="text" [(ngModel)]='expenseTitle' name='expenseTitle'>
+        </mat-form-field>
+        <mat-form-field id='formField2'>
+            <mat-label>Cost</mat-label>
+            <input matInput type="number" [(ngModel)]='expenseAmount' name='expenseAmount'>
+        </mat-form-field>
+        <button mat-stroked-button *ngIf='uncategorized.length < 6; else expenseButton' (click)='addNewExpense()'>Add</button>
+        <ng-template #expenseButton>
+            <button mat-stroked-button disabled>Add</button>
+        </ng-template>
+    </div>
+    <h4>Existing Expenses</h4>
+    <mat-list id='expenseListContainer'>
+        <mat-list-item *ngIf="expenses.length === 0; else expenseList">
+            <h4 mat-line>No Categories</h4>
+        </mat-list-item>
+        <mat-list-item #expenseList *ngFor='let e of expenses;' class='expenseListItemContainer'>
+            <div class='expenseListItem' style='height: 100%;'>
+                <div>
+                    <input class='expenseListTitle' type='text' [(ngModel)]=e.title value={{e.title}}>
+                </div>
+                <div class='expenseAmountContainer'>
+                    <span class="expenseListAmountLabel">$</span>
+                    <input class='expenseListAmount' type='number' [(ngModel)]=e.used placeholder={{e.budget}}>
+                </div>
+            </div>
+        </mat-list-item>
+    </mat-list>
+</mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
 </mat-dialog-actions>

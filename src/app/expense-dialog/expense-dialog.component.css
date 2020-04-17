@@ -14,7 +14,6 @@
     font-size: 22pt;
     font-weight: 200;
     width: 10em;
-    height: 100%;
     border: none;
 }
 .expenseListAmount{
@@ -42,16 +41,11 @@
 }
 .expenseListItem{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    width: 100%;
 }
-.expenseListTitleContainer{
-    height: 100%;
-}
-.expenseAmountContainer{
-    height: 100%;
-}
+
 @media(max-width: 805px){
     #formField{
         width: 15em;
@@ -68,7 +62,7 @@
         width: 3em;
     }
 }
-@media(max-width: 580px){
+@media(max-width: 584px){
     .formFieldContainer{
         display: flex;
         flex-direction: column;
@@ -81,10 +75,39 @@
         width: 100%;
         text-align: center;
     }
+    .expenseListItem{
+        flex-direction: column;
+    }
+    .expenseListItemContainer{
+        height: 4.5em;
+    }
     .expenseListTitle{
         width: 100%;
     }
     .expenseAmountContainer{
         width: 100%;
+    }
+    .expenseListAmount{
+        width: 100%;
+    }
+}
+@media(max-width: 400px){
+    .expenseListTitle{
+        font-size: 18pt;
+    }
+    .expenseListAmount{
+        font-size: 18pt;
+    }
+    .expenseListAmountLabel{
+        font-size: 18pt;
+    }
+}
+@media(max-height: 579px){
+    #expenseHeader{
+        font-size: 12pt;
+        margin-bottom: 0;
+    }
+    #expenseMainHeader{
+        font-size: 14pt;
     }
 }
