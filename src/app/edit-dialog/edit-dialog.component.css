@@ -5,19 +5,22 @@
 }
 .incomeContainer{
     height: 20em;
-    width: 44em;
+    width: 100%;
     overflow-y: auto;
 }
 .formField{
-    width: 20em;
+    width: 15em;
+    font-size: 14pt;
 }
 .formField2{
-    width: 10em;
+    width: 8em;
     margin-left: 2em;
+    font-size: 14pt;
 }
 #hourField{
     margin-left: 1em;
-    width: 9em;
+    width: 5em;
+    font-size: 14pt;
 }
 #addButton{
     margin-left: 2em;
@@ -27,12 +30,13 @@
 }
 .budgetContainer{
     height: 5em;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 .budgetCategory{
-    width: 14em;
+    width: 15em;
 }
 .budgetHeader{
     font-size: 24pt;
@@ -45,4 +49,69 @@
 }
 .budgetPercent{
     font-size: 24pt;
+}
+
+@media(max-width: 805px){
+    .budgetContainer{
+        flex-direction: column;
+        height: auto;
+    }
+    .incomeContainer{
+        width: 100%;
+    }
+    .formField2{
+        margin-left: 1em;
+        width: 5em;
+    }
+    #hourField{
+        width: 3em;
+    }
+    .budgetHeader{
+        width: 100%;
+    }
+    .incomeHeader{
+        width: 100%;
+        font-weight: 450;
+        display: flex;
+        justify-content: center;
+    }
+}
+@media(max-width: 647px){
+    .formContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .incomeSecondRow{
+        flex-direction: column;
+    }
+    .formField{
+        width: 100%;
+        text-align: center;
+    }
+    .formField2{
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+    #hourField{
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+    #addButton{
+        margin-left: 0;
+        width: 100%;
+        margin-bottom: 0.5em;
+    }
+    #trashIcon{
+        margin-left: 0;
+    }
+    .incomeContainer{
+        height: 29em;
+    }
+}
+@media(max-width: 353px){
+    .editHeader{
+        font-size: 20pt;
+    }
 }
