@@ -291,6 +291,9 @@
     .expenseBarGraphCard{
         height: 360px;
     }
+    #expenseUsage{
+        display: none;
+    }
 }
 @media(max-width: 1340px){
     .expandedBudgetCard{
@@ -298,6 +301,12 @@
     }
     .overviewBudgetContent{
         width: 64%;
+    }
+    .collapsedDescription{
+        width: 3em;
+    }
+    .collapsedExpenseDescription{
+        width: 3em;
     }
 }
 @media(max-width: 1250px){
@@ -370,9 +379,6 @@
     .collapsedHeader{
         width: 5em;
     }
-    .collapsedDescription{
-        width: 2em;
-    }
     .collapsedExpenseHeader{
         width: 8em;
     }
@@ -442,7 +448,7 @@
         height: 275px;
     }
     .collapsedExpenseDescription{
-        justify-content: flex-start;
+        justify-content: center;
     }
 }
 @media(max-width: 675px){
@@ -498,6 +504,14 @@
         height: 220px;
     }
 }
+@media(max-width: 580px){
+    .collapsedHeader{
+        font-size: 18pt;
+    }
+    .collapsedExpenseHeader{
+        font-size: 18pt;
+    }
+}
 @media(max-width: 550px){
     .overviewBudgetListHeader{
         font-size: 18pt;
@@ -519,7 +533,6 @@
         width: 100%;
     }
     .collapsedExpenseHeader{
-        font-size: 16pt;
         width: 100px;
     }
     .collapsedExpenseDescription{
@@ -558,9 +571,6 @@
     .overviewBudgetListDescription{
         font-size: 14pt;
     }
-    .collapsedHeader{
-        font-size: 18pt;
-    }
     .collapsedDescription{
         font-size: 12pt;
     }
@@ -574,11 +584,7 @@
         width: 100%;
     }
     .collapsedExpenseDescription{
-        width: 2em;
         font-size: 12pt;
-    }
-    .collapsedExpenseDescription :nth-child(1){
-        display: none;
     }
     .expenseBarGraphCard{
         display: none;
@@ -607,17 +613,31 @@
         width: 100%;
         text-align: center;
     }
-    .collapsedHeader{
-        font-size: 14pt;
-    }
     .goalDetail{
         justify-content: center;
     }
-    .collapsedExpenseHeader{
-        font-size: 14pt;
-    }
     .collapsedGoalHeading{
         flex-direction: column;
+    }
+    .collapsedDescription{
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .collapsedExpenseDescription{
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .collapsedItem{
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 2.75em;
+    }
+    .collapsedHeader{
+        text-align: left;
+        width: 100%;
+    }
+    .collapsedExpenseHeader{
+        width: 100%;
     }
 }
 @media(max-width: 400px){
@@ -625,20 +645,13 @@
         display: none;
     }
     .collapsedHeader{
-        width: 3em;
+        font-size: 14pt;
     }
     .goalProgressBarContainer{
         display: none;
     }
-    .collapsedItem{
-        flex-direction: column;
-        height: 2.75em;
-    }
     .collapsedExpenseHeader{
-        width: 100%;
-    }
-    .collapsedExpenseDescription{
-        width: 100%;
+        font-size: 14pt;
     }
     .goalDetail{
         height: 20em;
@@ -671,6 +684,14 @@
     }
     .expandedExpenseCard{
         width: 80%;
+    }
+}
+@media(max-width: 360px){
+    .collapsedHeader{
+        font-size: 12pt;
+    }
+    .collapsedExpenseHeader{
+        font-size: 12pt;
     }
 }
 @media(max-width: 350px){

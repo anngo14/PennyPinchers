@@ -466,10 +466,15 @@
                             </div>
                         </div>
                         <div class='expenseMainContainer'>
+                            <div class='expenseChart'>
+                                <mat-card class='expenseBarChartCard'>
+                                    <canvas #expenseBarChart id='expenseBarChart' width="1200px" height="800px"  (click)="refreshExpenseBarChart()"></canvas>
+                                </mat-card>
+                            </div>
                             <div class='expenseCategories'>
                                 <div class='expenseAddContainer'>
                                     <mat-chip-list>
-                                        <mat-chip (click)='openExpenseList()'>Add a New Expense +</mat-chip>
+                                        <mat-chip (click)='openExpenseList()' class='expenseModal'>Add a New Expense +</mat-chip>
                                     </mat-chip-list>
                                 </div>
                                 <div id='expenseList'>
@@ -482,7 +487,7 @@
                                                             <span>{{c.title}}</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>Usage &nbsp;</span>
+                                                            <span id='expenseUsage'>Usage &nbsp;</span>
                                                             <span>{{c.used / c.budget | percent}}</span>
                                                         </div>
                                                     </div>
@@ -515,11 +520,6 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                 </div>
-                            </div>
-                            <div class='expenseChart'>
-                                <mat-card class='expenseBarChartCard'>
-                                    <canvas #expenseBarChart id='expenseBarChart' width="1200px" height="800px"  (click)="refreshExpenseBarChart()"></canvas>
-                                </mat-card>
                             </div>
                         </div>
                     </mat-card>
