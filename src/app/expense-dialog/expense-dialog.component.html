@@ -1,6 +1,6 @@
 <h2>Expenses</h2>
 <h3 id='expenseHeader'>Add a new Expense</h3>
-<div>
+<div class='formFieldContainer'>
     <mat-form-field id='formField'>
         <mat-label>Title</mat-label>
         <input matInput type="text" [(ngModel)]='expenseTitle' name='expenseTitle'>
@@ -19,10 +19,14 @@
     <mat-list-item *ngIf="expenses.length === 0; else expenseList">
         <h4 mat-line>No Categories</h4>
     </mat-list-item>
-    <mat-list-item #expenseList *ngFor='let e of expenses; let index = index;'>
-        <input class='expenseListTitle' type='text' [(ngModel)]=e.title value={{e.title}}>
-        <p class="expenseListAmountLabel">$</p>
-        <input class='expenseListAmount' type='number' [(ngModel)]=e.used placeholder={{e.budget}}>
+    <mat-list-item #expenseList *ngFor='let e of expenses; let index = index;' class='expenseListItem'>
+        <div class='expenseListTitleContainer'>
+            <input class='expenseListTitle' type='text' [(ngModel)]=e.title value={{e.title}}>
+        </div>
+        <div class='expenseAmountContainer'>
+            <p class="expenseListAmountLabel">$</p>
+            <input class='expenseListAmount' type='number' [(ngModel)]=e.used placeholder={{e.budget}}>
+        </div>
     </mat-list-item>
 </mat-list>
 <mat-dialog-actions align="end">
