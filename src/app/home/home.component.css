@@ -381,6 +381,19 @@
     .budgetSavings{
         font-size: 24pt;
     }
+    .expandedHeader{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .expandedHeader > h2{
+        margin-right: 0;
+    }
+    .expandedHeader > mat-chip-list{
+        margin-right: 0;
+    }
+    .unallocatedContainer{
+        padding-top: 1em;
+    }
 }
 @media(max-width: 690px){
     .homeHeader1{
@@ -421,7 +434,13 @@
     .budgetSavings{
         font-size: 14pt;
     }
-    
+    .overviewBudgetListHeader{
+        font-size: 18pt;
+        width: 10em;
+    }
+    .overviewBudgetListDescription{
+        font-size: 18pt;
+    }
 }
 @media(max-width: 496px){
     .homeHeaderContainer{
@@ -447,6 +466,12 @@
     .budgetPieChartCard{
         height: 15em;
     }
+    .overviewBudgetListHeader{
+        font-size: 16pt;
+    }
+    .overviewBudgetListDescription{
+        font-size: 16pt;
+    }
 }
 @media(max-width: 450px){
     .budgetHeader{
@@ -464,6 +489,22 @@
     .budgetSavings{
         font-size: 12pt;
     }
+    .overviewBudgetListItem{
+        flex-direction: column;
+    }
+    .overviewBudgetListHeader{
+        width: 100%;
+        text-align: center;
+    }
+    .overviewBudgetListDescription{
+        width: 100%;
+        text-align: center;
+    }
+}
+@media(max-width: 434px){
+    .modalButton{
+        font-size: 8pt;
+    }
 }
 @media(max-width: 400px){
     .budgetChart{
@@ -478,9 +519,25 @@
     .collapsedHeader{
         width: 3em;
     }
+    .unallocatedContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    #unallocatedHeading{
+        padding-left: 0.75em;
+    }
+    .modalButton{
+        height: 5em;
+        text-align: center;
+    }
 }
 @media(max-width: 337px){
     .collapsedHeader{
         font-size: 12pt;
+    }
+    .modalButton{
+        height: 7em;
     }
 }
