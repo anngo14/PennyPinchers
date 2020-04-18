@@ -27,8 +27,94 @@
 }
 #wantListContainer{
     height: 15em;
+    width: 100%;
     overflow-y: auto;
 }
 .wantListAmountLabel{
     font-size: 20pt;
+}
+.wantAmountContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.wantListItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+}
+.wantTitleContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@media(max-width: 805px){
+    #formField{
+        width: 15em;
+    }
+    #formField2{
+        margin-right: 1em;
+    }
+}
+@media(max-width: 681px){
+    #formField2{
+        width: 5em;
+    }
+    .wantListAmount{
+        width: 3em;
+    }
+}
+@media(max-width: 584px){
+    .formFieldContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    #formField{
+        width: 100%;
+        text-align: center;
+    }
+    #formField2{
+        width: 100%;
+        text-align: center;
+    }
+    .wantListItem{
+        flex-direction: column;
+        height: 100%;
+    }
+    .wantListTitle{
+        width: 100%;
+    }
+    .wantAmountContainer{
+        width: 100%;
+    }
+    .wantListAmount{
+        width: 100%;
+    }
+    .wantTitleContainer{
+        flex-direction: row-reverse;
+    }
+}
+@media(max-width: 400px){
+    .wantListTitle{
+        font-size: 18pt;
+    }
+    .wantListAmount{
+        font-size: 18pt;
+    }
+    .wantListAmountLabel{
+        font-size: 18pt;
+    }
+}
+@media(max-height: 579px){
+    #wantsHeader{
+        font-size: 12pt;
+        margin-bottom: 0;
+    }
+    #wantMainHeader{
+        font-size: 14pt;
+    }
 }
