@@ -35,7 +35,7 @@
     </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="wants">Cancel</button>
-    <button mat-button [mat-dialog-close]="wants" (click)='saveWants()' cdkFocusInitial>Save</button>
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" (click)='saveWants()' cdkFocusInitial>Save</button>
 </mat-dialog-actions>
 

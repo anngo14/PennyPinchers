@@ -31,11 +31,11 @@ export class NeedsDialogComponent implements OnInit {
     let expense = {
       title: this.needsTitle,
       budget: this.needsAmount,
-      used: this.needsAmount
+      used: 0
     };
 
     this.needs.push(need);
-    this.data.expenseList.push(expense);
+    this.data.expenseList.splice(this.needs.length - 1, 0, expense);
 
     this.needsTitle = "";
     this.needsAmount = null;

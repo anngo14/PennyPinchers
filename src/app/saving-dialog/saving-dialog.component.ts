@@ -23,7 +23,7 @@ export class SavingDialogComponent implements OnInit {
       return;
     }
 
-    let want = {
+    let saving = {
       title: this.savingTitle,
       amount: this.savingAmount
     };
@@ -33,8 +33,8 @@ export class SavingDialogComponent implements OnInit {
       used: 0
     };
 
-    this.saving.push(want);
-    this.data.expenseList.push(expense);
+    this.saving.push(saving);
+    this.data.expenseList.splice(this.data.offset + this.saving.length - 1, 0, expense);
 
     this.savingTitle = "";
     this.savingAmount = null;

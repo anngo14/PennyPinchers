@@ -11,6 +11,7 @@ import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component'
 import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized-dialog.component';
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
+import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-home',
@@ -495,57 +496,88 @@ export class HomeComponent implements OnInit {
     this.drawPieChart(this.ctx3, this.canvas3, 320, this.overviewSlices, false, this.colors);
   }
   openExpenseList(){
+    let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
+    let uncategorizedListCopy = this.BudgetObject.categories[3].items.map(item => ({...item}));
     const expenseDialogRef = this.dialog.open(ExpenseDialogComponent, {
-      data: { expenseList: this.ExpenseObject.items,
-              uncategorizedList: this.BudgetObject.categories[3].items}
+      data: { expenseList: expenseListCopy,
+              uncategorizedList: uncategorizedListCopy}
     });
     expenseDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated(4);
+      if(result){
+        this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[3].items = uncategorizedListCopy.map(item => ({...item}));
+        this.budgetAllocated = this.getAllocated(4);
+      }
     });
   }
   openNeedsDialog(){
+    let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
+    let needListCopy = this.BudgetObject.categories[0].items.map(item => ({...item}));
     const needsDialogRef = this.dialog.open(NeedsDialogComponent, {
-      data: { needs: this.BudgetObject.categories[0].items.slice(),
-              expenseList: this.ExpenseObject.items}
+      data: { needs: needListCopy,
+              expenseList: expenseListCopy}
     });
     needsDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated(4);
-      this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
-      this.drawDetailedPie(0);
+      if(result){
+        this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[0].items = needListCopy.map(item => ({...item}));
+        this.budgetAllocated = this.getAllocated(4);
+        this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+        this.drawDetailedPie(0);
+      }
     });
   }
   openWantsDialog(){
+    let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
+    let wantListCopy = this.BudgetObject.categories[1].items.map(item => ({...item}));
     const wantsDialogRef = this.dialog.open(WantsDialogComponent, {
-      data: { wants: this.BudgetObject.categories[1].items,
-              expenseList: this.ExpenseObject.items,
+      data: { wants: wantListCopy,
+              expenseList: expenseListCopy,
               offset: this.BudgetObject.categories[0].items.length}
     });
     wantsDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated(4);
-      this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
-      this.drawDetailedPie(1);
+      if(result){
+        this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[1].items = wantListCopy.map(item => ({...item}));
+        this.budgetAllocated = this.getAllocated(4);
+        this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+        this.drawDetailedPie(1);
+      }
     });
   }
   openSavingDialog(){
+    let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
+    let savingListCopy = this.BudgetObject.categories[2].items.map(item => ({...item}));
     const savingDialogRef = this.dialog.open(SavingDialogComponent, {
-      data: { saving: this.BudgetObject.categories[2].items,
-              expenseList: this.ExpenseObject.items,
+      data: { saving: savingListCopy,
+              expenseList: expenseListCopy,
               offset: this.BudgetObject.categories[0].items.length + this.BudgetObject.categories[1].items.length}
     });
     savingDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated(4);
-      this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
-      this.drawDetailedPie(2);
+      if(result){
+        this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[2].items = savingListCopy.map(item => ({...item}));
+        this.budgetAllocated = this.getAllocated(4);
+        this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+        this.drawDetailedPie(2);
+      }
+      
     });
   }
   openUncategorizedDialog(){
+    let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
+    let uncategorizedListCopy = this.BudgetObject.categories[3].items.map(item => ({...item}));
     const savingDialogRef = this.dialog.open(UnategorizedDialogComponent, {
-      data: { uncategorized: this.BudgetObject.categories[3].items,
-              expenseList: this.ExpenseObject.items, 
+      data: { uncategorized: uncategorizedListCopy,
+              expenseList: expenseListCopy, 
               offset: this.BudgetObject.categories[0].items.length + this.BudgetObject.categories[1].items.length + this.BudgetObject.categories[2].items.length}
     });
     savingDialogRef.afterClosed().subscribe(result => {
-      this.budgetAllocated = this.getAllocated(4);
+      if(result){
+        this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[3].items = uncategorizedListCopy.map(item => ({...item}));
+        this.budgetAllocated = this.getAllocated(4);
+      }
     });
   }
   openEditDialog(){

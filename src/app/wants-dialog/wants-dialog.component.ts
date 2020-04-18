@@ -34,7 +34,7 @@ export class WantsDialogComponent implements OnInit {
     };
 
     this.wants.push(want);
-    this.data.expenseList.push(expense);
+    this.data.expenseList.splice(this.data.offset + this.wants.length - 1 , 0, expense);
 
     this.wantsTitle = "";
     this.wantsAmount = null;

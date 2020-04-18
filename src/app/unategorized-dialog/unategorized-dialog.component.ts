@@ -34,7 +34,7 @@ export class UnategorizedDialogComponent implements OnInit {
     };
 
     this.uncategorized.push(item);
-    this.data.expenseList.push(expense);
+    this.data.expenseList.splice(this.data.offset + this.uncategorized.length - 1, 0, expense);
 
     this.uncategorizedTitle = "";
     this.uncategorizedAmount = null;
