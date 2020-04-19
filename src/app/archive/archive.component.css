@@ -1,6 +1,7 @@
 .archiveCard{
     margin: 2em;
     height: 40em;
+    overflow-y: auto;
 }
 .headerContainer{
     height: 150px;
@@ -156,13 +157,13 @@
     height: 100%;
 }
 .expandedBudgetCard{
-    width: 1720px;
+    width: 1700px;
     height: 500px;
     display: flex;
     flex-direction: row;
 }
 .expandedExpenseCard{
-    width: 1720px;
+    width: 1700px;
     height: 500px;
     display: flex;
     flex-direction: row-reverse;
@@ -254,6 +255,9 @@
     .expandedBudgetCard{
         width: 97%;
     }
+    .expandedExpenseCard{
+        width: 97%;
+    }
 }
 @media(max-width: 1700px){
     .budgetPieChartCard{
@@ -297,6 +301,9 @@
 }
 @media(max-width: 1340px){
     .expandedBudgetCard{
+        width: 95%;
+    }
+    .expandedExpenseCard{
         width: 95%;
     }
     .overviewBudgetContent{
@@ -563,6 +570,9 @@
         margin-right: 0;
     }
     .expandedBudgetCard{
+        width: 85%;
+    }
+    .expandedExpenseCard{
         width: 85%;
     }
     .overviewBudgetListHeader{
