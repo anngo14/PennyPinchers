@@ -134,6 +134,12 @@
         margin-left: 5em;
     }
 }
+@media(max-width: 672px){
+    .createGoalCard{
+        width: 100%;
+        height: 100%;
+    }
+}
 @media(max-width: 500px){
     .createHeading{
         flex-direction: column;
