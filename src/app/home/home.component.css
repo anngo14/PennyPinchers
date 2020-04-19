@@ -27,7 +27,7 @@
     flex-direction: row;
     align-items: center;
 }
-.overviewCardContainer{
+.overviewContainer{
     display: flex;
     flex-direction: row;
     width: 114em;
@@ -114,12 +114,10 @@
     height: 18em;
     overflow-y: auto;
     -ms-overflow-style: none;
+    padding: 0.5em;
 }
 .overviewBudgetContentBig::-webkit-scrollbar{
     scrollbar-width: thin;
-}
-.collapsedListItem{
-    margin: 0.25em;
 }
 .collapsedHeader{
     width: 300px;
@@ -286,6 +284,7 @@
     height: 35em;
     overflow-y: auto;
     -ms-overflow-style: none;
+    padding: 0.5em;
 }
 #editBudgetChip{
     margin-bottom: 1.5em;
@@ -298,15 +297,27 @@
     .budgetPieChartCard{
         height: 26em;
     }
+    .overviewContainer{
+        width: 100%;
+    }
 }
 @media(max-width: 1700px){
     .budgetPieChartCard{
         height: 25em;
     }
+    .overviewChart{
+        height: 28em;
+    }
 }
 @media(max-width: 1550px){
     .budgetPieChartCard{
         height: 20em;
+    }
+    .overviewChart{
+        height: 24em;
+    }
+    .overviewBudgetContent{
+        margin-top: 5em;
     }
 }
 @media(max-width: 1400px){
@@ -344,6 +355,40 @@
     }
     .expenseCategories{
         width: 45%;
+    }
+    .overviewChart{
+        height: 20em;
+    }
+    #overviewUsage{
+        display: none;
+    }
+}
+@media(max-width: 1200px){
+    .overviewBudgetContent{
+        margin-top: 0;
+    }
+    .overviewChart{
+        height: 32em;
+    }
+    .overviewCard{
+        overflow-y: visible;
+        height: auto;
+        width: 90%;
+    }
+    .overviewContainer{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-y: auto;
+        height: 36em;
+    }
+    .overviewBudgetContent{
+        height: 11em;
+        padding: 0.5em;
+        overflow-y: auto;
+    }
+    .overviewBudgetContentBig{
+        height: 11em;
     }
 }
 @media(max-width: 1160px){
@@ -389,6 +434,15 @@
     .expenseCategories{
         width: 100%;
     }
+    .overviewChart{
+        height: 28em;
+    }
+    .overviewBudgetContent{
+        height: 14em;
+    }
+    .overviewBudgetContentBig{
+        height: 14em;
+    }
 }
 @media(max-width: 920px){
     .budgetPieChartCard{
@@ -396,6 +450,15 @@
     }
     .expenseBarChartCard{
         height: 25em;
+    }
+    .overviewChart{
+        height: 24em;
+    }
+    .overviewBudgetContent{
+        height: 19em;
+    }
+    .overviewBudgetContentBig{
+        height: 19em;
     }
 }
 @media(max-width: 800px){
@@ -407,6 +470,15 @@
     }
     .expenseBarChartCard{
         height: 22em;
+    }
+    .overviewChart{
+        height: 22em;
+    }
+    .overviewBudgetContent{
+        height: 20em;
+    }
+    .overviewBudgetContentBig{
+        height: 20em;
     }
 }
 @media(max-width: 732px){
@@ -445,6 +517,15 @@
     }
     .expenseBarChartCard{
         height: 18em;
+    }
+    .overviewChart{
+        height: 18em;
+    }
+    .overviewBudgetContent{
+        height: 24em;
+    }
+    .overviewBudgetContentBig{
+        height: 24em;
     }
 }
 @media(max-width: 580px){
@@ -495,6 +576,24 @@
     .expenseChart{
         display: none;
     }
+    #overviewBarChartDiv{
+        display: none;
+    }
+    .overviewBudgetContentBig{
+        height: 43em;
+    }
+    .overviewChart{
+        height: 14em;
+    }
+    .overviewBudgetContent{
+        height: 28em;
+    }
+    .transactionItem{
+        font-size: 20pt;
+    }
+    .overviewTransaction{
+        width: 85%;
+    }
 }
 @media(max-width: 496px){
     .homeHeaderContainer{
@@ -525,6 +624,15 @@
     }
     .overviewBudgetListDescription{
         font-size: 16pt;
+    }
+    .overviewChart{
+        height: auto;
+    }
+    .overviewBudgetContent{
+        height: 30em;
+    }
+    .overviewTransaction{
+        width: 95%;
     }
 }
 @media(max-width: 450px){
@@ -582,6 +690,9 @@
     .expenseModal{
         font-size: 10pt;
     }
+    .overviewCard{
+        width: 85%;
+    }
 }
 @media(max-width: 400px){
     .budgetChart{
@@ -609,6 +720,9 @@
         height: 5em;
         text-align: center;
     }
+    .transactionItem{
+        font-size: 16pt;
+    }
 }
 @media(max-width: 360px){
     .collapsedHeader{
@@ -617,9 +731,18 @@
     .expenseModal{
         font-size: 8pt;
     }
+    .overviewHeader{
+        margin-left: 0;
+    }
 }
 @media(max-width: 337px){
     .modalButton{
         height: 7em;
+    }
+    .transactionItem{
+        font-size: 14pt;
+    }
+    .overviewCard{
+        width: 80%;
     }
 }
