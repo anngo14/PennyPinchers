@@ -11,7 +11,6 @@ import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component'
 import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized-dialog.component';
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
-import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-home',

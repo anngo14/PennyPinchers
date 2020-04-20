@@ -39,6 +39,7 @@ import { SavingDialogComponent } from './saving-dialog/saving-dialog.component';
 import { UnategorizedDialogComponent } from './unategorized-dialog/unategorized-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { DetailedGoalComponent } from './detailed-goal/detailed-goal.component';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { DetailedGoalComponent } from './detailed-goal/detailed-goal.component';
     SavingDialogComponent,
     UnategorizedDialogComponent,
     EditDialogComponent,
-    DetailedGoalComponent
+    DetailedGoalComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { GoalsComponent } from './goals/goals.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { SettingsComponent } from './settings/settings.component';
 import { InitialComponent } from './initial/initial.component';
+import { ErrorComponent } from './error/error.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'goals', component: GoalsComponent},
   { path: 'archive', component: ArchiveComponent},
   { path: 'settings', component: SettingsComponent},
-  { path: 'initial', component: InitialComponent}
+  { path: 'initial', component: InitialComponent},
+  { path: '**', component: ErrorComponent}
 ];
 
 @NgModule({

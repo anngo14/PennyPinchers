@@ -1,0 +1,38 @@
+.errorContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 32em;
+}
+.errorHeader{
+    font-size: 40pt;
+    margin: 0;
+}
+.errorHeader2{
+    margin-top: 0;
+    font-size: 40pt;
+    font-weight: 200;
+    padding-left: 1em;
+}
+.errorButton{
+    width: 10em;
+    align-self: flex-end;
+}
+
+@media(max-width: 36em){
+    .errorContainer{
+        width: 85%;
+    }
+    .errorHeader{
+        font-size: 34pt;
+        text-align: center;
+    }
+    .errorHeader2{
+        font-size: 32pt;
+        text-align: center;
+        padding-left: 0;
+    }
+    .errorButton{
+        align-self: center;
+    }
+}
