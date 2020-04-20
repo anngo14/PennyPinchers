@@ -24,6 +24,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -83,6 +84,7 @@ import { ErrorComponent } from './error/error.component';
     MatExpansionModule,
     MatChipsModule,
     MatDialogModule,
+    MatCheckboxModule,
     FormsModule,
     BrowserAnimationsModule
   ],

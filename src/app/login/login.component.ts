@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   email = "";
   password = "";
   error = false;
+  checked = false;
   userInput = new FormControl('', [Validators.required]);
   passInput = new FormControl('', [Validators.required]);
   constructor(private r: Router) { }

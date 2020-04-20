@@ -40,6 +40,9 @@
 #loginError{
     font-size: 12pt;
 }
+.checkBox{
+    font-size: 14pt;
+}
 
 @media(max-width: 976px){
 

@@ -506,6 +506,7 @@ export class HomeComponent implements OnInit {
         this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
         this.BudgetObject.categories[3].items = uncategorizedListCopy.map(item => ({...item}));
         this.budgetAllocated = this.getAllocated(4);
+        this.refreshExpenseBarChart();
       }
     });
   }

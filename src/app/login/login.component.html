@@ -13,6 +13,7 @@
                 <input matInput type="password" required [(ngModel)]='password' name='password'>
                 <mat-error *ngIf="passInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
+            <mat-checkbox class='checkBox' [(ngModel)]='checked' name='checked'>Remember Me</mat-checkbox>
         </form>
     </mat-card-content>
     <mat-card-actions class="loginButtons">
