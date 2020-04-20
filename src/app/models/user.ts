@@ -8,6 +8,7 @@ export interface user{
     phone: string,
     email: string,
     password: string,
+    date: string, 
     currentBudget: BudgetObj,
     currentExpense: ExpenseObj,
     archiveBudget: BudgetObj[],

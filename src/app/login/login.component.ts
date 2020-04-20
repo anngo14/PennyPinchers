@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
       '';
   }
   redirectToHome(){
+    
     if(this.initial){
       this.r.navigate(['/initial']);
     } else{
@@ -54,6 +55,10 @@ export class LoginComponent implements OnInit {
     this.r.navigate(['/register']);
   }
   signIn(){
+    console.log(this.checked);
+    if(this.checked){
+      localStorage.setItem("user", this.email);
+    }
     this.error = true;
     setTimeout(() => {this.error = false}, 1000);
     //this.redirectToHome();

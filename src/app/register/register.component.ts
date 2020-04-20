@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { transition, trigger, query, style, animate, state, keyframes } from '@angular/animations';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -56,29 +57,22 @@ export class RegisterComponent implements OnInit {
   email = "";
   password = "";
   confirmPassword = "";
-  emailInput = new FormControl('', [Validators.required]);
-  passInput = new FormControl('', [Validators.required]);
-  confirmInput = new FormControl('', [Validators.required]);
   showHint: number = 0;
   error: boolean = false;
+  valid: boolean = false;
 
-  constructor(private r: Router) { }
+  constructor(private r: Router, private s: UserService) { }
 
   ngOnInit() {
   }
-  getErrorMessage(){
-    return this.emailInput.hasError('required') ? 'You must enter a value': 
-      this.passInput.hasError('required') ? 'You must enter a value': 
-      this.confirmInput.hasError('required') ? 'You must enter a value':
-      '';
-  }
-  redirectToHome(){
-    this.r.navigate(['/home']);
-  }
+
   createAccount(){
+    this.s.registerUser(this.email, this.password).subscribe();
+    this.r.navigate(['/login']);
+  }
+  invalidAccount(){
     this.error = true;
     setTimeout(() => {this.error = false}, 1000);
-    //this.r.navigate(['/login']);
   }
   showPasswordHint(){
     let wwt = window.innerWidth;
@@ -112,6 +106,24 @@ export class RegisterComponent implements OnInit {
   }
   checkMatch(){
     if(this.password === this.confirmPassword && !this.password.match(/^\s*$/)){
+      return true;
+    }
+    return false;
+  }
+  checkLength(){
+    if(this.password.length < 8){
+      return false;
+    }
+    return true;
+  }
+  checkEmail(){
+    if(this.email.match(/.+@.+\..+/)){
+      return true;
+    }
+    return false;
+  }
+  validInput(){
+    if(this.checkEmail() && this.checkLower() && this.checkUpper() && this.checkSpecial() && this.checkMatch() && this.checkLength()){
       return true;
     }
     return false;

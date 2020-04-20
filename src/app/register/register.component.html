@@ -5,26 +5,29 @@
             <mat-form-field>
                 <mat-label>Email</mat-label>
                 <input matInput type="email" required [(ngModel)]='email' name='email'>
-                <mat-error *ngIf="emailInput.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field><br>
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input matInput type="password" required [(ngModel)]='password' name='password' (focus)="showPasswordHint()">
-                <mat-error *ngIf="passInput.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput type="password" required [(ngModel)]='password' name='password' minlength='8' (focus)="showPasswordHint()">
             </mat-form-field><br>
             <mat-form-field>
                 <mat-label>Confirm Password</mat-label>
-                <input matInput type="password" required [(ngModel)]='confirmPassword' name='confirmPassword' (focus)="showPasswordHint()">
-                <mat-error *ngIf="confirmInput.invalid">{{getErrorMessage()}}</mat-error>
+                <input matInput type="password" required [(ngModel)]='confirmPassword' name='confirmPassword' minlength='8' (focus)="showPasswordHint()">
             </mat-form-field>
         </form>
     </mat-card-content>
     <mat-card-actions class="registerButtons">
-        <button mat-stroked-button (click)='createAccount()'>Create Account</button>
+        <button mat-stroked-button (click)='createAccount()' *ngIf='validInput(); else disabledCreate'>Create Account</button>
+        <ng-template #disabledCreate>
+            <button mat-stroked-button (click)='invalidAccount()'>Create Account</button>
+        </ng-template>
     </mat-card-actions>
 </mat-card>
 <mat-card [@passwordHint]="showHint" class="passwordHintCard">
     <mat-card-content>
+        <span> Password must be at least 8 characters </span>
+        <span *ngIf="!checkLength(); else elseBlock" class="crossMark">❌</span>
+        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
         <span> Must Contain an Uppercase character [A-Z] </span> 
         <span *ngIf="!checkUpper(); else elseBlock" class="crossMark">❌</span>
         <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>

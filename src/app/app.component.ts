@@ -12,6 +12,7 @@ export class AppComponent {
   constructor(private r: Router){}
   
   redirectToLogin(){
+    localStorage.clear();
     this.r.navigate(['/login']);
   }
   redirectToHome(){
