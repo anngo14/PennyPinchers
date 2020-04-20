@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   confirmPassword = "";
   showHint: number = 0;
   error: boolean = false;
-  valid: boolean = false;
+  valid: boolean = true;
 
   constructor(private r: Router, private s: UserService) { }
 
@@ -67,8 +67,15 @@ export class RegisterComponent implements OnInit {
   }
 
   createAccount(){
-    this.s.registerUser(this.email, this.password).subscribe();
-    this.r.navigate(['/login']);
+    this.s.registerUser(this.email, this.password).subscribe(data => {
+      if(data.status === "success"){
+        this.r.navigate(['/login']);
+      } else {
+        this.valid = false;
+        setTimeout(() => {this.valid = true}, 8000);
+        this.invalidAccount();
+      }
+    });
   }
   invalidAccount(){
     this.error = true;

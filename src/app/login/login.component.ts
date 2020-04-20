@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { transition, trigger, query, style, animate, state, keyframes } from '@angular/animations';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -26,21 +27,27 @@ import { transition, trigger, query, style, animate, state, keyframes } from '@a
 })
 export class LoginComponent implements OnInit {
 
-  initial = true;
+  initial: boolean;
   email = "";
   password = "";
   error = false;
   checked = false;
+  valid: boolean = false;
   userInput = new FormControl('', [Validators.required]);
-  passInput = new FormControl('', [Validators.required]);
-  constructor(private r: Router) { }
+  passInput = new FormControl('', Validators.compose(
+    [
+      Validators.required,
+      Validators.minLength(8)
+    ]
+  ));
+  constructor(private r: Router, private s: UserService) { }
 
   ngOnInit() {
   }
 
   getErrorMessage(){
-    return this.userInput.hasError('required') ? 'You must enter a value': 
-      this.passInput.hasError('required') ? 'You must enter a value': 
+    return this.userInput.hasError('required') ? 'Enter a Valid Value': 
+      this.passInput.hasError('required') ? 'Enter a Valid Value': 
       '';
   }
   redirectToHome(){
@@ -55,12 +62,29 @@ export class LoginComponent implements OnInit {
     this.r.navigate(['/register']);
   }
   signIn(){
-    console.log(this.checked);
-    if(this.checked){
-      localStorage.setItem("user", this.email);
+    this.s.checkUser(this.email, this.password).subscribe(data => {
+      if(data.status === "success"){
+        if(this.checked){
+          localStorage.setItem("user", this.email);
+        }
+        this.initial = false;
+        this.redirectToHome();
+      } else if(data.status === "initial"){
+        if(this.checked){
+          localStorage.setItem("user", this.email);
+        }
+        this.initial = true;
+        this.redirectToHome();
+      } else{
+        this.error = true;
+        setTimeout(() => {this.error = false}, 1000);
+      }
+    });
+  }
+  validCheck(){
+    if(this.password.length >= 8 && (this.email.length > 0 && this.email.match(/.+@.+\..+/))){
+      return true;
     }
-    this.error = true;
-    setTimeout(() => {this.error = false}, 1000);
-    //this.redirectToHome();
+    return false;
   }
 }

@@ -1,6 +1,7 @@
 <mat-card class="registerCard" [@registerFail]="error">
     <mat-card-title class="registerHeader">Register as a New User</mat-card-title>
     <mat-card-content class="registerContent">
+        <mat-error id="loginError" *ngIf="!valid">Was Unable to Create Account (Account Already Exists)</mat-error>
         <form class="registerForm">
             <mat-form-field>
                 <mat-label>Email</mat-label>

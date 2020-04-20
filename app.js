@@ -33,6 +33,27 @@ app.get('/login', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);
 });
+app.post('/login', (req, res) => {
+    let email = req.body.email;
+    let pass = req.body.pass;
+
+    collection.find({email: email}).toArray((err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            if(bcrypt.compareSync(pass, result[0].password)){
+                if(result[0].inital === true){
+                    res.send({status: "initial"});
+                } else {
+                    res.send({status: "success"});
+                }
+            } else{
+                res.send({status: "unsuccessful"});
+            }
+        } else{
+            res.send({status: "unsuccessful"});
+        }
+    });
+});
 app.get('/register', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);
@@ -45,11 +66,17 @@ app.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(pass, salt);
     let user = {
         email: email,
-        password: hashedPassword
+        password: hashedPassword,
+        initial: true
     };
     collection.insertOne(user, (err, result) => {
-        if(err) throw err;
+        if(err){
+            console.log(err);
+            res.send({status: "unnsuccesful"});
+            return;
+        } 
         console.log("New User Inserted");
+        res.send({status: "success"});
     });
 });
 app.get('/home', (req, res) => {

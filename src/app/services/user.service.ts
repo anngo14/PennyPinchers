@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  registerurl: string = 'http://localhost:5000/register'
+  registerUrl: string = 'http://localhost:5000/register';
+  loginUrl: string = 'http://localhost:5000/login';
+
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -21,6 +23,13 @@ export class UserService {
       "email": email,
       "pass": pass
     };
-    return this.http.post(this.registerurl, userJSON, this.httpOptions);
+    return this.http.post(this.registerUrl, userJSON, this.httpOptions);
+  }
+  checkUser(email: string, pass: string): any{
+    let userJSON = {
+      "email": email,
+      "pass": pass
+    };
+    return this.http.post(this.loginUrl, userJSON, this.httpOptions);
   }
 }
