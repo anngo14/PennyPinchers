@@ -41,6 +41,9 @@ export class InitialComponent implements OnInit {
   constructor(private r: Router) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
+      this.r.navigate(['/denied']);
+    }
     var d = new Date();
     this.date = d.getMonth() + " " + d.getFullYear();
   }

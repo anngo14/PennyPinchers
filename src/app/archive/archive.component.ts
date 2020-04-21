@@ -4,6 +4,7 @@ import { ExpenseObj } from '../models/ExpenseObj';
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { pieslice } from '../models/pieslice';
 import { Goal } from '../models/Goal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-archive',
@@ -154,9 +155,12 @@ export class ArchiveComponent implements OnInit {
   goalPercentage: number = .437;
   goal: number = 5000;
   //End Goal List Item
-  constructor() { }
+  constructor(private r: Router) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
+      this.r.navigate(['/denied']);
+    }
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
 

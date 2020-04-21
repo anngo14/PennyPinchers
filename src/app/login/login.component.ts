@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { transition, trigger, query, style, animate, state, keyframes } from '@angular/animations';
 import { UserService } from '../services/user.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
       Validators.minLength(8)
     ]
   ));
-  constructor(private r: Router, private s: UserService) { }
+  constructor(private r: Router, private s: UserService, private d: DataService) { }
 
   ngOnInit() {
   }
@@ -51,7 +52,6 @@ export class LoginComponent implements OnInit {
       '';
   }
   redirectToHome(){
-    
     if(this.initial){
       this.r.navigate(['/initial']);
     } else{
@@ -64,15 +64,19 @@ export class LoginComponent implements OnInit {
   signIn(){
     this.s.checkUser(this.email, this.password).subscribe(data => {
       if(data.status === "success"){
+        this.d.changeUser(this.email);
         if(this.checked){
           localStorage.setItem("user", this.email);
         }
+        sessionStorage.setItem("user", this.email);
         this.initial = false;
         this.redirectToHome();
       } else if(data.status === "initial"){
+        this.d.changeUser(this.email);
         if(this.checked){
           localStorage.setItem("user", this.email);
         }
+        sessionStorage.setItem("user", this.email);
         this.initial = true;
         this.redirectToHome();
       } else{

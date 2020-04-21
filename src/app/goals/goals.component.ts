@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Goal } from '../models/Goal';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailedGoalComponent } from '../detailed-goal/detailed-goal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-goals',
@@ -59,9 +60,12 @@ export class GoalsComponent implements OnInit {
   unparsedDate: string;
   tabIndex = 0;
   
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private r: Router) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
+      this.r.navigate(['/denied']);
+    }
     this.progressValue = 65;
     this.completedGoals = this.getCompleted();
     this.progressGoals = this.getProgress();

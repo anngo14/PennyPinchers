@@ -41,7 +41,7 @@ app.post('/login', (req, res) => {
         if(err) throw err;
         if(result.length > 0){
             if(bcrypt.compareSync(pass, result[0].password)){
-                if(result[0].inital === true){
+                if(result[0].initial === true){
                     res.send({status: "initial"});
                 } else {
                     res.send({status: "success"});

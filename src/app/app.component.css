@@ -38,7 +38,11 @@ mat-sidenav{
     margin-right: 2em;
     margin-top: 2em;
 }
-
+.NavButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 @media(max-width: 25em){
     mat-sidenav{
         width: 100%;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class SettingsComponent implements OnInit {
 
   mode: string = "Recommended Budget"
-  constructor() { }
+  constructor(private r: Router) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
+      this.r.navigate(['/denied']);
+    }
   }
 
   onToggle(event){

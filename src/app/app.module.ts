@@ -42,6 +42,7 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { DetailedGoalComponent } from './detailed-goal/detailed-goal.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DeniedComponent } from './denied/denied.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { HttpClientModule } from '@angular/common/http';
     UnategorizedDialogComponent,
     EditDialogComponent,
     DetailedGoalComponent,
-    ErrorComponent
+    ErrorComponent,
+    DeniedComponent
   ],
   imports: [
     BrowserModule,

@@ -11,6 +11,7 @@ import { SavingDialogComponent } from '../saving-dialog/saving-dialog.component'
 import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized-dialog.component';
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -114,9 +115,12 @@ export class HomeComponent implements OnInit {
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private r: Router) { }
 
   ngOnInit() {
+    if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
+      this.r.navigate(['/denied']);
+    }
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
     this.ctx3 = this.canvas3.nativeElement.getContext("2d");

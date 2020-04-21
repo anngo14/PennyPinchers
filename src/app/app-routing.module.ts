@@ -8,6 +8,7 @@ import { ArchiveComponent } from './archive/archive.component';
 import { SettingsComponent } from './settings/settings.component';
 import { InitialComponent } from './initial/initial.component';
 import { ErrorComponent } from './error/error.component';
+import { DeniedComponent } from './denied/denied.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'archive', component: ArchiveComponent},
   { path: 'settings', component: SettingsComponent},
   { path: 'initial', component: InitialComponent},
+  { path: 'denied', component: DeniedComponent},
   { path: '**', component: ErrorComponent}
 ];
 
