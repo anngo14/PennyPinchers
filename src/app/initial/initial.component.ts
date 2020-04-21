@@ -5,6 +5,9 @@ import { budgetCategoryList } from '../models/budgetCategoryList';
 import { BudgetObj } from '../models/BudgetObj';
 import { ExpenseObj } from '../models/ExpenseObj';
 import { expenseList } from '../models/expenseList';
+import { user } from '../models/user';
+import { Goal } from '../models/Goal';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-initial',
@@ -13,10 +16,12 @@ import { expenseList } from '../models/expenseList';
 })
 export class InitialComponent implements OnInit {
 
+  uncategorized: budgetCategoryList[] = [];
   expenses: expenseList[] = [];
   custom: boolean = false;
   firstName: string = "";
   lastName: string = "";
+  phoneNumber;
   goal: number;
   needPercentage: number = 50;
   wantPercentage: number = 30;
@@ -29,16 +34,17 @@ export class InitialComponent implements OnInit {
   needsExpense: expenseList[] = [];
   wantTitle: string;
   wantAmt: number;
-  wants: any = [];
+  wants: budgetCategoryList[] = [];
   wantsExpense: expenseList[] = [];
   savingTitle: string;
   savingAmt: number;
-  savings: any = [];
+  savings: budgetCategoryList[] = [];
   savingExpense: expenseList[] = [];
   incomes: income[] = [{income: null, frequency: "", hoursWeekly: 0, type: ""}];
   date: string;
+  
 
-  constructor(private r: Router) { }
+  constructor(private r: Router, private s: UserService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
@@ -49,45 +55,7 @@ export class InitialComponent implements OnInit {
       this.r.navigate(['/home']);
     }
     var d = new Date();
-    this.date = d.getMonth() + " " + d.getFullYear();
-  }
-  redirectToHome(){
-    let initialBudget: BudgetObj = {
-      incomes: this.incomes,
-      monthlyIncome: this.calculateMonthlyIncome(),
-      date: this.date,
-      categories: [
-        {
-          type: 0,
-          percentage: this.needPercentage,
-          items: this.needs
-        },
-        {
-          type: 1,
-          percentage: this.wantPercentage,
-          items: this.wants
-        },
-        {
-          type: 2,
-          percentage: this.savingPercentage,
-          items: this.savings
-        },
-        {
-          type: 3,
-          percentage: null,
-          items: null
-        }
-      ]
-    };
-    let initialExpense: ExpenseObj = {
-      date: this.date,
-      items: this.needsExpense.concat(this.wantsExpense).concat(this.savingExpense).concat(this.expenses)
-    };
-    console.log(initialBudget);
-    console.log(initialExpense);
-    if(confirm("Are you sure this information is correct?")){
-      this.r.navigate(['/home']);
-    }
+    this.date = d.getMonth() + " " + d.getDate() + " " +  d.getFullYear();
   }
   addNeedCategory(){
     if(this.needTitle === "" || Number.isNaN(this.needAmt)){
@@ -143,12 +111,14 @@ export class InitialComponent implements OnInit {
     }
     
     this.expenses.push({title: this.expenseTitle, budget: this.expenseAmt, used: this.expenseAmt});
+    this.uncategorized.push({title: this.expenseTitle, amount: this.expenseAmt});
     this.expenseTitle = "";
     this.expenseAmt = null;
   }
   deleteExpense(e){
     let index = this.expenses.indexOf(e);
     this.expenses.splice(index, 1);
+    this.uncategorized.splice(index, 1);
   }
   addIncomeSource(){
     let income = {
@@ -216,5 +186,102 @@ export class InitialComponent implements OnInit {
       expense += this.expenses[i].used;
     }
     return expense;
+  }
+  submitForm(){
+    if(this.checkValid()){
+      let initialBudget: BudgetObj = {
+        incomes: this.incomes,
+        monthlyIncome: this.calculateMonthlyIncome(),
+        date: this.date,
+        categories: [
+          {
+            type: 0,
+            percentage: this.needPercentage,
+            items: this.needs
+          },
+          {
+            type: 1,
+            percentage: this.wantPercentage,
+            items: this.wants
+          },
+          {
+            type: 2,
+            percentage: this.savingPercentage,
+            items: this.savings
+          },
+          {
+            type: 3,
+            percentage: null,
+            items: this.uncategorized
+          }
+        ]
+      };
+      let initialExpense: ExpenseObj = {
+        date: this.date,
+        items: this.needsExpense.concat(this.wantsExpense).concat(this.savingExpense).concat(this.expenses)
+      };
+      let archiveBudget: BudgetObj[] = [];
+      archiveBudget.push(initialBudget);
+      let archiveExpense: ExpenseObj[] = [];
+      archiveExpense.push(initialExpense);
+      let goals: Goal[] = [];
+      if(!Number.isNaN(this.goal)){
+        let goal: Goal = {
+          name: "Goal", 
+          goal: this.goal,
+          saved: 0,
+          created: this.date,
+          completed: null
+        };
+        goals.push(goal);
+      }
+      
+      let user: user = {
+        first: this.firstName,
+        last: this.lastName,
+        phone: this.phoneNumber,
+        date: this.date,
+        initial: false,
+        currentBudget: initialBudget,
+        currentExpense: initialExpense,
+        archiveBudget: archiveBudget,
+        archiveExpense: archiveExpense,
+        goals: goals
+      }
+      console.log(user);
+      if(confirm("Are you sure this information is correct?")){
+        this.s.saveUser(user);
+        //this.r.navigate(['/home']);
+      }
+    } else{
+      alert("There are Empty Required Fields!");
+    }
+  }
+  checkValid(): boolean{
+    if(this.firstName.trim() === ""){
+      return false;
+    } 
+    if(this.lastName.trim() === ""){
+      return false;
+    } 
+    for(let i = 0; i < this.incomes.length; i++){
+      if(Number.isNaN(this.incomes[i].income)){
+        return false;
+      }
+      if(this.incomes[i].type === "" || this.incomes[i].type === undefined || this.incomes[i].type === null){
+        return false;
+      }
+      if(this.incomes[i].frequency === "" || this.incomes[i].frequency === undefined || this.incomes[i].frequency === null){
+        return false;
+      } else if(this.incomes[i].frequency === "per hour"){
+        if(Number.isNaN(this.incomes[i].hoursWeekly)){
+          return false;
+        }
+      }
+    }
+    if(this.needPercentage + this.wantPercentage + this.savingPercentage != 100){
+      return false;
+    }
+    return true;
   }
 }

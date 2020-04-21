@@ -29,11 +29,15 @@ client.connect(err => {
     collection = client.db("heroku_rqzz8p9t").collection("pinchers");
   });
 
+app.post('/saveuser', (req, res) => {
+    console.log("nodejs server");
+});
 app.get('/login', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);
 });
 app.post('/login', (req, res) => {
+    console.log("login call");
     let email = req.body.email;
     let pass = req.body.pass;
 

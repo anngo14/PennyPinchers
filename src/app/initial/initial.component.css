@@ -161,6 +161,22 @@
 .incomeTrash{
     margin-left: 10px;
 }
+.errorContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50em;
+    justify-content: center;
+}
+.errorHeader{
+    font-size: 40pt;
+    margin: 0;
+}
+.errorHeader2{
+    font-size: 40pt;
+    margin: 0;
+    font-weight: 200;
+    padding-left: 1em;
+}
 @media(max-width: 1516px){
     .categoryExpenseContainer{
         display: flex;
@@ -260,5 +276,30 @@
     }
     .incomeTrash{
         margin-top: 10px;
+    }
+}
+@media(max-width: 36em){
+    .errorContainer{
+        width: 85%;
+    }
+    .errorHeader{
+        font-size: 34pt;
+        text-align: center;
+    }
+    .errorHeader2{
+        font-size: 32pt;
+        text-align: center;
+        padding-left: 0;
+    }
+}
+@media(max-width: 346px){
+    .errorContainer{
+        width: 95%;
+    }
+    .errorHeader{
+        font-size: 30pt;
+    }
+    .errorHeader2{
+        font-size: 28pt;
     }
 }

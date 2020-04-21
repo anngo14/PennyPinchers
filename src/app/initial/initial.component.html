@@ -1,4 +1,4 @@
-<mat-horizontal-stepper class='initialContent'>
+<mat-horizontal-stepper class='initialContent' [linear]='true'>
     <mat-step [stepControl]="firstFormGroup">
         <ng-template matStepLabel>Basic Information</ng-template>
         <h2>Personal Information</h2>
@@ -62,6 +62,7 @@
         <mat-divider></mat-divider>
         <div style='height: 1em'></div>
         <button mat-button matStepperNext>Next</button>
+        <div style='height: 4em;'></div>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
         <ng-template matStepLabel>Budget Information</ng-template>
@@ -185,10 +186,13 @@
         <mat-divider></mat-divider>
         <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext *ngIf='needPercentage + wantPercentage + savingPercentage === 100; else disabledNext'>Next</button>
+        <ng-template #disabledNext>
+            <button mat-button matStepperNext disabled>Next</button>
+        </ng-template>
         <div style='height: 4em;'></div>
     </mat-step>
-    <mat-step [stepControl]="thirdFormGroup">
+    <mat-step [stepControl]="thirdFormGroup" *ngIf='needPercentage + wantPercentage + savingPercentage === 100; else disabledThird'>
         <ng-template matStepLabel>Expense Information</ng-template>
         <h2>Expenses</h2>
         <div class='categoryExpenseContainer'>
@@ -289,7 +293,23 @@
         <button mat-button matStepperNext>Next</button>
         <div style='height: 4em;'></div>
     </mat-step>
-    <mat-step [stepControl]="fourthFormGroup">
+    <ng-template #disabledThird>
+        <mat-step [stepControl]="thirdFormGroup">
+            <ng-template matStepLabel>Expense Information</ng-template>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <div class='errorContainer'>
+                        <h2 class='errorHeader'>Error Budget Percentages Must Equal to 100</h2>
+                        <h2 class='errorHeader2'>Please Edit your Budget Accordingly</h2>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-divider></mat-divider>
+            <button mat-button matStepperPrevious>Back</button>
+            <div style='height: 4em;'></div>
+        </mat-step>
+    </ng-template>
+    <mat-step [stepControl]="fourthFormGroup" *ngIf='needPercentage + wantPercentage + savingPercentage === 100; else disabledFourth'>
         <ng-template matStepLabel>Review and Confirm</ng-template>
         <h3>Personal Information</h3>
         <label class='reviewLabel'>First Name</label>
@@ -430,7 +450,24 @@
         <mat-divider></mat-divider>
         <div style='height: 1em'></div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)='redirectToHome()'>Confirm</button>
+        <button mat-button (click)='submitForm()'>Confirm</button>
         <div style='height: 4em;'></div>
     </mat-step>
+    <ng-template #disabledFourth>
+        <mat-step [stepControl]='fourthFormGroup'>
+            <ng-template matStepLabel>Review and Confirm</ng-template>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <div class='errorContainer'>
+                        <h2 class='errorHeader'>Error Budget Percentages Must Equal to 100</h2>
+                        <h2 class='errorHeader2'>Please Edit your Budget Accordingly</h2>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-divider></mat-divider>
+            <button mat-button matStepperPrevious>Back</button>
+            <div style='height: 4em;'></div>
+        </mat-step>
+    </ng-template>
+   
 </mat-horizontal-stepper>

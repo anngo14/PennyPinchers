@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { user } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class UserService {
 
   registerUrl: string = 'http://localhost:5000/register';
   loginUrl: string = 'http://localhost:5000/login';
+  saveUrl: string = 'http://localhost:5000/saveuser';
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +32,9 @@ export class UserService {
       "pass": pass
     };
     return this.http.post(this.loginUrl, userJSON, this.httpOptions);
+  }
+  saveUser(user: user){
+    console.log(user);
+    return this.http.post(this.saveUrl, user, this.httpOptions);
   }
 }
