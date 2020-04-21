@@ -30,14 +30,28 @@ client.connect(err => {
   });
 
 app.post('/saveuser', (req, res) => {
-    console.log("nodejs server");
+    collection.updateOne({email: req.body.email},
+    { 
+        $set: {
+            first: req.body.first,
+            last: req.body.last,
+            phone: req.body.phone,
+            date: req.body.date,
+            initial: req.body.initial,
+            currentBudget: req.body.currentBudget,
+            currentExpense: req.body.currentExpense,
+            archiveBudget: req.body.archiveBudget,
+            archiveExpense: req.body.archiveExpense,
+            goals: req.body.goals
+        }
+    });
+    console.log("User Updated");
 });
 app.get('/login', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);
 });
 app.post('/login', (req, res) => {
-    console.log("login call");
     let email = req.body.email;
     let pass = req.body.pass;
 
@@ -82,6 +96,7 @@ app.post('/register', async (req, res) => {
         console.log("New User Inserted");
         res.send({status: "success"});
     });
+    console.log("User Registered");
 });
 app.get('/home', (req, res) => {
     let urlPath = req.url;

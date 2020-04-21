@@ -5,6 +5,7 @@ import { Goal } from './Goal';
 export interface user{
     first: string,
     last: string,
+    email: string,
     phone: string,
     date: string, 
     initial: boolean,

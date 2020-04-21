@@ -50,7 +50,6 @@ export class InitialComponent implements OnInit {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
       this.r.navigate(['/denied']);
     }
-    console.log(sessionStorage.getItem("status"));
     if(sessionStorage.getItem("status") === "false" || localStorage.getItem("status") === "false"){
       this.r.navigate(['/home']);
     }
@@ -239,6 +238,7 @@ export class InitialComponent implements OnInit {
       let user: user = {
         first: this.firstName,
         last: this.lastName,
+        email: sessionStorage.getItem("user"),
         phone: this.phoneNumber,
         date: this.date,
         initial: false,
@@ -250,8 +250,8 @@ export class InitialComponent implements OnInit {
       }
       console.log(user);
       if(confirm("Are you sure this information is correct?")){
-        this.s.saveUser(user);
-        //this.r.navigate(['/home']);
+        this.s.saveUser(user).subscribe();
+        this.r.navigate(['/home']);
       }
     } else{
       alert("There are Empty Required Fields!");
