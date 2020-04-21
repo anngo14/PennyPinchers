@@ -17,8 +17,6 @@ export class AppComponent {
     this.d.userName.subscribe(data => {
       this.username = data;
     });
-    console.log(localStorage.getItem("user"));
-    console.log(sessionStorage.getItem("user"));
     if(localStorage.getItem("user") != null){
       this.username = localStorage.getItem("user");
     }

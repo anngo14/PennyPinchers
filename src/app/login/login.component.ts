@@ -44,6 +44,9 @@ export class LoginComponent implements OnInit {
   constructor(private r: Router, private s: UserService, private d: DataService) { }
 
   ngOnInit() {
+    if(localStorage.getItem("user") != null || sessionStorage.getItem("user") != null){
+      this.r.navigate(['/home']);
+    }
   }
 
   getErrorMessage(){
@@ -67,16 +70,20 @@ export class LoginComponent implements OnInit {
         this.d.changeUser(this.email);
         if(this.checked){
           localStorage.setItem("user", this.email);
+          localStorage.setItem("status", "false");
         }
         sessionStorage.setItem("user", this.email);
+        sessionStorage.setItem("status", "false");
         this.initial = false;
         this.redirectToHome();
       } else if(data.status === "initial"){
         this.d.changeUser(this.email);
         if(this.checked){
           localStorage.setItem("user", this.email);
+          localStorage.setItem("status", "true");
         }
         sessionStorage.setItem("user", this.email);
+        sessionStorage.setItem("status", "true");
         this.initial = true;
         this.redirectToHome();
       } else{

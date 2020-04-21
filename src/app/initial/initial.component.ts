@@ -44,6 +44,10 @@ export class InitialComponent implements OnInit {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
       this.r.navigate(['/denied']);
     }
+    console.log(sessionStorage.getItem("status"));
+    if(sessionStorage.getItem("status") === "false" || localStorage.getItem("status") === "false"){
+      this.r.navigate(['/home']);
+    }
     var d = new Date();
     this.date = d.getMonth() + " " + d.getFullYear();
   }
