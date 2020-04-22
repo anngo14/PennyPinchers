@@ -47,9 +47,9 @@
     </div>
 </div>
 <div id='deleteContainer'>
-    <button mat-flat-button color='warn' id='deleteButton' [mat-dialog-close]='true' (click)='deleteGoal()'>Delete</button>
+    <button mat-flat-button color='warn' id='deleteButton' [mat-dialog-close]='true'>Delete</button>
     <div id='otherButtons'>
-        <button mat-button [mat-dialog-close]="false">Cancel</button>
+        <button mat-button [mat-dialog-close]="cancel">Cancel</button>
         <button mat-button [mat-dialog-close]="false" (click)='save()' cdkFocusInitial>Save</button>
     </div>
 </div>

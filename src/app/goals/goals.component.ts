@@ -3,6 +3,7 @@ import { Goal } from '../models/Goal';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailedGoalComponent } from '../detailed-goal/detailed-goal.component';
 import { Router } from '@angular/router';
+import { GoalService } from '../services/goal.service';
 
 @Component({
   selector: 'app-goals',
@@ -11,43 +12,7 @@ import { Router } from '@angular/router';
 })
 export class GoalsComponent implements OnInit {
 
-  goals: Goal[] = [
-    {
-      name: "Goal 1",
-      goal: 5000,
-      saved: 1230.56,
-      created: "4 2 2020",
-      completed: null
-    },
-    {
-      name: "Goal 2",
-      goal: 1000,
-      saved: 25,
-      created: "2 26 2019",
-      completed: null
-    },
-    {
-      name: "Goal 3",
-      goal: 50,
-      saved: 50,
-      created: "3 14 2020",
-      completed: "3 15 2020"
-    },
-    {
-      name: "Trip to Costa Rica",
-      goal: 3500,
-      saved: 1020.42,
-      created: "11 6 2020",
-      completed: null
-    },
-    {
-      name: "New PC",
-      goal: 1000,
-      saved: 1000,
-      created: "9 4 2020",
-      completed: "4 18 2020"
-    }
-  ];
+  goals: Goal[] = [];
   months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   progressValue;
@@ -60,7 +25,7 @@ export class GoalsComponent implements OnInit {
   unparsedDate: string;
   tabIndex = 0;
   
-  constructor(public dialog: MatDialog, private r: Router) { }
+  constructor(public dialog: MatDialog, private r: Router, private g: GoalService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
@@ -69,14 +34,16 @@ export class GoalsComponent implements OnInit {
     if(sessionStorage.getItem("initial") === "true" || localStorage.getItem("initial") === "true"){
       this.r.navigate(['/initial']);
     }
-
-    this.progressValue = 65;
+    if(sessionStorage.getItem("userObject") === null){
+      this.r.navigate(['/home']);
+    }
+    this.goals = JSON.parse(sessionStorage.getItem("userObject")).goals;
     this.completedGoals = this.getCompleted();
     this.progressGoals = this.getProgress();
 
     var d = new Date();
     this.todaysDate = this.months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
-    this.unparsedDate = d.getMonth() + " " + d.getDate() + " " + d.getFullYear();
+    this.unparsedDate = (d.getMonth() + 1) + " " + d.getDate() + " " + d.getFullYear();
   }
 
   getCompleted(){
@@ -107,9 +74,16 @@ export class GoalsComponent implements OnInit {
       }
     });
     detailedGoalRef.afterClosed().subscribe(result => {
-      if(result && confirm("Are you sure you want to delete this goal?")){
-        this.goals.splice(index, 1);
+      if(result && result !== "cancel" && confirm("Are you sure you want to delete this goal?")){
+        this.goals.splice(index, 1);  
+      } 
+      if(result === "cancel"){
+        return;
       }
+      this.g.updateGoal(sessionStorage.getItem("user"), this.goals).subscribe();
+      var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+      userObj.goals = this.goals;
+      sessionStorage.setItem("userObject", JSON.stringify(userObj));
       this.completedGoals = this.getCompleted();
       this.progressGoals = this.getProgress();
     });
@@ -118,13 +92,23 @@ export class GoalsComponent implements OnInit {
     if(this.newGoalName.trim() === ("") || Number.isNaN(this.newGoalGoal)){
       return;
     }
-    this.goals.push({
-      name: this.newGoalName,
-      goal: this.newGoalGoal,
-      saved: this.newGoalSaved,
-      created: this.unparsedDate,
-      completed: null
-    });
+    if(this.newGoalSaved < this.newGoalGoal){
+      this.goals.push({
+        name: this.newGoalName,
+        goal: this.newGoalGoal,
+        saved: this.newGoalSaved,
+        created: this.unparsedDate,
+        completed: null
+      });
+    } else{
+      this.goals.push({
+        name: this.newGoalName,
+        goal: this.newGoalGoal,
+        saved: this.newGoalSaved,
+        created: this.unparsedDate,
+        completed: this.todaysDate
+      });
+    }
 
     this.completedGoals = this.getCompleted();
     this.progressGoals = this.getProgress();
@@ -133,6 +117,11 @@ export class GoalsComponent implements OnInit {
     this.newGoalGoal = null;
     this.newGoalSaved = null;
     this.tabIndex = 0;
+
+    this.g.updateGoal(sessionStorage.getItem("user"), this.goals).subscribe();
+    var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+    userObj.goals = this.goals;
+    sessionStorage.setItem("userObject", JSON.stringify(userObj));
   }
   getGridCols(){
     let wwt = window.innerWidth;

@@ -20,6 +20,7 @@ export class DetailedGoalComponent implements OnInit {
   goalName: string;
   goalSaved: number;
   goalGoal: number;
+  cancel: string = "cancel";
 
   constructor(public detailedGoalRef: MatDialogRef<DetailedGoalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -46,7 +47,7 @@ export class DetailedGoalComponent implements OnInit {
     this.progressValue = this.progressValue.toFixed(2);
 
     if(this.goalSaved >= this.goalGoal){
-      this.unparsedDate = d.getMonth() - 1 + " " + d.getDate() + " " + d.getFullYear();
+      this.unparsedDate = d.getMonth() + 1 + " " + d.getDate() + " " + d.getFullYear();
       this.completedDate = this.parseDate(this.unparsedDate);
     }
   }
@@ -62,8 +63,5 @@ export class DetailedGoalComponent implements OnInit {
       this.data.detail.completed = this.unparsedDate;
     }
     this.data.detail.saved = this.goalSaved;
-  }
-  deleteGoal(){
-    
   }
 }
