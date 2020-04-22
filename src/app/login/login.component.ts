@@ -70,20 +70,20 @@ export class LoginComponent implements OnInit {
         this.d.changeUser(this.email);
         if(this.checked){
           localStorage.setItem("user", this.email);
-          localStorage.setItem("status", "false");
+          localStorage.setItem("initial", "false");
         }
         sessionStorage.setItem("user", this.email);
-        sessionStorage.setItem("status", "false");
+        localStorage.setItem("initial", "false");
         this.initial = false;
         this.redirectToHome();
       } else if(data.status === "initial"){
         this.d.changeUser(this.email);
         if(this.checked){
           localStorage.setItem("user", this.email);
-          localStorage.setItem("status", "true");
+          localStorage.setItem("initial", "true");
         }
         sessionStorage.setItem("user", this.email);
-        sessionStorage.setItem("status", "true");
+        sessionStorage.setItem("initial", "true");
         this.initial = true;
         this.redirectToHome();
       } else{

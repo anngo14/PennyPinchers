@@ -10,6 +10,7 @@ export class UserService {
   registerUrl: string = 'http://localhost:5000/register';
   loginUrl: string = 'http://localhost:5000/login';
   saveUrl: string = 'http://localhost:5000/saveuser';
+  getUserUrl: string = 'http://localhost:5000/getuser';
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +35,9 @@ export class UserService {
     return this.http.post(this.loginUrl, userJSON, this.httpOptions);
   }
   saveUser(user: user){
-    console.log(user);
     return this.http.post(this.saveUrl, user, this.httpOptions);
+  }
+  getUser(email: string): any{
+    return this.http.post(this.getUserUrl, {"email": email}, this.httpOptions);
   }
 }

@@ -8,6 +8,7 @@ import { expenseList } from '../models/expenseList';
 import { user } from '../models/user';
 import { Goal } from '../models/Goal';
 import { UserService } from '../services/user.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-initial',
@@ -44,17 +45,18 @@ export class InitialComponent implements OnInit {
   date: string;
   
 
-  constructor(private r: Router, private s: UserService) { }
+  constructor(private r: Router, private s: UserService, private d: DataService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
       this.r.navigate(['/denied']);
     }
-    if(sessionStorage.getItem("status") === "false" || localStorage.getItem("status") === "false"){
+    if(sessionStorage.getItem("initial") === "false" || localStorage.getItem("initial") === "false"){
       this.r.navigate(['/home']);
     }
+    
     var d = new Date();
-    this.date = d.getMonth() + " " + d.getDate() + " " +  d.getFullYear();
+    this.date = d.getMonth() + 1 + " " + d.getDate() + " " +  d.getFullYear();
   }
   addNeedCategory(){
     if(this.needTitle === "" || Number.isNaN(this.needAmt)){
@@ -250,6 +252,10 @@ export class InitialComponent implements OnInit {
       }
       console.log(user);
       if(confirm("Are you sure this information is correct?")){
+        sessionStorage.setItem("initial", "false");
+        if(localStorage.getItem("initial") != null){
+          localStorage.setItem("initial", "false");
+        }
         this.s.saveUser(user).subscribe();
         this.r.navigate(['/home']);
       }

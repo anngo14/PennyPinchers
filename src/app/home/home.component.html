@@ -50,7 +50,7 @@
                                                             <span>Needs</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[0].percentage | percent}}</span>
+                                                            <span>{{BudgetObject.categories[0].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -78,7 +78,7 @@
                                                             <span>Wants</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[1].percentage | percent}}</span>
+                                                            <span>{{BudgetObject.categories[1].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -106,7 +106,7 @@
                                                             <span>Saving</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[2].percentage | percent}}</span>
+                                                            <span>{{BudgetObject.categories[2].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -134,7 +134,7 @@
                                                             <span>Uncategorized</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[3].percentage}}</span>
+                                                            <span>{{BudgetObject.categories[3].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -279,10 +279,10 @@
                                                             <span>Needs</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[0].percentage | percent}}</span>
+                                                            <span>{{BudgetObject.categories[0].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[0].percentage | currency}}</span>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[0].percentage / 100 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -318,10 +318,10 @@
                                                             <span>Wants</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[1].percentage | percent}}</span>
+                                                            <span>{{BudgetObject.categories[1].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[1].percentage | currency}}</span>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[1].percentage / 100 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -357,10 +357,10 @@
                                                             <span>Saving</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[2].percentage | percent}}</span>
+                                                            <span>{{BudgetObject.categories[2].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[2].percentage | currency}}</span>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[2].percentage / 100 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -397,7 +397,7 @@
                                                             <span>Uncategorized</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[3].percentage}}</span>
+                                                            <span>{{BudgetObject.categories[3].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'></div>
                                                     </div>   

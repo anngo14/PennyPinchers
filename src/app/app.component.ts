@@ -10,6 +10,7 @@ import { DataService } from './services/data.service';
 export class AppComponent {
   title = 'PennyPinchers';
   username: string = "";
+  initial: boolean = false;
 
   constructor(private r: Router, private d: DataService){}
   

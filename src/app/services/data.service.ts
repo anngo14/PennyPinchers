@@ -14,5 +14,4 @@ export class DataService {
   changeUser(user: string){
     this.defaultUser.next(user);
   }
-
 }

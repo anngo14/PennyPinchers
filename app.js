@@ -47,6 +47,13 @@ app.post('/saveuser', (req, res) => {
     });
     console.log("User Updated");
 });
+app.post('/getuser', (req, res) => {
+    collection.findOne({email: req.body.email}).then(result => {
+        res.send(result);
+    }).catch((err) => {
+        if(err) throw err;
+    });
+})
 app.get('/login', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);

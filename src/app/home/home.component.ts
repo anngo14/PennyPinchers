@@ -12,6 +12,7 @@ import { UnategorizedDialogComponent } from '../unategorized-dialog/unategorized
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -37,59 +38,8 @@ export class HomeComponent implements OnInit {
   private ctx3: CanvasRenderingContext2D;
   private ctx4: CanvasRenderingContext2D;
 
-  BudgetObject: BudgetObj = {
-    incomes: [
-      {
-        income: 70000,
-        frequency: "per year",
-        hoursWeekly: null,
-        type: "Full-Time"
-      }
-    ],
-    monthlyIncome: 70000 / 12,
-    date: "May 2020",
-    categories: [
-      {
-        type: 0,
-        percentage: 0.5,
-        items: [
-          {title: "Rent", amount: 1200}, 
-          {title: "Utilities", amount: 150}
-        ]
-      },
-      {
-        type: 1,
-        percentage: 0.3,
-        items: [
-          {title: "Shopping", amount: 200},
-          {title: "Movies", amount: 35}
-        ]
-      },
-      {
-        type: 2,
-        percentage: 0.2,
-        items: [
-          {title: "Goal", amount: 200}
-        ]
-      },
-      {
-        type: 3,
-        percentage: null,
-        items: []
-      }
-    ]
-  };
-  ExpenseObject: ExpenseObj = {
-    date: "May 2020",
-    items: [
-      {title: "Rent", budget: 1200, used: 1000},
-      {title: 'Utilities', budget: 150, used: 53.23},
-      {title: 'Shopping', budget: 200, used: 342.34},
-      {title: 'Entertainment', budget: 400, used: 400},
-      {title: 'Groceries', budget: 300, used: 198.23}
-    ]
-  }
-  
+  BudgetObject: BudgetObj;
+  ExpenseObject: ExpenseObj;
   overviewSlices: pieslice[];
 
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
@@ -115,35 +65,60 @@ export class HomeComponent implements OnInit {
   positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
   negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
 
-  constructor(public dialog: MatDialog, private r: Router) { }
+  constructor(public dialog: MatDialog, private r: Router, private s: UserService) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
       this.r.navigate(['/denied']);
     }
+    if(sessionStorage.getItem("initial") === "true" || localStorage.getItem("initial") === "true"){
+      this.r.navigate(['/initial']);
+    }
+
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
     this.ctx3 = this.canvas3.nativeElement.getContext("2d");
     this.ctx4 = this.canvas4.nativeElement.getContext("2d");
     var d = new Date();
     
+    this.s.getUser(sessionStorage.getItem("user")).subscribe(data => {
+      console.log(data);
+      this.BudgetObject = data.currentBudget;
+      this.ExpenseObject = data.currentExpense;
+      this.lastCheck = this.parseDate(data.date);
+
+      this.overviewSlices = this.getHighPie();
+      this.convertToRadians(this.overviewSlices);
+
+      this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
+      this.drawBarChart(this.ctx2, this.canvas2);
+
+      this.pastMonths = this.getPastMonths(data.archiveBudget, d.getMonth, d.getFullYear());
+
+      this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+      this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+      this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+      this.budgetAllocated = this.getAllocated(4);
+    });
+
     this.Month = this.months[d.getMonth()];
     this.Year = d.getFullYear()
-    this.pastMonths = this.months.slice(0, d.getMonth());
-    this.pastMonths = this.pastMonths.reverse();
-    this.selectedMonth = this.Month;
-    this.lastCheck = this.Month + " " + d.getDate() + ", " + this.Year;
-    
-    this.overviewSlices = this.getHighPie();
-    this.convertToRadians(this.overviewSlices);
 
-    this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
-    this.drawBarChart(this.ctx2, this.canvas2);
-
-    this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
-    this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
-    this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
-    this.budgetAllocated = this.getAllocated(4);
+    this.selectedMonth = this.Month;  
+  }
+  getPastMonths(archive, currentMonth, currentYear){
+    let output = [];
+    for(let i = 0; i < archive.length; i--){
+      let a = archive[i].date.split(" ");
+      if(Number.parseInt(a[2]) === currentYear && Number.parseInt(a[0]) < currentMonth){
+        output.push(this.months[Number.parseInt(a[0]) - 1]);
+      }
+    }
+    return output;
+  }
+  parseDate(date: string){
+    let a:string[] = date.split(" ");
+    return this.months[Number.parseInt(a[0]) - 1] + " " + a[1] + ", " + a[2];
   }
   drawPieChart(c, canvas, radius, slices, animate, colors){
     let xorigin = canvas.nativeElement.width / 2
@@ -423,7 +398,7 @@ export class HomeComponent implements OnInit {
     let slices = [];
     let startingAngle = 90;
     for(let i = 0; i < this.BudgetObject.categories.length - 1; i++){
-      let endingAngle = startingAngle + (this.BudgetObject.categories[i].percentage * 360);
+      let endingAngle = startingAngle + (this.BudgetObject.categories[i].percentage / 100 * 360);
       slices.push({start: startingAngle, end: endingAngle});
       startingAngle = endingAngle;
     }
