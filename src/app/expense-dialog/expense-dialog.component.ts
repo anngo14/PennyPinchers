@@ -14,12 +14,18 @@ export class ExpenseDialogComponent implements OnInit {
   expenseTitle: string;
   expenseAmount: number;
   uncategorized: budgetCategoryList[] = [];
+  need: budgetCategoryList[] = [];
+  want: budgetCategoryList[] = [];
+  saving: budgetCategoryList[] = [];
 
   constructor(public expenseDialogRef: MatDialogRef<ExpenseDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.expenses = this.data.expenseList;
     this.uncategorized = this.data.uncategorizedList;
+    this.need = this.data.needList;
+    this.want = this.data.wantList;
+    this.saving = this.data.savingList;
   }
   
   addNewExpense(){
@@ -42,5 +48,19 @@ export class ExpenseDialogComponent implements OnInit {
 
     this.expenseTitle = "";
     this.expenseAmount = null;
+  }
+  save(){
+    for(let i = 0; i < this.need.length; i++){
+      this.need[i].title = this.expenses[i].title;
+    }
+    for(let i = 0; i < this.want.length; i++){
+      this.want[i].title = this.expenses[i + this.need.length].title;
+    }
+    for(let i = 0; i < this.saving.length; i++){
+      this.saving[i].title = this.expenses[i + this.need.length + this.want.length].title;
+    }
+    for(let i = 0; i < this.uncategorized.length; i++){
+      this.uncategorized[i].title = this.expenses[i + this.need.length + this.want.length + this.saving.length].title;
+    }
   }
 }

@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
   Month: string;
   Year: number;
   lastCheck: string;
+  today: string;
 
   needsUnallocated: number = 0;
   wantsUnallocated: number = 0;
@@ -80,31 +81,54 @@ export class HomeComponent implements OnInit {
     this.ctx3 = this.canvas3.nativeElement.getContext("2d");
     this.ctx4 = this.canvas4.nativeElement.getContext("2d");
     var d = new Date();
-    
-    this.s.getUser(sessionStorage.getItem("user")).subscribe(data => {
-      console.log(data);
-      this.BudgetObject = data.currentBudget;
-      this.ExpenseObject = data.currentExpense;
-      this.lastCheck = this.parseDate(data.date);
-
-      this.overviewSlices = this.getHighPie();
-      this.convertToRadians(this.overviewSlices);
-
-      this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
-      this.drawBarChart(this.ctx2, this.canvas2);
-
-      this.pastMonths = this.getPastMonths(data.archiveBudget, d.getMonth, d.getFullYear());
-
-      this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
-      this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
-      this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
-      this.budgetAllocated = this.getAllocated(4);
-    });
-
     this.Month = this.months[d.getMonth()];
     this.Year = d.getFullYear()
 
     this.selectedMonth = this.Month;  
+    this.today = d.getMonth() + 1 + " " + d.getDate() + " " + d.getFullYear();
+
+    if(sessionStorage.getItem("userObject") === null){
+      this.s.getUser(sessionStorage.getItem("user")).subscribe(data => {
+        sessionStorage.setItem("userObject", JSON.stringify(data));
+        console.log("monogodb query");
+        console.log(data);
+        this.BudgetObject = data.currentBudget;
+        this.ExpenseObject = data.currentExpense;
+        this.lastCheck = this.parseDate(data.date);
+  
+        this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+        this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+        this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+        this.budgetAllocated = this.getAllocated(4);
+  
+        this.overviewSlices = this.getHighPie();
+        this.convertToRadians(this.overviewSlices);
+  
+        this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
+        this.drawBarChart(this.ctx2, this.canvas2);
+  
+        this.pastMonths = this.getPastMonths(data.archiveBudget, d.getMonth, d.getFullYear());
+      });
+    } else{
+        console.log("session storage user object");
+        console.log(JSON.parse(sessionStorage.getItem("userObject")));
+        this.BudgetObject = JSON.parse(sessionStorage.getItem("userObject")).currentBudget;
+        this.ExpenseObject = JSON.parse(sessionStorage.getItem("userObject")).currentExpense;
+        this.lastCheck = this.parseDate(JSON.parse(sessionStorage.getItem("userObject")).date);
+  
+        this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
+        this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
+        this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
+        this.budgetAllocated = this.getAllocated(4);
+  
+        this.overviewSlices = this.getHighPie();
+        this.convertToRadians(this.overviewSlices);
+  
+        this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
+        this.drawBarChart(this.ctx2, this.canvas2);
+  
+        this.pastMonths = this.getPastMonths(JSON.parse(sessionStorage.getItem("userObject")).archiveBudget, d.getMonth, d.getFullYear());
+    }
   }
   getPastMonths(archive, currentMonth, currentYear){
     let output = [];
@@ -352,7 +376,7 @@ export class HomeComponent implements OnInit {
     }
   }
   getUnallocated(a: budgetCategoryList[], percent): number{
-    let budget: number = this.BudgetObject.monthlyIncome * percent;
+    let budget: number = this.BudgetObject.monthlyIncome * (percent / 100);
     for(let i = 0; i < a.length; i++){
       budget -= a[i].amount;
     }
@@ -407,8 +431,6 @@ export class HomeComponent implements OnInit {
   }
   drawDetailedPie(type: number){
     let slices = [];
-    console.log(this.BudgetObject.categories[type].items);
-
     let startingAngle;
     let totalPieSlice;
     let endingAngle;
@@ -473,19 +495,64 @@ export class HomeComponent implements OnInit {
   drawOriginalPie(){
     this.drawPieChart(this.ctx3, this.canvas3, 320, this.overviewSlices, false, this.colors);
   }
+  getUpdatedArchiveBudget(budget: BudgetObj): BudgetObj[]{
+    let archive = JSON.parse(sessionStorage.getItem("userObject")).archiveBudget;
+    for(let i = 0; i < archive.length; i++){
+      if(archive[i].date === budget.date){
+        archive[i] = budget;
+        archive[i].date = this.today;
+        break;
+      }
+    }
+    return archive;
+  }
+  getUpdatedArchiveExpense(expense: ExpenseObj): ExpenseObj[]{
+    let archive = JSON.parse(sessionStorage.getItem("userObject")).archiveExpense;
+    for(let i = 0; i < archive.length; i++){
+      if(archive[i].date === expense.date){
+        archive[i] = expense;
+        archive[i].date = this.today;
+        break;
+      }
+    }
+    return archive;
+  }
   openExpenseList(){
     let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
     let uncategorizedListCopy = this.BudgetObject.categories[3].items.map(item => ({...item}));
+    let needListCopy = this.BudgetObject.categories[0].items.map(item => ({...item}));
+    let wantListCopy = this.BudgetObject.categories[1].items.map(item => ({...item}));
+    let savingListCopy = this.BudgetObject.categories[2].items.map(item => ({...item}));
+
     const expenseDialogRef = this.dialog.open(ExpenseDialogComponent, {
       data: { expenseList: expenseListCopy,
-              uncategorizedList: uncategorizedListCopy}
+              uncategorizedList: uncategorizedListCopy,
+              needList: needListCopy, 
+              wantList: wantListCopy,
+              savingList: savingListCopy}
     });
     expenseDialogRef.afterClosed().subscribe(result => {
       if(result){
         this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[0].items = needListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[1].items = wantListCopy.map(item => ({...item}));
+        this.BudgetObject.categories[2].items = savingListCopy.map(item => ({...item}));
         this.BudgetObject.categories[3].items = uncategorizedListCopy.map(item => ({...item}));
+
         this.budgetAllocated = this.getAllocated(4);
         this.refreshExpenseBarChart();
+
+        let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
+        let updatedArchiveE = this.getUpdatedArchiveExpense(this.ExpenseObject);
+        this.BudgetObject.date = this.today;
+        this.ExpenseObject.date = this.today;
+        this.s.update(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB, this.ExpenseObject, updatedArchiveE).subscribe();
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+        userObj.archiveBudget = updatedArchiveB;
+        userObj.archiveExpense = updatedArchiveE;
+        userObj.currentBudget = this.BudgetObject;
+        userObj.currentExpense = this.ExpenseObject;
+        sessionStorage.setItem("userObject", JSON.stringify(userObj));
       }
     });
   }
@@ -503,6 +570,18 @@ export class HomeComponent implements OnInit {
         this.budgetAllocated = this.getAllocated(4);
         this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
         this.drawDetailedPie(0);
+
+        let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
+        let updatedArchiveE = this.getUpdatedArchiveExpense(this.ExpenseObject);
+        this.BudgetObject.date = this.today;
+        this.ExpenseObject.date = this.today;
+        this.s.update(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB, this.ExpenseObject, updatedArchiveE).subscribe();
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+        userObj.archiveBudget = updatedArchiveB;
+        userObj.archiveExpense = updatedArchiveE;
+        userObj.currentBudget = this.BudgetObject;
+        userObj.currentExpense = this.ExpenseObject;
+        sessionStorage.setItem("userObject", JSON.stringify(userObj));
       }
     });
   }
@@ -521,6 +600,18 @@ export class HomeComponent implements OnInit {
         this.budgetAllocated = this.getAllocated(4);
         this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
         this.drawDetailedPie(1);
+
+        let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
+        let updatedArchiveE = this.getUpdatedArchiveExpense(this.ExpenseObject);
+        this.BudgetObject.date = this.today;
+        this.ExpenseObject.date = this.today;
+        this.s.update(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB, this.ExpenseObject, updatedArchiveE).subscribe();
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+        userObj.archiveBudget = updatedArchiveB;
+        userObj.archiveExpense = updatedArchiveE;
+        userObj.currentBudget = this.BudgetObject;
+        userObj.currentExpense = this.ExpenseObject;
+        sessionStorage.setItem("userObject", JSON.stringify(userObj));
       }
     });
   }
@@ -539,35 +630,70 @@ export class HomeComponent implements OnInit {
         this.budgetAllocated = this.getAllocated(4);
         this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
         this.drawDetailedPie(2);
+
+        let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
+        let updatedArchiveE = this.getUpdatedArchiveExpense(this.ExpenseObject);
+        this.BudgetObject.date = this.today;
+        this.ExpenseObject.date = this.today;
+        this.s.update(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB, this.ExpenseObject, updatedArchiveE).subscribe();
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+        userObj.archiveBudget = updatedArchiveB;
+        userObj.archiveExpense = updatedArchiveE;
+        userObj.currentBudget = this.BudgetObject;
+        userObj.currentExpense = this.ExpenseObject;
+        sessionStorage.setItem("userObject", JSON.stringify(userObj));
       }
-      
     });
   }
   openUncategorizedDialog(){
     let expenseListCopy = this.ExpenseObject.items.map(item => ({...item}));
     let uncategorizedListCopy = this.BudgetObject.categories[3].items.map(item => ({...item}));
-    const savingDialogRef = this.dialog.open(UnategorizedDialogComponent, {
+    const uncategorizedDialogRef = this.dialog.open(UnategorizedDialogComponent, {
       data: { uncategorized: uncategorizedListCopy,
               expenseList: expenseListCopy, 
               offset: this.BudgetObject.categories[0].items.length + this.BudgetObject.categories[1].items.length + this.BudgetObject.categories[2].items.length}
     });
-    savingDialogRef.afterClosed().subscribe(result => {
+    uncategorizedDialogRef.afterClosed().subscribe(result => {
       if(result){
         this.ExpenseObject.items = expenseListCopy.map(item => ({...item}));
         this.BudgetObject.categories[3].items = uncategorizedListCopy.map(item => ({...item}));
         this.budgetAllocated = this.getAllocated(4);
+
+        let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
+        let updatedArchiveE = this.getUpdatedArchiveExpense(this.ExpenseObject);
+        this.BudgetObject.date = this.today;
+        this.ExpenseObject.date = this.today;
+        this.s.update(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB, this.ExpenseObject, updatedArchiveE).subscribe();
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+        userObj.archiveBudget = updatedArchiveB;
+        userObj.archiveExpense = updatedArchiveE;
+        userObj.currentBudget = this.BudgetObject;
+        userObj.currentExpense = this.ExpenseObject;
+        sessionStorage.setItem("userObject", JSON.stringify(userObj));
       }
     });
   }
   openEditDialog(){
+    let budgetCopy = JSON.parse(JSON.stringify(this.BudgetObject));
     const editDialogRef = this.dialog.open(EditDialogComponent, {
-      data: { budget: this.BudgetObject}
+      data: { budget: budgetCopy}
     });
     editDialogRef.afterClosed().subscribe(result => {
-      this.overviewSlices = this.getHighPie();
-      this.convertToRadians(this.overviewSlices);
-      this.drawOriginalPie();
-      this.profit = this.BudgetObject.monthlyIncome - this.budgetAllocated;
-    })
+      if(result){
+        this.BudgetObject = JSON.parse(JSON.stringify(budgetCopy));
+        this.overviewSlices = this.getHighPie();
+        this.convertToRadians(this.overviewSlices);
+        this.drawOriginalPie();
+        this.profit = this.BudgetObject.monthlyIncome - this.budgetAllocated;
+
+        let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
+        this.BudgetObject.date = this.today;
+        this.s.updateBudget(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB).subscribe();
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
+        userObj.archiveBudget = updatedArchiveB;
+        userObj.currentBudget = this.BudgetObject;
+        sessionStorage.setItem("userObject", JSON.stringify(userObj));
+      }
+    });
   }
 }

@@ -64,9 +64,9 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="data">Cancel</button>
-    <button mat-button [mat-dialog-close]="data" *ngIf='needsPercent + wantsPercent + savingPercent == 100; else disabledSave' (click)='saveEdit()'>Save</button>
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button [mat-dialog-close]="true" *ngIf='needsPercent + wantsPercent + savingPercent == 100; else disabledSave' (click)='saveEdit()'>Save</button>
     <ng-template #disabledSave>
-        <button mat-button [mat-dialog-close]="data" disabled>Save</button>
+        <button mat-button disabled>Save</button>
     </ng-template>
 </mat-dialog-actions>

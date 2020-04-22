@@ -53,7 +53,29 @@ app.post('/getuser', (req, res) => {
     }).catch((err) => {
         if(err) throw err;
     });
-})
+});
+app.post('/update', (req, res) => {
+    collection.updateOne({email: req.body.email}, 
+    {
+        $set: {
+            currentBudget: req.body.budget,
+            currentExpense: req.body.expense,
+            archiveBudget: req.body.archive,
+            archiveExpense: req.body.archiveExpense
+        }
+    });
+    console.log("Budget and Expense Updated");
+});
+app.post('/updateBudget', (req, res) => {
+    collection.updateOne({email: req.body.email},
+    {
+        $set: {
+            currentBudget: req.body.budget,
+            archiveBudget: req.body.archive
+        }
+    });
+    console.log("Budget Updated");
+});
 app.get('/login', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);

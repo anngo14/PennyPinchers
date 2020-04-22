@@ -17,10 +17,11 @@ export class EditDialogComponent implements OnInit {
   constructor(public editDialogRef: MatDialogRef<EditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
-    this.incomes = this.data.budget.incomes;
-    this.needsPercent = this.data.budget.categories[0].percentage * 100;
-    this.wantsPercent = this.data.budget.categories[1].percentage * 100;
-    this.savingPercent = this.data.budget.categories[2].percentage * 100;
+    let budgetObj = this.data.budget;
+    this.incomes = budgetObj.incomes;
+    this.needsPercent = budgetObj.categories[0].percentage;
+    this.wantsPercent = budgetObj.categories[1].percentage;
+    this.savingPercent = budgetObj.categories[2].percentage;
   }
 
   addIncomeSource(){
@@ -38,9 +39,9 @@ export class EditDialogComponent implements OnInit {
     this.incomes.splice(index, 1);
   }
   saveEdit(){
-    this.data.budget.categories[0].percentage = this.needsPercent / 100;
-    this.data.budget.categories[1].percentage = this.wantsPercent / 100;
-    this.data.budget.categories[2].percentage = this.savingPercent / 100;
+    this.data.budget.categories[0].percentage = this.needsPercent;
+    this.data.budget.categories[1].percentage = this.wantsPercent;
+    this.data.budget.categories[2].percentage = this.savingPercent;
     this.data.budget.incomes = this.incomes;
     this.data.budget.monthlyIncome = this.calculateMonthlyIncome();
   }

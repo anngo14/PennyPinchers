@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user } from '../models/user';
+import { BudgetObj } from '../models/BudgetObj';
+import { ExpenseObj } from '../models/ExpenseObj';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ export class UserService {
   loginUrl: string = 'http://localhost:5000/login';
   saveUrl: string = 'http://localhost:5000/saveuser';
   getUserUrl: string = 'http://localhost:5000/getuser';
+  updateUrl: string = 'http://localhost:5000/update';
+  updateBudgetUrl: string = 'http://localhost:5000/updateBudget';
 
   constructor(private http: HttpClient) { }
 
@@ -39,5 +43,23 @@ export class UserService {
   }
   getUser(email: string): any{
     return this.http.post(this.getUserUrl, {"email": email}, this.httpOptions);
+  }
+  update(email: string, budget: BudgetObj, archive: BudgetObj[], expense: ExpenseObj, archiveExpense: ExpenseObj[]){
+    let update = {
+      "email": email,
+      "budget": budget,
+      "archive": archive,
+      "expense": expense,
+      "archiveExpense": archiveExpense
+    };
+    return this.http.post(this.updateUrl, update, this.httpOptions);
+  }
+  updateBudget(email: string, budget: BudgetObj, archive: BudgetObj[]){
+    let update = {
+      "email": email,
+      "budget": budget,
+      "archive": archive
+    };
+    return this.http.post(this.updateBudgetUrl, update, this.httpOptions);
   }
 }
