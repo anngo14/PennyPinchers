@@ -15,6 +15,10 @@ export class SettingsComponent implements OnInit {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
       this.r.navigate(['/denied']);
     }
+    if(sessionStorage.getItem("initial") === "true" || localStorage.getItem("initial") === "true"){
+      this.r.navigate(['/initial']);
+    }
+
   }
 
   onToggle(event){

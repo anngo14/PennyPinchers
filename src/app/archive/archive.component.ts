@@ -161,6 +161,10 @@ export class ArchiveComponent implements OnInit {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
       this.r.navigate(['/denied']);
     }
+    if(sessionStorage.getItem("initial") === "true" || localStorage.getItem("initial") === "true"){
+      this.r.navigate(['/initial']);
+    }
+
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
 
