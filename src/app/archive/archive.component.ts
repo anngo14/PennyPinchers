@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, forwardRef } from '@angular/core';
 import { BudgetObj } from '../models/BudgetObj';
 import { ExpenseObj } from '../models/ExpenseObj';
 import { budgetCategoryList } from '../models/budgetCategoryList';
 import { pieslice } from '../models/pieslice';
 import { Goal } from '../models/Goal';
 import { Router } from '@angular/router';
+import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-archive',
@@ -21,95 +22,11 @@ export class ArchiveComponent implements OnInit {
   private ctx: CanvasRenderingContext2D;
   private ctx2: CanvasRenderingContext2D;
 
-  BudgetObject: BudgetObj = {
-    incomes: [
-      {
-        income: 70000,
-        frequency: "per year",
-        hoursWeekly: null,
-        type: "Full-Time"
-      }
-    ],
-    monthlyIncome: 70000 / 12,
-    date: "May 2020",
-    categories: [
-      {
-        type: 0,
-        percentage: 0.5,
-        items: [
-          {title: "Rent", amount: 1200}, 
-          {title: "Utilities", amount: 150}
-        ]
-      },
-      {
-        type: 1,
-        percentage: 0.3,
-        items: [
-          {title: "Shopping", amount: 200},
-          {title: "Movies", amount: 35}
-        ]
-      },
-      {
-        type: 2,
-        percentage: 0.2,
-        items: [
-          {title: "Goal", amount: 200}
-        ]
-      },
-      {
-        type: 3,
-        percentage: null,
-        items: []
-      }
-    ]
-  };
-  ExpenseObject: ExpenseObj = {
-    date: "May 2020",
-    items: [
-      {title: "Rent", budget: 1200, used: 1000},
-      {title: 'Utilities', budget: 150, used: 53.23},
-      {title: 'Shopping', budget: 200, used: 342.34},
-      {title: 'Entertainment', budget: 400, used: 400},
-      {title: 'Groceries', budget: 300, used: 198.23}
-    ]
-  };
-  goals: Goal[] = [
-    {
-      name: "Goal 1",
-      goal: 5000,
-      saved: 1230.56,
-      created: "4 2 2020",
-      completed: null
-    },
-    {
-      name: "Goal 2",
-      goal: 1000,
-      saved: 25,
-      created: "2 26 2019",
-      completed: null
-    },
-    {
-      name: "Goal 3",
-      goal: 50,
-      saved: 50,
-      created: "3 14 2020",
-      completed: "3 15 2020"
-    },
-    {
-      name: "Trip to Costa Rica",
-      goal: 3500,
-      saved: 1020.42,
-      created: "4 6 2020",
-      completed: null
-    },
-    {
-      name: "New PC",
-      goal: 1000,
-      saved: 1000,
-      created: "2 4 2020",
-      completed: "4 18 2020"
-    }
-  ];
+  BudgetObject: BudgetObj;
+  ExpenseObject: ExpenseObj;
+  goals: Goal[] = [];
+  archiveBudget: BudgetObj[] = [];
+  archiveExpense: ExpenseObj[] = [];
 
   months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
@@ -138,23 +55,6 @@ export class ArchiveComponent implements OnInit {
   budgetCategories: any = [];
   //End Budget List Item
 
-  //Spending List Item
-  spendingProfit: number = 0;
-  spendingMonth: string = "OCT";
-  spendingAmount: number = 4230.12;
-  spendingOut: number = 2340.61;
-  spendingIncome: number = 4129.25;
-  spendingCategories: any = [];
-  //End Spending List Item
-
-  //Goal List Item
-  goalProfit: number = 0;
-  goalIncome: number = 4129.25;
-  goalOut: number = 4129.25;
-  goalMonth: string = "FEB";
-  goalPercentage: number = .437;
-  goal: number = 5000;
-  //End Goal List Item
   constructor(private r: Router) { }
 
   ngOnInit() {
@@ -164,6 +64,15 @@ export class ArchiveComponent implements OnInit {
     if(sessionStorage.getItem("initial") === "true" || localStorage.getItem("initial") === "true"){
       this.r.navigate(['/initial']);
     }
+    if(sessionStorage.getItem("userObject") === null){
+      this.r.navigate(['/home']);
+    }
+
+    this.BudgetObject = JSON.parse(sessionStorage.getItem("userObject")).currentBudget;
+    this.ExpenseObject = JSON.parse(sessionStorage.getItem("userObject")).currentExpense;
+    this.archiveBudget = JSON.parse(sessionStorage.getItem("userObject")).archiveBudget;
+    this.archiveExpense = JSON.parse(sessionStorage.getItem("userObject")).archiveExpense;
+    this.goals = JSON.parse(sessionStorage.getItem("userObject")).goals;
 
     this.ctx = this.canvas.nativeElement.getContext("2d");
     this.ctx2 = this.canvas2.nativeElement.getContext("2d");
@@ -174,8 +83,8 @@ export class ArchiveComponent implements OnInit {
     }
 
     this.budgetProfit = this.budgetIncome - this.budgetOut;
-    this.spendingProfit = this.spendingIncome - this.spendingOut;
-    this.goalProfit = this.goalIncome - this.goalOut;
+    //this.spendingProfit = this.spendingIncome - this.spendingOut;
+    //this.goalProfit = this.goalIncome - this.goalOut;
     this.current = d.getFullYear();
     this.pastYears = this.years;
     this.selectedYear = this.current;
@@ -433,5 +342,61 @@ export class ArchiveComponent implements OnInit {
     let elements = d.split(" ");
     output += this.months[elements[0]] + " " + elements[1] + ", " + elements[2];
     return output;
+  }
+  getBudgetProfit(budget: BudgetObj){
+    return budget.monthlyIncome - this.getBudgetOut(budget);
+  }
+  getExpenseProfit(expense: ExpenseObj){
+    let index = this.archiveExpense.indexOf(expense);
+    return this.archiveBudget[index].monthlyIncome - this.getExpenseOut(expense);
+  }
+  getBudgetAllocated(budget: BudgetObj){
+    let sum = 0; 
+    for(let i = 0; i < budget.categories.length; i++){
+      for(let j = 0; j < budget.categories[i].items.length; j++){
+        sum += budget.categories[i].items[j].amount;
+      }
+    }
+    return sum;
+  }
+  getExpenseAllocated(expense: ExpenseObj){
+    let sum = 0;
+    let index = this.archiveExpense.indexOf(expense);
+    for(let i = 0; i < this.archiveBudget[index].categories.length; i++){
+      for(let j = 0; j < this.archiveBudget[index].categories[i].items.length; j++){
+        sum += this.archiveBudget[index].categories[i].items[j].amount;
+      }
+    }
+    return sum;
+  }
+  getBudgetOut(budget: BudgetObj){
+    let sum = 0;
+    let index = this.archiveBudget.indexOf(budget);
+    
+    for(let i = 0; i < this.archiveExpense[index].items.length; i++){
+      sum += this.archiveExpense[index].items[i].used;
+    }
+    return sum;
+  }
+  getExpenseOut(expense: ExpenseObj){
+    let sum = 0;
+    let index = this.archiveExpense.indexOf(expense);
+
+    for(let i = 0; i < this.archiveExpense[index].items.length; i++){
+      sum += this.archiveExpense[index].items[i].used;
+    }
+    return sum;
+  }
+  getBudgetMonth(budget: BudgetObj){
+    let a = budget.date.split(" ");
+    return this.months[Number.parseInt(a[0]) - 1].toUpperCase();
+  }
+  getExpenseMonth(expense: ExpenseObj){
+    let a = expense.date.split(" ");
+    return this.months[Number.parseInt(a[0]) - 1].toUpperCase();
+  }
+  getExpenseBudget(expense: ExpenseObj){
+    let index = this.archiveExpense.indexOf(expense);
+    return this.archiveBudget[index].monthlyIncome;
   }
 }

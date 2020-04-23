@@ -16,32 +16,32 @@
     <mat-tab-group>
         <mat-tab label='Budget'>                                       
             <mat-accordion>
-                <mat-expansion-panel>
+                <mat-expansion-panel *ngFor='let archive of archiveBudget'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
                             <div class='collapsedArchiveItem'>
                                 <div class='arrow'>
-                                    <mat-icon *ngIf="budgetProfit > 0; else secondCheck" id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                    <ng-template #secondCheck><mat-icon *ngIf="budgetProfit < 0; else thirdCheck" id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <mat-icon *ngIf="getBudgetProfit(archive) > 0; else secondCheck" id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf="getBudgetProfit(archive) < 0; else thirdCheck" id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                     <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                                 </div>
                                 <div class='profitContainer'>
-                                    <h1>{{budgetProfit | currency}}</h1>
+                                    <h1>{{getBudgetProfit(archive) | currency}}</h1>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
                                     <h2>BUDG</h2>
-                                    <p class='budgetQuick'>{{budgetAmount | currency}}</p>
+                                    <p class='budgetQuick'>{{archive.monthlyIncome | currency}}</p>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
-                                    <h2>IN</h2>
-                                    <p class='budgetQuick'>{{budgetIncome | currency}}</p>
+                                    <h2>ALLOC</h2>
+                                    <p class='budgetQuick'>{{getBudgetAllocated(archive) | currency}}</p>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
                                     <h2>OUT</h2>
-                                    <p class='budgetQuick'>{{budgetOut | currency}}</p>
+                                    <p class='budgetQuick'>{{getBudgetOut(archive) | currency}}</p>
                                 </div>
                                 <div class='monthContainer'>
-                                    <h2>{{budgetMonth}}</h2>
+                                    <h2>{{getBudgetMonth(archive)}}</h2>
                                 </div>
                             </div>
                         </mat-panel-title>
@@ -64,10 +64,10 @@
                                                             <span>Needs</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[0].percentage | percent}}</span>
+                                                            <span>{{archive.categories[0].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[0].percentage | currency}}</span>
+                                                            <span>{{archive.monthlyIncome * archive.categories[0].percentage / 100 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -80,7 +80,7 @@
                                                 </div>
                                             </div>
                                             <mat-list>
-                                                <mat-list-item *ngFor='let c of BudgetObject.categories[0].items'>
+                                                <mat-list-item *ngFor='let c of archive.categories[0].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
@@ -100,10 +100,10 @@
                                                             <span>Wants</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[1].percentage | percent}}</span>
+                                                            <span>{{archive.categories[1].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[1].percentage | currency}}</span>
+                                                            <span>{{archive.monthlyIncome * archive.categories[1].percentage / 100 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -116,7 +116,7 @@
                                                 </div>
                                             </div>                                            
                                             <mat-list class='overviewBudgetListItemContainer'>
-                                                <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
+                                                <mat-list-item *ngFor='let c of archive.categories[1].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
@@ -136,10 +136,10 @@
                                                             <span>Saving</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[2].percentage | percent}}</span>
+                                                            <span>{{archive.categories[2].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'>
-                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[2].percentage | currency}}</span>
+                                                            <span>{{archive.monthlyIncome * archive.categories[2].percentage / 100 | currency}}</span>
                                                         </div>
                                                     </div>   
                                                 </mat-panel-title>
@@ -152,7 +152,7 @@
                                                 </div>
                                             </div>                                            
                                             <mat-list>
-                                                <mat-list-item *ngFor='let c of BudgetObject.categories[2].items'>
+                                                <mat-list-item *ngFor='let c of archive.categories[2].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
@@ -164,7 +164,7 @@
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
-                                        <mat-expansion-panel *ngIf='BudgetObject.categories[3].items.length > 0'>
+                                        <mat-expansion-panel *ngIf='archive.categories[3].items.length > 0'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -172,7 +172,7 @@
                                                             <span>Uncategorized</span>
                                                         </div>
                                                         <div class='collapsedDescription'>
-                                                            <span>{{BudgetObject.categories[3].percentage}}</span>
+                                                            <span>{{archive.categories[3].percentage / 100 | percent}}</span>
                                                         </div>
                                                         <div class='collapsedDescription2'></div>
                                                     </div>   
@@ -182,7 +182,7 @@
                                                 <h2>Categories</h2>
                                             </div>                                            
                                             <mat-list>
-                                                <mat-list-item *ngFor='let c of BudgetObject.categories[3].items'>
+                                                <mat-list-item *ngFor='let c of archive.categories[3].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
                                                             <span>{{c.title}}</span>
@@ -205,32 +205,32 @@
         </mat-tab>
         <mat-tab label='Expenses'>
             <mat-accordion>
-                <mat-expansion-panel >
+                <mat-expansion-panel *ngFor='let archive of archiveExpense'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
                             <div class='collapsedArchiveItem'>
                                 <div class='arrow'>
-                                    <mat-icon *ngIf="budgetProfit > 0; else secondCheck" id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                    <ng-template #secondCheck><mat-icon *ngIf="budgetProfit < 0; else thirdCheck" id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <mat-icon *ngIf="getExpenseProfit(archive) > 0; else secondCheck" id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf="getExpenseProfit(archive) < 0; else thirdCheck" id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                     <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                                 </div>
                                 <div class='profitContainer'>
-                                    <h1>{{budgetProfit | currency}}</h1>
+                                    <h1>{{getExpenseProfit(archive) | currency}}</h1>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
                                     <h2>BUDG</h2>
-                                    <p class='budgetQuick'>{{budgetAmount | currency}}</p>
+                                    <p class='budgetQuick'>{{getExpenseBudget(archive) | currency}}</p>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
-                                    <h2>IN</h2>
-                                    <p class='budgetQuick'>{{budgetIncome | currency}}</p>
+                                    <h2>ALLOC</h2>
+                                    <p class='budgetQuick'>{{getExpenseAllocated(archive) | currency}}</p>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
                                     <h2>OUT</h2>
-                                    <p class='budgetQuick'>{{budgetOut | currency}}</p>
+                                    <p class='budgetQuick'>{{getExpenseOut(archive) | currency}}</p>
                                 </div>
                                 <div class='monthContainer'>
-                                    <h2>{{budgetMonth}}</h2>
+                                    <h2>{{getExpenseMonth(archive)}}</h2>
                                 </div>
                             </div>
                         </mat-panel-title>
@@ -245,7 +245,7 @@
                                     </mat-card>
                                     <div class='expenseList'>
                                         <mat-accordion>
-                                            <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem; overviewBudgetContentContainer'>
+                                            <mat-expansion-panel *ngFor='let c of archive.items' class='collapsedListItem; overviewBudgetContentContainer'>
                                                 <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                     <mat-panel-title>
                                                         <div class='collapsedItem'>
@@ -295,7 +295,7 @@
         </mat-tab>
         <mat-tab label='Goals'>
             <mat-accordion>
-                <mat-expansion-panel >
+                <mat-expansion-panel ngFor='let goal of goals'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
                             <div class='collapsedArchiveItem'>
