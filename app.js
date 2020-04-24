@@ -113,7 +113,7 @@ app.post('/changePassword', (req, res) => {
 });
 app.post('/deleteUser', (req, res) => {
     let email = req.body.email;
-    let pass = req.body.pass;
+    let pass = req.body.password;
 
     collection.find({email: email}).toArray((err, result) => {
         if(err) throw err;

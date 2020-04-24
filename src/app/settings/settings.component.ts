@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -13,7 +15,7 @@ export class SettingsComponent implements OnInit {
   newPassword: string = "";
   confirmPassword: string;
 
-  constructor(private r: Router, private s: UserService) { }
+  constructor(private r: Router, private s: UserService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
@@ -85,5 +87,15 @@ export class SettingsComponent implements OnInit {
     }
   }
   deleteAccount(){
+    const loginDialogRef = this.dialog.open(LoginDialogComponent);
+    loginDialogRef.afterClosed().subscribe(result => {
+      this.s.deleteUser(result.email, result.pass).subscribe(data => {
+        if(data.status === "success"){
+          sessionStorage.clear();
+          localStorage.clear();
+          this.r.navigate(['/login']);
+        }
+      });
+    })
   }
 }

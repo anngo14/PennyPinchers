@@ -71,7 +71,7 @@ export class UserService {
     };
     return this.http.post(this.changePasswordUrl, update, this.httpOptions);
   }
-  deleteUser(email: string, pass: string){
+  deleteUser(email: string, pass: string): any{
     let user = {
       "email": email,
       "password": pass

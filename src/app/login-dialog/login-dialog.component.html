@@ -1,0 +1,16 @@
+<h2>Login Details</h2>
+<mat-card class='loginError' *ngIf='loginError'>Incorrect Login Credentials</mat-card>
+<div class='loginContainer'>
+    <mat-form-field class='formField'>
+        <mat-label>Email</mat-label>
+        <input matInput type="text" [(ngModel)]='email' name='email' required>
+    </mat-form-field>
+    <mat-form-field class='formField'>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]='password' name='password' required>
+    </mat-form-field>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button (click)='checkPassword()'>Delete</button>
+</mat-dialog-actions>

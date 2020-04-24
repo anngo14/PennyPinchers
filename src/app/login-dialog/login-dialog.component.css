@@ -1,0 +1,29 @@
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+}
+.formField{
+    width: 25em;
+}
+.loginError{
+    text-align: center;
+    background-color: #E77171;
+    color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+@media(max-width: 568px){
+    .formField{
+        width: 20em;
+    }
+}
+@media(max-width: 460px){
+    .formField{
+        width: 15em;
+    }
+}
+@media(max-width: 360px){
+    .formField{
+        width: 12em;
+    }
+}

@@ -43,6 +43,7 @@ import { DetailedGoalComponent } from './detailed-goal/detailed-goal.component';
 import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeniedComponent } from './denied/denied.component';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { DeniedComponent } from './denied/denied.component';
     EditDialogComponent,
     DetailedGoalComponent,
     ErrorComponent,
-    DeniedComponent
+    DeniedComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +102,8 @@ import { DeniedComponent } from './denied/denied.component';
     SavingDialogComponent,
     UnategorizedDialogComponent,
     EditDialogComponent,
-    DetailedGoalComponent
+    DetailedGoalComponent,
+    LoginDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
