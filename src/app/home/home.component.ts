@@ -102,9 +102,20 @@ export class HomeComponent implements OnInit {
         this.budgetAllocated = this.getAllocated(4);
 
         if(data.date != this.today){
+          var userObj = JSON.parse(sessionStorage.getItem("userObject"));
           this.s.updateDate(sessionStorage.getItem("user"), this.today).subscribe();
+          let dateBudgetCheck = userObj.currentBudget.date.split(" ");
+          let todayCheck = this.today.split(" ");
+          if(Number.parseInt(dateBudgetCheck[0]) != Number.parseInt(todayCheck[0]) || Number.parseInt(dateBudgetCheck[2]) != Number.parseInt(todayCheck[2])){
+            userObj.currentBudget.date = this.today;
+            userObj.currentExpense.date = this.today;
+            userObj.archiveBudget.push(userObj.currentBudget);
+            userObj.archiveExpense.push(userObj.currentExpense);
+            this.s.update(sessionStorage.getItem("user"), userObj.currentBudget, userObj.archiveBudget, userObj.currentExpense, userObj.archiveExpense).subscribe();
+          }
+          sessionStorage.setItem("userObject", JSON.stringify(userObj));
         }
-  
+
         this.overviewSlices = this.getHighPie();
         this.convertToRadians(this.overviewSlices);
   
@@ -129,6 +140,15 @@ export class HomeComponent implements OnInit {
         if(userObj.date != this.today){
           this.s.updateDate(sessionStorage.getItem("user"), this.today).subscribe();
           userObj.date = this.today;
+          let dateBudgetCheck = userObj.currentBudget.date.split(" ");
+          let todayCheck = this.today.split(" ");
+          if(Number.parseInt(dateBudgetCheck[0]) != Number.parseInt(todayCheck[0]) || Number.parseInt(dateBudgetCheck[2]) != Number.parseInt(todayCheck[2])){
+            userObj.currentBudget.date = this.today;
+            userObj.currentExpense.date = this.today;
+            userObj.archiveBudget.push(userObj.currentBudget);
+            userObj.archiveExpense.push(userObj.currentExpense);
+            this.s.update(sessionStorage.getItem("user"), userObj.currentBudget, userObj.archiveBudget, userObj.currentExpense, userObj.archiveExpense).subscribe();
+          }
           sessionStorage.setItem("userObject", JSON.stringify(userObj));
         }
         this.overviewSlices = this.getHighPie();
@@ -698,7 +718,7 @@ export class HomeComponent implements OnInit {
 
         let updatedArchiveB = this.getUpdatedArchiveBudget(this.BudgetObject);
         this.BudgetObject.date = this.today;
-        this.s.updateBudget(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB).subscribe();
+        this.s.update(sessionStorage.getItem("user"), this.BudgetObject, updatedArchiveB, this.ExpenseObject, this.getUpdatedArchiveExpense(this.ExpenseObject)).subscribe();
         var userObj = JSON.parse(sessionStorage.getItem("userObject"));
         userObj.archiveBudget = updatedArchiveB;
         userObj.currentBudget = this.BudgetObject;
