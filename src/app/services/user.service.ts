@@ -14,8 +14,9 @@ export class UserService {
   saveUrl: string = 'http://localhost:5000/saveuser';
   getUserUrl: string = 'http://localhost:5000/getuser';
   updateUrl: string = 'http://localhost:5000/update';
-  updateBudgetUrl: string = 'http://localhost:5000/updateBudget';
   updateDateUrl: string = 'http://localhost:5000/updateDate';
+  changePasswordUrl: string = 'http://localhost:5000/changePassword';
+  deleteUserUrl: string = 'http://localhost:5000/deleteUser';
 
   constructor(private http: HttpClient) { }
 
@@ -55,19 +56,26 @@ export class UserService {
     };
     return this.http.post(this.updateUrl, update, this.httpOptions);
   }
-  updateBudget(email: string, budget: BudgetObj, archive: BudgetObj[]){
-    let update = {
-      "email": email,
-      "budget": budget,
-      "archive": archive
-    };
-    return this.http.post(this.updateBudgetUrl, update, this.httpOptions);
-  }
   updateDate(email: string, date: string){
     let update = {
       "email": email,
       "date": date
     };
     return this.http.post(this.updateDateUrl, update, this.httpOptions);
+  }
+  changePassword(email: string, pass: string, newpass: string): any{
+    let update = {
+      "email": email,
+      "password": pass,
+      "new": newpass
+    };
+    return this.http.post(this.changePasswordUrl, update, this.httpOptions);
+  }
+  deleteUser(email: string, pass: string){
+    let user = {
+      "email": email,
+      "password": pass
+    };
+    return this.http.post(this.deleteUserUrl, user, this.httpOptions);
   }
 }

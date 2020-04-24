@@ -1,40 +1,61 @@
-<!--<mat-grid-list cols="4" rowHeight="75px">
-    <mat-grid-tile rowspan='2'>
-        <h1>Settings</h1>
-    </mat-grid-tile>
-    <mat-grid-tile colspan='3'></mat-grid-tile>
-    <mat-grid-tile colspan='3'></mat-grid-tile>
-  </mat-grid-list>
-<mat-divider></mat-divider>-->
-<mat-grid-list cols='1' rowHeight='35em'>
+<mat-grid-list cols='1' rowHeight='50em'>
     <mat-grid-tile>
         <mat-card class="settingsCard">
             <div class="settingsContent">
                 <h1 id="titleHeader">Settings</h1>
                 <mat-divider></mat-divider>
                 <h2 class='subHeader'>Change Password</h2>
+                <mat-card class="passwordHintCard">
+                    <mat-card-content class="passwordHintContainer">
+                        <div>
+                            <span> Password must be at least 8 characters </span>
+                            <span *ngIf="!checkLength(); else elseBlock" class="crossMark">❌</span>
+                            <ng-template #elseBlock><span class="checkMark">✔</span></ng-template>
+                        </div>
+                        <div>
+                            <span> Must Contain an Uppercase character [A-Z] </span> 
+                            <span *ngIf="!checkUpper(); else elseBlock" class="crossMark">❌</span>
+                            <ng-template #elseBlock><span class="checkMark">✔</span></ng-template>
+                        </div>
+                        <div>
+                            <span> Must Contain a Lowercase Character [a-z] </span>
+                            <span *ngIf="!checkLower(); else elseBlock" class="crossMark">❌</span>
+                            <ng-template #elseBlock><span class="checkMark">✔</span></ng-template>
+                        </div>
+                        <div>
+                            <span> Must Contain a Special Character [$!@%#...] </span>
+                            <span *ngIf="!checkSpecial(); else elseBlock" class="crossMark">❌</span>
+                            <ng-template #elseBlock><span class="checkMark">✔</span></ng-template>
+                        </div>
+                        <div>
+                            <span> Passwords Must Match </span>
+                            <span *ngIf="!checkMatch(); else elseBlock" class="crossMark">❌</span>
+                            <ng-template #elseBlock><span class="checkMark">✔</span></ng-template>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
                 <form class="passwordForm">
                     <mat-form-field>
                         <mat-label>Old Password</mat-label>
-                        <input matInput type="text" required>
+                        <input matInput type="password" [(ngModel)]='oldPassword' name='oldPassword' required>
                     </mat-form-field><br>
                     <mat-form-field>
                         <mat-label>New Password</mat-label>
-                        <input matInput type="text" required><br>
+                        <input matInput type="password" [(ngModel)]='newPassword' name='newPassword' required><br>
                     </mat-form-field><br>
                     <mat-form-field>
                         <mat-label>Confirm Password</mat-label>
-                        <input matInput type="text" required>
+                        <input matInput type="password" [(ngModel)]='confirmPassword' name='confirmPassword' required>
                     </mat-form-field>
                 </form>
                 <mat-divider></mat-divider>
-                <button mat-flat-button color="warn" id="deleteAccountButton">Delete Account</button>
+                <button mat-flat-button color="warn" id="deleteAccountButton" (click)='deleteAccount()'>Delete Account</button>
             </div>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
 <div class="btnContainer">
-    <button mat-stroked-button class="settingsButtons">SAVE</button>
-    <button mat-stroked-button class="settingsButtons">CANCEL</button>
+    <button mat-stroked-button class="settingsButtons" (click)='saveSettings()'>SAVE</button>
+    <button mat-stroked-button class="settingsButtons" (click)='redirectToHome()'>CANCEL</button>
 </div>
 <div style="height: 10em"></div>

@@ -66,16 +66,6 @@ app.post('/update', (req, res) => {
     });
     console.log("Budget and Expense Updated");
 });
-app.post('/updateBudget', (req, res) => {
-    collection.updateOne({email: req.body.email},
-    {
-        $set: {
-            currentBudget: req.body.budget,
-            archiveBudget: req.body.archive
-        }
-    });
-    console.log("Budget Updated");
-});
 app.post('/updateGoal', (req, res) => {
     collection.updateOne({email: req.body.email},
     {
@@ -93,6 +83,52 @@ app.post('/updateDate', (req, res) => {
         }
     });
     console.log("Date Updated");
+});
+app.post('/changePassword', (req, res) => {
+    let email = req.body.email;
+    let pass = req.body.password;
+    let newpass = req.body.new;
+
+    collection.find({email: email}).toArray(async (err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            if(bcrypt.compareSync(pass, result[0].password)){
+                const salt = await bcrypt.genSalt();
+                const hashedPassword = await bcrypt.hash(newpass, salt);
+                collection.updateOne({email: email}, 
+                {
+                    $set: {
+                        password: hashedPassword
+                    }
+                });
+                console.log("Password Changed");
+                res.send({status: "success"});
+            } else{
+                res.send({status: "unsuccessful"});
+            }
+        } else{
+            res.send({status: "unsuccessful"});
+        }
+    });
+});
+app.post('/deleteUser', (req, res) => {
+    let email = req.body.email;
+    let pass = req.body.pass;
+
+    collection.find({email: email}).toArray((err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            if(bcrypt.compareSync(pass, result[0].password)){
+                collection.deleteOne({email: email});
+                console.log("User Deleted");
+                res.send({status: "success"});
+            } else{
+                res.send({status: "unsuccessful"});
+            }
+        } else{
+            res.send({status: "unsuccessful"});
+        }
+    });
 });
 app.get('/login', (req, res) => {
     let urlPath = req.url;
@@ -140,7 +176,6 @@ app.post('/register', async (req, res) => {
             res.send({status: "unnsuccesful"});
             return;
         } 
-        console.log("New User Inserted");
         res.send({status: "success"});
     });
     console.log("User Registered");

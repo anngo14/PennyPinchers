@@ -1,6 +1,6 @@
 .settingsCard{
     margin: 1em;
-    height: 30em;
+    height: 35em;
     width: 100%;
 }
 .btnContainer{
@@ -43,11 +43,37 @@
 .budgetSettings{
     margin-bottom: 2em;
 }
+.passwordHintContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.crossMark{
+    font-size: 12pt;
+}
+.checkMark{
+    color: #8BEC7E;
+    font-size: 12pt;
+}
+@media(max-width: 1500px){
+    .passwordHintContainer{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .settingsCard{
+        height: 40em;
+    }
+}
 @media(max-width: 427px){
     #deleteAccountButton{
         width: 65%;
     }
     #titleHeader{
         margin-left: 0;
+    }
+}
+@media(max-width: 402px){
+    .settingsCard{
+        height: 45em;
     }
 }
