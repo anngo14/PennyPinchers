@@ -13,15 +13,6 @@
 .header{
     margin-left: 8em;
 }
-.yearSelectContainer{
-    margin-right: 5em;
-    position: relative;
-    height: 100%;
-}
-.yearSelect{
-    margin-top: 1.5em;
-    width: 20em;
-}
 .archiveContent{
     widtH: 96%;
     height: 43em;
@@ -375,8 +366,6 @@
     .expenseList{
         width: 100%;
     }
-}
-@media(max-width: 980px){
     .arrow{
         margin-left: 0;
     }
@@ -395,12 +384,20 @@
     .goalDetailContainer{
         width: 10em;
     }
+}
+@media(max-width: 980px){
     .expenseBarGraphCard{
         width: 700;
         height: 425px;
     }
     .expenseList{
         width: 100%;
+    }
+    .monthContainer{
+        text-align: left;
+    }
+    .goalDateContainer{
+        width: 10em;
     }
 }
 @media(max-width: 930px){
@@ -412,34 +409,37 @@
         width: 650px;
         height: 375px;
     }
-}
-@media(max-width: 845px){
-    .yearSelect{
-        width: 10em;
-    }
-    .monthContainer{
-        text-align: left;
-    }
-    .goalDateContainer{
-        width: 10em;
-    }
-    .expenseBarGraphCard{
-        width: 620px;
-        height: 350px;
-    }
-}
-@media(max-width: 797px){
     .collapsedArchiveHeaderItem{
         width: 6em;
     }
-    .budgetQuick{
-        font-size: 12pt;
+    .collapsedExpenseDescription{
+        justify-content: center;
     }
     .profitContainer{
         width: 8em;
     }
     .profitContainer > h1{
         font-size: 18pt;
+    }
+}
+@media(max-width: 845px){
+    .expenseBarGraphCard{
+        width: 620px;
+        height: 350px;
+    }
+    .collapsedArchiveHeaderItem{
+        display: none;
+    }
+    .collapsedExpenseHeader{
+        font-size: 20pt;
+    }
+    .collapsedExpenseDescription{
+        font-size: 14pt;
+    }
+}
+@media(max-width: 797px){
+    .budgetQuick{
+        font-size: 12pt;
     }
     .goalProgressBarContainer{
         width: 10em;
@@ -454,23 +454,11 @@
         width: 500px;
         height: 275px;
     }
-    .collapsedExpenseDescription{
-        justify-content: center;
-    }
 }
 @media(max-width: 675px){
-    .collapsedArchiveHeaderItem{
-        display: none;
-    }
     .budgetPieChartCard{
         width: 500px;
         height: 320px;
-    }
-    .collapsedExpenseHeader{
-        font-size: 20pt;
-    }
-    .collapsedExpenseDescription{
-        font-size: 14pt;
     }
     .expenseBarGraphCard{
         width: 475px;
@@ -553,6 +541,9 @@
         width: 340px;
         height: 175px;
     }
+    .monthContainer{
+        display: none;
+    }
 }
 @media(max-width: 490px){
     .headerContainer{
@@ -562,12 +553,6 @@
     }
     .header{
         margin-left: 0;
-    }
-    .yearSelect{
-        margin-top: 0;
-    }
-    .yearSelectContainer{
-        margin-right: 0;
     }
     .expandedBudgetCard{
         width: 85%;
@@ -651,9 +636,6 @@
     }
 }
 @media(max-width: 400px){
-    .monthContainer{
-        display: none;
-    }
     .collapsedHeader{
         font-size: 14pt;
     }
