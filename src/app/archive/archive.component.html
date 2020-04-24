@@ -2,20 +2,12 @@
     <div class='header'>
         <h1>{{selectedYear}} Archive</h1>
     </div>
-    <div class='yearSelectContainer'>
-        <mat-form-field class='yearSelect'>
-            <mat-label>Year</mat-label>
-            <mat-select required [(value)]='selectedYear'>
-                <mat-option *ngFor='let year of pastYears' [value]='year'>{{year}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
 </div>
 <mat-divider></mat-divider>
 <mat-card class='archiveCard'>
     <mat-tab-group>
         <mat-tab label='Budget'>                                       
-            <mat-accordion>
+            <mat-accordion *ngIf='archiveBudget.length > 0; else noBudgets'>
                 <mat-expansion-panel *ngFor='let archive of archiveBudget'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
@@ -201,10 +193,17 @@
                     </mat-grid-list>
                 </div>
                 </mat-expansion-panel>
-            </mat-accordion>                                           
+            </mat-accordion>
+            <ng-template #noBudgets>
+                <mat-grid-list cols='1' rowHeight='36em'>
+                    <mat-grid-tile>
+                        No Budgets Found
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </ng-template>                          
         </mat-tab>
         <mat-tab label='Expenses'>
-            <mat-accordion>
+            <mat-accordion *ngIf='archiveExpense.length > 0; else noExpenses'>
                 <mat-expansion-panel *ngFor='let archive of archiveExpense'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
@@ -292,9 +291,16 @@
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
+            <ng-template #noExpenses>
+                <mat-grid-list cols='1' rowHeight='36em'>
+                    <mat-grid-tile>
+                        No Expenses Found
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </ng-template>  
         </mat-tab>
         <mat-tab label='Goals'>
-            <mat-accordion>
+            <mat-accordion *ngIf='archiveGoal.length > 0; else noGoals'>
                 <mat-expansion-panel *ngFor='let archive of archiveGoal'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
@@ -375,7 +381,14 @@
                         </mat-grid-list>
                     </mat-card>
                 </mat-expansion-panel>
-            </mat-accordion>       
+            </mat-accordion>
+            <ng-template #noGoals>
+                <mat-grid-list cols='1' rowHeight='36em'>
+                    <mat-grid-tile>
+                        No Goals Found
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </ng-template>         
         </mat-tab>
     </mat-tab-group>
 </mat-card>

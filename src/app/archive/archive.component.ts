@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, forwardRef, ViewChildren, QueryList } from '@angular/core';
 import { BudgetObj } from '../models/BudgetObj';
 import { ExpenseObj } from '../models/ExpenseObj';
-import { budgetCategoryList } from '../models/budgetCategoryList';
 import { pieslice } from '../models/pieslice';
 import { Goal } from '../models/Goal';
 import { Router } from '@angular/router';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
 import { archiveGoal } from '../models/archiveGoal';
 
 @Component({
@@ -408,11 +406,11 @@ export class ArchiveComponent implements OnInit {
   }
   getBudgetMonth(budget: BudgetObj){
     let a = budget.date.split(" ");
-    return this.months[Number.parseInt(a[0]) - 1].toUpperCase();
+    return (this.months[Number.parseInt(a[0]) - 1] + " " + a[2]).toUpperCase();
   }
   getExpenseMonth(expense: ExpenseObj){
     let a = expense.date.split(" ");
-    return this.months[Number.parseInt(a[0]) - 1].toUpperCase();
+    return (this.months[Number.parseInt(a[0]) - 1] + " " + a[2]).toUpperCase();
   }
   getExpenseBudget(expense: ExpenseObj){
     let index = this.archiveExpense.indexOf(expense);
@@ -448,6 +446,6 @@ export class ArchiveComponent implements OnInit {
   }
   getGoalMonth(goal){
     let date = goal.date.split(" ");
-    return this.months[Number.parseInt(date[0]) - 1].toUpperCase();
+    return (this.months[Number.parseInt(date[0]) - 1] + " " + date[1]).toUpperCase();
   }
 }
