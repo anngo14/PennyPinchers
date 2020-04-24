@@ -100,6 +100,10 @@ export class HomeComponent implements OnInit {
         this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
         this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
         this.budgetAllocated = this.getAllocated(4);
+
+        if(data.date != this.today){
+          this.s.updateDate(sessionStorage.getItem("user"), this.today).subscribe();
+        }
   
         this.overviewSlices = this.getHighPie();
         this.convertToRadians(this.overviewSlices);
@@ -110,10 +114,11 @@ export class HomeComponent implements OnInit {
         this.pastMonths = this.getPastMonths(data.archiveBudget, d.getMonth, d.getFullYear());
       });
     } else{
+        var userObj = JSON.parse(sessionStorage.getItem("userObject"));
         console.log("session storage user object");
         console.log(JSON.parse(sessionStorage.getItem("userObject")));
-        this.BudgetObject = JSON.parse(sessionStorage.getItem("userObject")).currentBudget;
-        this.ExpenseObject = JSON.parse(sessionStorage.getItem("userObject")).currentExpense;
+        this.BudgetObject = userObj.currentBudget;
+        this.ExpenseObject = userObj.currentExpense;
         this.lastCheck = this.parseDate(JSON.parse(sessionStorage.getItem("userObject")).date);
   
         this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
@@ -121,6 +126,11 @@ export class HomeComponent implements OnInit {
         this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
         this.budgetAllocated = this.getAllocated(4);
   
+        if(userObj.date != this.today){
+          this.s.updateDate(sessionStorage.getItem("user"), this.today).subscribe();
+          userObj.date = this.today;
+          sessionStorage.setItem("userObject", JSON.stringify(userObj));
+        }
         this.overviewSlices = this.getHighPie();
         this.convertToRadians(this.overviewSlices);
   

@@ -15,6 +15,7 @@ export class UserService {
   getUserUrl: string = 'http://localhost:5000/getuser';
   updateUrl: string = 'http://localhost:5000/update';
   updateBudgetUrl: string = 'http://localhost:5000/updateBudget';
+  updateDateUrl: string = 'http://localhost:5000/updateDate';
 
   constructor(private http: HttpClient) { }
 
@@ -61,5 +62,12 @@ export class UserService {
       "archive": archive
     };
     return this.http.post(this.updateBudgetUrl, update, this.httpOptions);
+  }
+  updateDate(email: string, date: string){
+    let update = {
+      "email": email,
+      "date": date
+    };
+    return this.http.post(this.updateDateUrl, update, this.httpOptions);
   }
 }

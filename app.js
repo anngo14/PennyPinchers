@@ -85,6 +85,15 @@ app.post('/updateGoal', (req, res) => {
     });
     console.log("Goals Updated");
 });
+app.post('/updateDate', (req, res) => {
+    collection.updateOne({email: req.body.email},
+    {
+        $set: {
+            date: req.body.date
+        }
+    });
+    console.log("Date Updated");
+});
 app.get('/login', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);
