@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, forwardRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, forwardRef, ViewChildren, QueryList } from '@angular/core';
 import { BudgetObj } from '../models/BudgetObj';
 import { ExpenseObj } from '../models/ExpenseObj';
 import { budgetCategoryList } from '../models/budgetCategoryList';
@@ -6,6 +6,7 @@ import { pieslice } from '../models/pieslice';
 import { Goal } from '../models/Goal';
 import { Router } from '@angular/router';
 import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dialog';
+import { archiveGoal } from '../models/archiveGoal';
 
 @Component({
   selector: 'app-archive',
@@ -14,10 +15,10 @@ import { throwMatDialogContentAlreadyAttachedError } from '@angular/material/dia
 })
 export class ArchiveComponent implements OnInit {
 
-  @ViewChild('budgetPieChart', {static: true})
-  canvas: ElementRef<HTMLCanvasElement>
-  @ViewChild('expenseBarChart', {static: true})
-  canvas2: ElementRef<HTMLCanvasElement>
+  @ViewChildren('budgetPieChart')
+  canvas: QueryList<ElementRef<HTMLCanvasElement>>
+  @ViewChildren('expenseBarChart')
+  canvas2: QueryList<ElementRef<HTMLCanvasElement>>
 
   private ctx: CanvasRenderingContext2D;
   private ctx2: CanvasRenderingContext2D;
@@ -27,6 +28,7 @@ export class ArchiveComponent implements OnInit {
   goals: Goal[] = [];
   archiveBudget: BudgetObj[] = [];
   archiveExpense: ExpenseObj[] = [];
+  archiveGoal: archiveGoal[] = [];
 
   months: string[] =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   colors: string[] = ["#F9E79F", "#2874A6", "#D5F5E3"]; //colors for pie chart
@@ -46,15 +48,6 @@ export class ArchiveComponent implements OnInit {
 
   overviewSlices: pieslice[];
 
-  //Budget List Item
-  budgetProfit: number = 0;
-  budgetMonth: string = "MAY";
-  budgetAmount: number = 3242.43;
-  budgetOut: number = 2398.14;
-  budgetIncome: number = 2020.68;
-  budgetCategories: any = [];
-  //End Budget List Item
-
   constructor(private r: Router) { }
 
   ngOnInit() {
@@ -68,45 +61,46 @@ export class ArchiveComponent implements OnInit {
       this.r.navigate(['/home']);
     }
 
-    this.BudgetObject = JSON.parse(sessionStorage.getItem("userObject")).currentBudget;
-    this.ExpenseObject = JSON.parse(sessionStorage.getItem("userObject")).currentExpense;
     this.archiveBudget = JSON.parse(sessionStorage.getItem("userObject")).archiveBudget;
     this.archiveExpense = JSON.parse(sessionStorage.getItem("userObject")).archiveExpense;
-    this.goals = JSON.parse(sessionStorage.getItem("userObject")).goals;
-
-    this.ctx = this.canvas.nativeElement.getContext("2d");
-    this.ctx2 = this.canvas2.nativeElement.getContext("2d");
+    this.archiveGoal = this.compileGoalArchive(JSON.parse(sessionStorage.getItem("userObject")).goals);
 
     var d = new Date();
     for(let i = 0; i < 5; i++){
       this.years.push(d.getFullYear() - i);
     }
 
-    this.budgetProfit = this.budgetIncome - this.budgetOut;
-    //this.spendingProfit = this.spendingIncome - this.spendingOut;
-    //this.goalProfit = this.goalIncome - this.goalOut;
     this.current = d.getFullYear();
     this.pastYears = this.years;
     this.selectedYear = this.current;
-    this.needsUnallocated = this.getUnallocated(this.BudgetObject.categories[0].items, this.BudgetObject.categories[0].percentage);
-    this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
-    this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
-    this.overviewSlices = this.getHighPie();
-    this.convertToRadians(this.overviewSlices);
-
-    this.drawPieChart(this.ctx, this.canvas, 250, this.overviewSlices, this.colors);
-    this.drawBarChart(this.ctx2, this.canvas2);
+  }
+  ngAfterViewInit(){
+    let canvasArray = this.canvas.toArray();
+    for(let i = 0; i < canvasArray.length; i++){
+      this.ctx = canvasArray[i].nativeElement.getContext("2d");
+      this.overviewSlices = this.getHighPie(this.archiveBudget[i]);
+      this.convertToRadians(this.overviewSlices);
+      this.drawPieChart(this.ctx, canvasArray[i], 250, this.overviewSlices, this.colors);
+    }
+    
+    let barChartCanvas = this.canvas2.toArray();
+    for(let i = 0; i < barChartCanvas.length; i++){
+      this.ctx2 = barChartCanvas[i].nativeElement.getContext("2d");
+      this.drawBarChart(this.ctx2, barChartCanvas[i], this.archiveExpense[i]);
+    }
   }
 
-  getUnallocated(a: budgetCategoryList[], percent): number{
-    let budget: number = this.BudgetObject.monthlyIncome * percent;
-    for(let i = 0; i < a.length; i++){
-      budget -= a[i].amount;
+  getUnallocated(budget: BudgetObj, type: number): number{
+    let monthlyBudget = budget.monthlyIncome * (budget.categories[type].percentage / 100);
+    for(let i = 0; i < budget.categories[type].items.length; i++){
+      monthlyBudget -= budget.categories[type].items[i].amount;
     }
 
-    return budget;
+    return monthlyBudget;
   }
-  drawDetailedPie(type: number){
+  drawDetailedPie(budget: BudgetObj, type: number){
+    let index = this.archiveBudget.indexOf(budget);
+    let pieChartCanvas = this.canvas.toArray();
     let slices = [];
 
     let startingAngle;
@@ -116,12 +110,12 @@ export class ArchiveComponent implements OnInit {
     switch(type){
       case 0:
         startingAngle = this.overviewSlices[type].start * 180 / Math.PI;
-        let needPercent = this.BudgetObject.categories[type].percentage;
+        let needPercent = budget.categories[type].percentage;
         totalPieSlice = 360 * needPercent;
-        let needTotal = this.BudgetObject.monthlyIncome * needPercent;
+        let needTotal = budget.monthlyIncome * needPercent;
         endingAngle = 0;
-        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
-          let percentage = this.BudgetObject.categories[type].items[i].amount / needTotal;
+        for(let i = 0; i < budget.categories[type].items.length; i++){
+          let percentage = budget.categories[type].items[i].amount / needTotal;
           endingAngle = startingAngle + (percentage * totalPieSlice);
           slices.push({start: startingAngle, end: endingAngle});
           startingAngle = endingAngle;
@@ -130,16 +124,16 @@ export class ArchiveComponent implements OnInit {
         this.convertToRadians(slices);
         colors = this.moreColors.slice(0, 7);
         colors[slices.length - 1] = "#F9E79F";
-        this.drawPieChart(this.ctx, this.canvas, 250, slices, colors);
+        this.drawPieChart(this.ctx, pieChartCanvas[index], 250, slices, colors);
         break;
       case 1:
         startingAngle = this.overviewSlices[type].start * 180 / Math.PI; 
-        let wantPercent = this.BudgetObject.categories[type].percentage;
+        let wantPercent = budget.categories[type].percentage;
         totalPieSlice = 360 * wantPercent;
-        let wantTotal = this.BudgetObject.monthlyIncome * wantPercent;
+        let wantTotal = budget.monthlyIncome * wantPercent;
         endingAngle = 0;
-        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
-          let percentage = this.BudgetObject.categories[type].items[i].amount / wantTotal;
+        for(let i = 0; i < budget.categories[type].items.length; i++){
+          let percentage = budget.categories[type].items[i].amount / wantTotal;
           endingAngle = startingAngle + (percentage * totalPieSlice);
           slices.push({start: startingAngle, end: endingAngle});
           startingAngle = endingAngle;
@@ -148,16 +142,16 @@ export class ArchiveComponent implements OnInit {
         this.convertToRadians(slices);
         colors = this.moreColors.slice(6, 13);
         colors[slices.length - 1] = "#2874A6";
-        this.drawPieChart(this.ctx, this.canvas, 250, slices, colors);
+        this.drawPieChart(this.ctx, pieChartCanvas[index], 250, slices, colors);
         break;
       case 2:
         startingAngle = this.overviewSlices[type].start * 180 / Math.PI; 
-        let savingPercent = this.BudgetObject.categories[type].percentage;
+        let savingPercent = budget.categories[type].percentage;
         totalPieSlice = 360 * savingPercent;
-        let savingTotal = this.BudgetObject.monthlyIncome * savingPercent;
+        let savingTotal = budget.monthlyIncome * savingPercent;
         endingAngle = 0;
-        for(let i = 0; i < this.BudgetObject.categories[type].items.length; i++){
-          let percentage = this.BudgetObject.categories[type].items[i].amount / savingTotal;
+        for(let i = 0; i < budget.categories[type].items.length; i++){
+          let percentage = budget.categories[type].items[i].amount / savingTotal;
           endingAngle = startingAngle + (percentage * totalPieSlice);
           slices.push({start: startingAngle, end: endingAngle});
           startingAngle = endingAngle;
@@ -166,12 +160,16 @@ export class ArchiveComponent implements OnInit {
         this.convertToRadians(slices);
         colors = this.moreColors.slice(12, 19);
         colors[slices.length - 1] = "#D5F5E3";
-        this.drawPieChart(this.ctx, this.canvas, 250, slices, colors);
+        this.drawPieChart(this.ctx, pieChartCanvas[index], 250, slices, colors);
         break;
     }
   }
-  drawOriginalPie(){
-    this.drawPieChart(this.ctx, this.canvas, 250, this.overviewSlices, this.colors);
+  drawOriginalPie(archive){
+    let pieChartCanvas = this.canvas.toArray();
+    let index = this.archiveBudget.indexOf(archive);
+    this.overviewSlices = this.getHighPie(archive);
+    this.convertToRadians(this.overviewSlices);
+    this.drawPieChart(this.ctx, pieChartCanvas[index], 250, this.overviewSlices, this.colors);
   }
   convertToRadians(pie: pieslice[]){
     for(let i = 0; i < pie.length; i++){
@@ -198,27 +196,27 @@ export class ArchiveComponent implements OnInit {
     c.fillStyle = 'white';
     c.fill();
   }
-  getHighPie(): pieslice[]{
+  getHighPie(budget: BudgetObj): pieslice[]{
     let slices = [];
     let startingAngle = 90;
-    for(let i = 0; i < this.BudgetObject.categories.length - 1; i++){
-      let endingAngle = startingAngle + (this.BudgetObject.categories[i].percentage * 360);
+    for(let i = 0; i < budget.categories.length - 1; i++){
+      let endingAngle = startingAngle + (budget.categories[i].percentage / 100 * 360);
       slices.push({start: startingAngle, end: endingAngle});
       startingAngle = endingAngle;
     }
 
     return slices;
   }
-  drawBarChart(ctx, canvas){
+  drawBarChart(ctx, canvas, expense: ExpenseObj){
     ctx.clearRect(0, 0, canvas.nativeElement.width, canvas.nativeElement.height);
     ctx.beginPath();
     ctx.moveTo(150, 30);
     ctx.lineTo(150, 700);
     ctx.lineTo(1300, 700);
     ctx.stroke();
-    this.drawXAxis(ctx, this.ExpenseObject.items);
-    this.drawYAxis(ctx, this.ExpenseObject.items);
-    this.drawBarChartData(ctx, this.ExpenseObject.items);
+    this.drawXAxis(ctx, expense.items);
+    this.drawYAxis(ctx, expense.items);
+    this.drawBarChartData(ctx, expense.items);
   }
   drawXAxis(ctx, barChartData){
     ctx.font = '16pt Helvetica';
@@ -343,6 +341,27 @@ export class ArchiveComponent implements OnInit {
     output += this.months[elements[0]] + " " + elements[1] + ", " + elements[2];
     return output;
   }
+  compileGoalArchive(goals: Goal[]){
+    let output:archiveGoal[] = [];
+    for(let i = 0; i < goals.length; i++){
+      let date1 = goals[i].created.split(" ");
+      let goal: archiveGoal = {
+        date: date1[0] + " " + date1[2],
+        goals: [goals[i]]
+      }
+      for(let j = i + 1; j < goals.length; j++){
+        let date2 = goals[j].created.split(" ");
+        if(date1[0] === date2[0] && date1[2] === date2[2]){
+          goal.goals.push(goals[j])
+        } else {
+          i = j - 1;
+          break;
+        }
+      }
+      output.push(goal);
+    }
+    return output;
+  }
   getBudgetProfit(budget: BudgetObj){
     return budget.monthlyIncome - this.getBudgetOut(budget);
   }
@@ -398,5 +417,37 @@ export class ArchiveComponent implements OnInit {
   getExpenseBudget(expense: ExpenseObj){
     let index = this.archiveExpense.indexOf(expense);
     return this.archiveBudget[index].monthlyIncome;
+  }
+  getGoalSaved(goal:archiveGoal){
+    let sum = 0;
+    for(let i = 0; i < goal.goals.length; i++){
+      sum += goal.goals[i].saved;
+    }
+    return sum;
+  }
+  getCompleteGoals(goal){
+    let count = 0;
+    for(let i = 0; i < goal.goals.length; i++){
+      if(goal.goals[i].completed != null){
+        count++;
+      }
+    }
+    return count;
+  }
+  getIncompleteGoals(goal){
+    let count = 0;
+    for(let i = 0; i < goal.goals.length; i++){
+      if(goal.goals[i].completed === null){
+        count++;
+      }
+    }
+    return count;
+  }
+  getGoalTotal(goal){
+    return goal.goals.length;
+  }
+  getGoalMonth(goal){
+    let date = goal.date.split(" ");
+    return this.months[Number.parseInt(date[0]) - 1].toUpperCase();
   }
 }

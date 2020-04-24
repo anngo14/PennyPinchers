@@ -56,7 +56,7 @@
                                 </mat-card>
                                 <div class='overviewBudgetContent'>
                                     <mat-accordion>
-                                        <mat-expansion-panel (opened)='drawDetailedPie(0)' (closed)='drawOriginalPie()' class='overviewBudgetContentContainer'>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(archive, 0)' (closed)='drawOriginalPie(archive)' class='overviewBudgetContentContainer'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -76,7 +76,7 @@
                                                 <h2>Categories</h2>
                                                 <div class='unallocatedContainer'>
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
-                                                    <span id='unallocatedAmt'>{{needsUnallocated | currency}}</span>
+                                                    <span id='unallocatedAmt'>{{getUnallocated(archive, 0) | currency}}</span>
                                                 </div>
                                             </div>
                                             <mat-list>
@@ -92,7 +92,7 @@
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
-                                        <mat-expansion-panel (opened)='drawDetailedPie(1)' (closed)='drawOriginalPie()' class='overviewBudgetContentContainer'>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(archive, 1)' (closed)='drawOriginalPie(archive)' class='overviewBudgetContentContainer'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -112,7 +112,7 @@
                                                 <h2>Categories</h2>
                                                 <div class='unallocatedContainer'>
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
-                                                    <span id='unallocatedAmt'>{{wantsUnallocated | currency}}</span>
+                                                    <span id='unallocatedAmt'>{{getUnallocated(archive, 1) | currency}}</span>
                                                 </div>
                                             </div>                                            
                                             <mat-list class='overviewBudgetListItemContainer'>
@@ -128,7 +128,7 @@
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
-                                        <mat-expansion-panel (opened)='drawDetailedPie(2)' (closed)='drawOriginalPie()' class='overviewBudgetContentContainer'>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(archive, 2)' (closed)='drawOriginalPie(archive)' class='overviewBudgetContentContainer'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <mat-panel-title>
                                                     <div class='collapsedItem'>
@@ -148,7 +148,7 @@
                                                 <h2>Categories</h2>
                                                 <div class='unallocatedContainer'>
                                                     <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
-                                                    <span id='unallocatedAmt'>{{savingUnallocated | currency}}</span>
+                                                    <span id='unallocatedAmt'>{{getUnallocated(archive, 2) | currency}}</span>
                                                 </div>
                                             </div>                                            
                                             <mat-list>
@@ -295,32 +295,32 @@
         </mat-tab>
         <mat-tab label='Goals'>
             <mat-accordion>
-                <mat-expansion-panel ngFor='let goal of goals'>
+                <mat-expansion-panel *ngFor='let archive of archiveGoal'>
                     <mat-expansion-panel-header collapsedHeight="152px" expandedHeight="152px">
                         <mat-panel-title>
                             <div class='collapsedArchiveItem'>
                                 <div class='arrow'>
-                                    <mat-icon *ngIf="budgetProfit > 0; else secondCheck" id='positiveTrend'>keyboard_arrow_up</mat-icon>
-                                    <ng-template #secondCheck><mat-icon *ngIf="budgetProfit < 0; else thirdCheck" id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <mat-icon *ngIf="getGoalSaved(archive) > 0; else secondCheck" id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf="getGoalSaved(archive) < 0; else thirdCheck" id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
                                     <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
                                 </div>
                                 <div class='profitContainer'>
-                                    <h1>{{budgetProfit | currency}}</h1>
+                                    <h1>{{getGoalSaved(archive) | currency}}</h1>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
-                                    <h2>BUDG</h2>
-                                    <p class='budgetQuick'>{{budgetAmount | currency}}</p>
+                                    <h2>COMPL</h2>
+                                    <p class='budgetQuick'>{{getCompleteGoals(archive)}}</p>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
-                                    <h2>IN</h2>
-                                    <p class='budgetQuick'>{{budgetIncome | currency}}</p>
+                                    <h2>WIP</h2>
+                                    <p class='budgetQuick'>{{getIncompleteGoals(archive)}}</p>
                                 </div>
                                 <div class='collapsedArchiveHeaderItem'>
-                                    <h2>OUT</h2>
-                                    <p class='budgetQuick'>{{budgetOut | currency}}</p>
+                                    <h2>TOTAL</h2>
+                                    <p class='budgetQuick'>{{getGoalTotal(archive)}}</p>
                                 </div>
                                 <div class='monthContainer'>
-                                    <h2>{{budgetMonth}}</h2>
+                                    <h2>{{getGoalMonth(archive)}}</h2>
                                 </div>
                             </div>
                         </mat-panel-title>
@@ -331,7 +331,7 @@
                             <mat-grid-tile>
                                 <div class='goalList'>
                                     <mat-accordion>
-                                        <mat-expansion-panel *ngFor='let g of goals'>
+                                        <mat-expansion-panel *ngFor='let g of archive.goals'>
                                             <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
                                                 <div class='collapsedGoalHeading'>
                                                     <div id='collapsedGoalHeader'>
