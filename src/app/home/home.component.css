@@ -1,7 +1,3 @@
-.monthSelect{
-    margin-top: 2em;
-    width: 20em;
-}
 .mainContainer{
     margin: 2em;
     height: 40em;
@@ -462,9 +458,6 @@
     }
 }
 @media(max-width: 800px){
-    .monthSelect{
-        width: 15em;
-    }
     .budgetPieChartCard{
         height: 20em;
     }
@@ -529,9 +522,6 @@
     }
 }
 @media(max-width: 580px){
-    .monthSelect{
-        width: 10em;
-    }
     .checkDateContainer{
         flex-direction: column;
         justify-content: center;
@@ -607,7 +597,7 @@
         margin-right: 0;
     }
     .homeHeaderContainer{
-        height: 17em;
+        height: 12em;
         justify-content: flex-start;
     }
     .collapsedDescription2{

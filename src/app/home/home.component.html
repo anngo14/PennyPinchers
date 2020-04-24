@@ -3,15 +3,6 @@
         <h1>{{selectedMonth}}, {{Year}}</h1>
     </div>
     <div class='homeHeader2'>
-        <div class='monthSelectContainer'>
-            <mat-form-field class="monthSelect">
-                <mat-label>Month</mat-label>
-                <mat-select required [(value)]="selectedMonth">
-                    <mat-option value={{Month}}>{{Month}} (Current Month)</mat-option>
-                    <mat-option *ngFor="let month of pastMonths" [value]="month">{{month}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
         <div class='checkDateContainer'>
             <h4>Last Check In:</h4>
             <span id='date'> {{lastCheck}} </span>
