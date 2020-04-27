@@ -11,7 +11,7 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em'>
+                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em' *ngIf="goals.length > 0; else noGoals">
                             <mat-grid-tile *ngFor='let g of goals'>
                                 <mat-card class='goalItem'*ngIf="g.saved / g.goal < 1; else completedGoal" (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
@@ -31,6 +31,13 @@
                                 </ng-template>    
                             </mat-grid-tile>
                         </mat-grid-list>
+                        <ng-template #noGoals>
+                            <mat-grid-list cols='1' rowHeight='32em'>
+                                <mat-grid-tile>
+                                    No Goals Found
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </ng-template>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
@@ -39,7 +46,7 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em'>
+                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em' *ngIf='progressGoals.length > 0; else noProgress'>
                             <mat-grid-tile *ngFor='let g of progressGoals'>
                                 <mat-card class='goalItem' (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
@@ -50,6 +57,13 @@
                                 </mat-card>
                             </mat-grid-tile>
                         </mat-grid-list>
+                        <ng-template #noProgress>
+                            <mat-grid-list cols='1' rowHeight='32em'>
+                                <mat-grid-tile>
+                                    No In-Progress Goals Found
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </ng-template>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
@@ -58,7 +72,7 @@
             <mat-grid-list cols='1' rowHeight='37em'>
                 <mat-grid-tile>
                     <mat-card class='goalListContainer'>
-                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em'>
+                        <mat-grid-list cols={{getGridCols()}} rowHeight='18em' *ngIf='completedGoals.length > 0; else noCompleted'>
                             <mat-grid-tile *ngFor='let g of completedGoals'>
                                 <mat-card class='goalItemComplete' (click)='openDetailedGoal(g)'>
                                     <div id='goalItemTitleContainer'>
@@ -69,6 +83,13 @@
                                 </mat-card>    
                             </mat-grid-tile>
                         </mat-grid-list>
+                        <ng-template #noCompleted>
+                            <mat-grid-list cols='1' rowHeight='32em'>
+                                <mat-grid-tile>
+                                    No Completed Goals Found
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </ng-template>
                     </mat-card>
                 </mat-grid-tile>
             </mat-grid-list>
