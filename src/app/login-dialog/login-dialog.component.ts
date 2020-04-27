@@ -11,6 +11,7 @@ export class LoginDialogComponent implements OnInit {
 
   email: string;
   password: string;
+  loginFlag: boolean = false;
   loginError: boolean = false;
   loginObj = {
     email: "",
@@ -26,9 +27,12 @@ export class LoginDialogComponent implements OnInit {
     if(this.email === sessionStorage.getItem("user")){
       this.s.checkUser(this.email, this.password).subscribe(data => {
         if(data.status === "success"){
+          this.loginFlag = true;
           this.loginObj.email = this.email;
           this.loginObj.pass = this.password;
-          this.dialogRef.close(this.loginObj)
+          setTimeout(() => {
+            this.dialogRef.close(this.loginObj)
+          }, 2500);
         } else if(data.status === "unsuccessful") {
           this.loginError = true;
           setTimeout(() => {

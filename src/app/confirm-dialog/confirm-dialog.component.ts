@@ -20,7 +20,6 @@ export class ConfirmDialogComponent implements OnInit {
   save(){
     this.saveFlag = true;
     setTimeout(() => {
-      this.saveFlag = false;
       this.confirmDialogRef.close(true);
     }, 1500);
   }

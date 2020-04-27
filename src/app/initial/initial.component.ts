@@ -228,7 +228,8 @@ export class InitialComponent implements OnInit {
       let archiveExpense: ExpenseObj[] = [];
       archiveExpense.push(initialExpense);
       let goals: Goal[] = [];
-      if(!Number.isNaN(this.goal)){
+      console.log(this.goal);
+      if(this.goal != undefined){
         let goal: Goal = {
           name: "Goal", 
           goal: this.goal,

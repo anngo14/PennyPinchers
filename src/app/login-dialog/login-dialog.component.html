@@ -10,6 +10,11 @@
         <input matInput type="password" [(ngModel)]='password' name='password' required>
     </mat-form-field>
 </div>
+<mat-grid-list cols='1' rowHeight='7em' *ngIf='loginFlag'>
+    <mat-grid-tile>
+        <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+</mat-grid-list>
 <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="false">Cancel</button>
     <button mat-button (click)='checkPassword()'>Delete</button>
