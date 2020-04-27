@@ -9,6 +9,8 @@ import { user } from '../models/user';
 import { Goal } from '../models/Goal';
 import { UserService } from '../services/user.service';
 import { DataService } from '../services/data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-initial',
@@ -45,7 +47,7 @@ export class InitialComponent implements OnInit {
   date: string;
   
 
-  constructor(private r: Router, private s: UserService, private d: DataService) { }
+  constructor(private r: Router, private s: UserService, private d: DataService, public dialog: MatDialog) { }
 
   ngOnInit() {
     if(sessionStorage.getItem("user") === null && localStorage.getItem("user") === null){
@@ -251,14 +253,19 @@ export class InitialComponent implements OnInit {
         goals: goals
       }
       console.log(user);
-      if(confirm("Are you sure this information is correct?")){
-        sessionStorage.setItem("initial", "false");
-        if(localStorage.getItem("initial") != null){
-          localStorage.setItem("initial", "false");
+      const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: { msg: "Are you Sure This Information is Correct?"}
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        if(result){
+          sessionStorage.setItem("initial", "false");
+          if(localStorage.getItem("initial") != null){
+            localStorage.setItem("initial", "false");
+          }
+          this.s.saveUser(user).subscribe();
+          this.r.navigate(['/home']);
         }
-        this.s.saveUser(user).subscribe();
-        this.r.navigate(['/home']);
-      }
+      })
     } else{
       alert("There are Empty Required Fields!");
     }

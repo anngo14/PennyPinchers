@@ -1,0 +1,10 @@
+<h2>{{msg}}</h2>
+<mat-grid-list cols='1' rowHeight='7em' *ngIf='saveFlag'>
+    <mat-grid-tile>
+        <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+</mat-grid-list>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button (click)='save()'>Save</button>
+</mat-dialog-actions>

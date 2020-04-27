@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-settings',
@@ -77,11 +78,19 @@ export class SettingsComponent implements OnInit {
   }
   saveSettings(){
     if(this.validCheck()){
-      if(confirm("Are you Sure you Wish to Change Your Password?")){
-        this.s.changePassword(sessionStorage.getItem("user"), this.oldPassword, this.newPassword).subscribe(msg => {
-          alert(msg.status);
-        });
-      }
+      const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: { msg: "Are you Sure you Wish to Change Your Password?" }
+      });
+      confirmDialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.s.changePassword(sessionStorage.getItem("user"), this.oldPassword, this.newPassword).subscribe(msg => {
+            alert(msg.status);
+            this.oldPassword = "";
+            this.newPassword = "";
+            this.confirmPassword = "";
+          });
+        }
+      })
     } else{
       alert("Invalid Password! Please Try Again");
     }

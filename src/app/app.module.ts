@@ -25,6 +25,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
@@ -44,6 +45,7 @@ import { ErrorComponent } from './error/error.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeniedComponent } from './denied/denied.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -65,7 +67,8 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
     DetailedGoalComponent,
     ErrorComponent,
     DeniedComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
     MatSlideToggleModule,
     MatExpansionModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
     MatDialogModule,
     MatCheckboxModule,
     FormsModule,
@@ -103,7 +107,8 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
     UnategorizedDialogComponent,
     EditDialogComponent,
     DetailedGoalComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    ConfirmDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
