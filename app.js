@@ -9,15 +9,8 @@ const url = "mongodb://anngo:1&pCveVl@ds135963.mlab.com:35963/heroku_rqzz8p9t";
 const client = new MongoClient(url, {useNewUrlParser: true});
 const PORT = process.env.PORT || 5000;
 
-/*const cors = require('cors');
-var corsOptions = {
-    origin: 'https://pennypinchers.herokuapp.com',
-    optionsSuccessStatus: 200
-};*/
-
 var app = express();
 
-//app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'dist/PennyPinchers')));
 app.use(express.json());
 app.use(bodyparser.json());
@@ -210,9 +203,9 @@ app.get('*', (req, res) => {
 
 client.close();
 
-/*app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-});*/
+});
 server.listen(5001, () => {
     console.log("HTTPS on 5001");
-})
+});
