@@ -9,20 +9,21 @@ const url = "mongodb://anngo:1&pCveVl@ds135963.mlab.com:35963/heroku_rqzz8p9t";
 const client = new MongoClient(url, {useNewUrlParser: true});
 const PORT = process.env.PORT || 5000;
 
-const cors = require('cors');
+/*const cors = require('cors');
 var corsOptions = {
     origin: 'https://pennypinchers.herokuapp.com',
     optionsSuccessStatus: 200
-};
+};*/
 
-const app = express();
+var app = express();
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'dist/PennyPinchers')));
 app.use(express.json());
 app.use(bodyparser.json());
 
 const angularEntry = path.join(__dirname, 'dist/PennyPinchers/index.html');
+const server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: "powermacg5"}, app);
 
 var collection;
 client.connect(err => {
@@ -209,14 +210,9 @@ app.get('*', (req, res) => {
 
 client.close();
 
-/*app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});*/
-
-https.createServer({
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem'),
-    passphrase: 'powermacg5'
-}, app).listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
+server.listen(5001, () => {
+    console.log("HTTPS on 5001");
+})
