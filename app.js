@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var bodyparser = require('body-parser');
 var bcrypt = require('bcrypt');
+var https = require('https');
+var fs = require('fs');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://anngo:1&pCveVl@ds135963.mlab.com:35963/heroku_rqzz8p9t";
 const client = new MongoClient(url, {useNewUrlParser: true});
@@ -209,4 +211,10 @@ client.close();
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-})
+});
+
+https.createServer({
+    key: fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: 'powermacg5'
+}, app).listen(PORT);
