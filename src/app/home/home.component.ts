@@ -122,9 +122,7 @@ export class HomeComponent implements OnInit {
         this.convertToRadians(this.overviewSlices);
   
         this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
-        this.drawBarChart(this.ctx2, this.canvas2);
-  
-        this.pastMonths = this.getPastMonths(data.archiveBudget, d.getMonth, d.getFullYear());
+        this.drawBarChart(this.ctx2, this.canvas2);  
       });
     } else{
         var userObj = JSON.parse(sessionStorage.getItem("userObject"));
@@ -158,9 +156,7 @@ export class HomeComponent implements OnInit {
         this.convertToRadians(this.overviewSlices);
   
         this.drawPieChart(this.ctx, this.canvas, 290, this.overviewSlices, true, this.colors);
-        this.drawBarChart(this.ctx2, this.canvas2);
-  
-        this.pastMonths = this.getPastMonths(JSON.parse(sessionStorage.getItem("userObject")).archiveBudget, d.getMonth, d.getFullYear());
+        this.drawBarChart(this.ctx2, this.canvas2);  
     }
   }
   getPastMonths(archive, currentMonth, currentYear){
