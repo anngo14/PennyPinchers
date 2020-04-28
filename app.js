@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 const cors = require('cors');
 var corsOptions = {
-    origin: 'http://localhost:4200',
+    origin: 'https://pennypinchers.herokuapp.com',
     optionsSuccessStatus: 200
 };
 
