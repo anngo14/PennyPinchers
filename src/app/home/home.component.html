@@ -40,7 +40,7 @@
                                                         <div class='collapsedHeader'>
                                                             <span>Needs</span>
                                                         </div>
-                                                        <div class='collapsedDescription' *ngIf='BudgetObject.categories && BudgetObject.categories.length > 0'>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
                                                             <span>{{BudgetObject.categories[0].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
@@ -68,7 +68,7 @@
                                                         <div class='collapsedHeader'>
                                                             <span>Wants</span>
                                                         </div>
-                                                        <div class='collapsedDescription' *ngIf='BudgetObject.categories && BudgetObject.categories.length > 0'>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
                                                             <span>{{BudgetObject?.categories[1]?.percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
@@ -96,7 +96,7 @@
                                                         <div class='collapsedHeader'>
                                                             <span>Saving</span>
                                                         </div>
-                                                        <div class='collapsedDescription' *ngIf='BudgetObject.categories && BudgetObject.categories.length > 0'>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
                                                             <span>{{BudgetObject.categories[2].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
@@ -124,7 +124,7 @@
                                                         <div class='collapsedHeader'>
                                                             <span>Uncategorized</span>
                                                         </div>
-                                                        <div class='collapsedDescription' *ngIf='BudgetObject.categories && BudgetObject.categories.length > 0'>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
                                                             <span>{{BudgetObject.categories[3].percentage / 100 | percent}}</span>
                                                         </div>
                                                     </div>   
