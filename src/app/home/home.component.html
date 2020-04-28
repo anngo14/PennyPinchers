@@ -47,7 +47,7 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <h2>Categories</h2>
-                                            <mat-list>
+                                            <mat-list *ngIf='BudgetObject.categories[0].items && BudgetObject.categories[0].items.length > 0'>
                                                 <mat-list-item *ngFor="let c of BudgetObject.categories[0].items">
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
@@ -75,7 +75,7 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <h2>Categories</h2>
-                                            <mat-list>
+                                            <mat-list *ngIf='BudgetObject.categories[1].items && BudgetObject.categories[1].items.length > 0'>
                                                 <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
@@ -103,7 +103,7 @@
                                                 </mat-panel-title>
                                             </mat-expansion-panel-header>
                                             <h2>Categories</h2>
-                                            <mat-list>
+                                            <mat-list *ngIf='BudgetObject.categories[2].items && BudgetObject.categories[2].items.length > 0'>
                                                 <mat-list-item *ngFor="let c of BudgetObject.categories[2].items">
                                                     <div class='overviewBudgetListItem'>
                                                         <div class='overviewBudgetListHeader'>
