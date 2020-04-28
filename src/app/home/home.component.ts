@@ -63,8 +63,8 @@ export class HomeComponent implements OnInit {
   budgetAllocated: number = 0;
   profit: number = 0;
 
-  positiveTransactions: number[] = [123.12, 1203.67, 421.02, 300.23];
-  negativeTransactions: number[] = [-1543.12, -30.21, -53.61, -253.89];
+  positiveTransactions: number[] = [];
+  negativeTransactions: number[] = [];
 
   constructor(public dialog: MatDialog, private r: Router, private s: UserService) { }
 
@@ -86,6 +86,7 @@ export class HomeComponent implements OnInit {
 
     this.selectedMonth = this.Month;  
     this.today = d.getMonth() + 1 + " " + d.getDate() + " " + d.getFullYear();
+    
 
     if(sessionStorage.getItem("userObject") === null){
       this.s.getUser(sessionStorage.getItem("user")).subscribe(data => {
@@ -100,6 +101,9 @@ export class HomeComponent implements OnInit {
         this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
         this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
         this.budgetAllocated = this.getAllocated(4);
+
+        this.positiveTransactions = this.getPositiveTransactions();
+        this.negativeTransactions = this.getNegativeTransactions();
 
         if(data.date != this.today){
           var userObj = JSON.parse(sessionStorage.getItem("userObject"));
@@ -136,6 +140,9 @@ export class HomeComponent implements OnInit {
         this.wantsUnallocated = this.getUnallocated(this.BudgetObject.categories[1].items, this.BudgetObject.categories[1].percentage);
         this.savingUnallocated = this.getUnallocated(this.BudgetObject.categories[2].items, this.BudgetObject.categories[2].percentage);
         this.budgetAllocated = this.getAllocated(4);
+
+        this.positiveTransactions = this.getPositiveTransactions();
+        this.negativeTransactions = this.getNegativeTransactions();
   
         if(userObj.date != this.today){
           this.s.updateDate(sessionStorage.getItem("user"), this.today).subscribe();
@@ -725,5 +732,21 @@ export class HomeComponent implements OnInit {
         sessionStorage.setItem("userObject", JSON.stringify(userObj));
       }
     });
+  }
+  getNegativeTransactions(){
+    let output = [];
+    for(let i = 0; i < this.ExpenseObject.items.length; i++){
+      output.push(this.ExpenseObject.items[i].used);
+    }
+    output.sort((a,b) => b-a);
+    return output.slice(0, 4);
+  }
+  getPositiveTransactions(){
+    let output = [];
+    for(let i = 0; i < this.ExpenseObject.items.length; i++){
+      output.push(this.ExpenseObject.items[i].budget - this.ExpenseObject.items[i].used);
+    }
+    output.sort((a,b) => b-a);
+    return output.slice(0, 4);
   }
 }

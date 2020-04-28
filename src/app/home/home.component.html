@@ -156,7 +156,7 @@
                                 <div class='transactionContainer'>
                                     <div class='overviewTransaction'>
                                         <mat-list>
-                                            <mat-list-item *ngFor='let t of negativeTransactions' class='transactionItem' id='negativeItem'>- {{t * -1 | currency}}</mat-list-item>
+                                            <mat-list-item *ngFor='let t of negativeTransactions' class='transactionItem' id='negativeItem'>- {{t | currency}}</mat-list-item>
                                         </mat-list>
                                     </div>
                                 </div>
