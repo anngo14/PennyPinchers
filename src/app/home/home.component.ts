@@ -91,8 +91,6 @@ export class HomeComponent implements OnInit {
     if(sessionStorage.getItem("userObject") === null){
       this.s.getUser(sessionStorage.getItem("user")).subscribe(data => {
         sessionStorage.setItem("userObject", JSON.stringify(data));
-        console.log("monogodb query");
-        console.log(data);
         this.BudgetObject = data.currentBudget;
         this.ExpenseObject = data.currentExpense;
         this.lastCheck = this.parseDate(data.date);
@@ -130,8 +128,6 @@ export class HomeComponent implements OnInit {
       });
     } else{
         var userObj = JSON.parse(sessionStorage.getItem("userObject"));
-        console.log("session storage user object");
-        console.log(JSON.parse(sessionStorage.getItem("userObject")));
         this.BudgetObject = userObj.currentBudget;
         this.ExpenseObject = userObj.currentExpense;
         this.lastCheck = this.parseDate(JSON.parse(sessionStorage.getItem("userObject")).date);

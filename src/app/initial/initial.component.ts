@@ -228,7 +228,6 @@ export class InitialComponent implements OnInit {
       let archiveExpense: ExpenseObj[] = [];
       archiveExpense.push(initialExpense);
       let goals: Goal[] = [];
-      console.log(this.goal);
       if(this.goal != undefined){
         let goal: Goal = {
           name: "Goal", 
@@ -253,7 +252,6 @@ export class InitialComponent implements OnInit {
         archiveExpense: archiveExpense,
         goals: goals
       }
-      console.log(user);
       const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
         data: { msg: "Are you Sure This Information is Correct?"}
       });
