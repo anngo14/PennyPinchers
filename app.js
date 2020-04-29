@@ -203,7 +203,7 @@ app.get('*', (req, res) => {
 
 client.close();
 
-app.listen(PORT, () => {
+app.listen(PORT, (req, res) => {
     console.log(`Server started on port ${PORT}`);
     res.redirect('https://pennypinchers.herokuapp.com');
 });
