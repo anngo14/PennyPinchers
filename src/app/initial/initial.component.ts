@@ -54,7 +54,7 @@ export class InitialComponent implements OnInit {
       this.r.navigate(['/denied']);
     }
     if(sessionStorage.getItem("initial") === "false" || localStorage.getItem("initial") === "false"){
-      this.r.navigate(['/home']);
+      this.r.navigate(['/dashboard']);
     }
     
     var d = new Date();
@@ -262,7 +262,7 @@ export class InitialComponent implements OnInit {
             localStorage.setItem("initial", "false");
           }
           this.s.saveUser(user).subscribe();
-          this.r.navigate(['/home']);
+          this.r.navigate(['/dashboard']);
         }
       })
     } else{

@@ -1,0 +1,522 @@
+<div class='homeHeaderContainer'>
+    <div class='homeHeader1'>
+        <h1>{{selectedMonth}}, {{Year}}</h1>
+    </div>
+    <div class='homeHeader2'>
+        <div class='checkDateContainer'>
+            <h4>Last Check In:</h4>
+            <span id='date'> {{lastCheck}} </span>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<mat-card class="mainContainer">
+    <mat-tab-group (selectedTabChange)='tabChanged($event)'>
+        <mat-tab label='Overview'>
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <div class='overviewContainer'>
+                        <mat-card class="overviewCard">
+                            <div class='overviewHeader'>
+                                <h2>Budget Overview</h2>
+                            </div>
+                            <div class='transactionContainer'>
+                                <div class='overviewTransaction'>
+                                    <mat-list>
+                                        <mat-list-item *ngFor='let t of positiveTransactions' class='transactionItem' id='positiveItem'>+ {{t | currency}}</mat-list-item>
+                                    </mat-list>
+                                </div>
+                            </div>
+                            <div class='chartContainer'>
+                                <div class='overviewChart'>
+                                    <canvas #overviewPieChart id='overviewPieChart' width="1000px" height="600px"></canvas>
+                                </div>
+                                <div class='overviewBudgetContent'>
+                                    <mat-accordion>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Needs</span>
+                                                        </div>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
+                                                            <span>{{BudgetObject.categories[0].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list *ngIf='BudgetObject.categories[0].items && BudgetObject.categories[0].items.length > 0'>
+                                                <mat-list-item *ngFor="let c of BudgetObject.categories[0].items">
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Wants</span>
+                                                        </div>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
+                                                            <span>{{BudgetObject?.categories[1]?.percentage / 100 | percent}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list *ngIf='BudgetObject.categories[1].items && BudgetObject.categories[1].items.length > 0'>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Saving</span>
+                                                        </div>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
+                                                            <span>{{BudgetObject.categories[2].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list *ngIf='BudgetObject.categories[2].items && BudgetObject.categories[2].items.length > 0'>
+                                                <mat-list-item *ngFor="let c of BudgetObject.categories[2].items">
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel *ngIf="BudgetObject.categories[3].items.length > 0">
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Uncategorized</span>
+                                                        </div>
+                                                        <div class='collapsedDescription' *ngIf='BudgetObject'>
+                                                            <span>{{BudgetObject.categories[3].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <h2>Categories</h2>
+                                            <mat-list>
+                                                <mat-list-item *ngFor="let c of BudgetObject.categories[3].items">
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                        </mat-card>
+                        <mat-card class="overviewCard">
+                                <div class='overviewHeader'>
+                                    <h2>Expense Overview</h2>
+                                </div>
+                                <div class='transactionContainer'>
+                                    <div class='overviewTransaction'>
+                                        <mat-list>
+                                            <mat-list-item *ngFor='let t of negativeTransactions' class='transactionItem' id='negativeItem'>- {{t | currency}}</mat-list-item>
+                                        </mat-list>
+                                    </div>
+                                </div>
+                                <div class='chartContainer'>
+                                    <div class='overviewChart' id='overviewBarChartDiv'>
+                                        <canvas #overviewBarChart id='overviewBarChart' width="1200px" height="800px"></canvas>
+                                    </div>
+                                    <div class='overviewBudgetContentBig'>
+                                        <mat-accordion>
+                                            <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem'>
+                                                <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                    <mat-panel-title>
+                                                        <div class='collapsedItem'>
+                                                            <div class='collapsedHeader'>
+                                                                <span>{{c.title}}</span>
+                                                            </div>
+                                                            <div class='collapsedDescription'>
+                                                                <span id='overviewUsage'>Usage &nbsp;</span>
+                                                                <span>{{c.used / c.budget | percent}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </mat-panel-title>
+                                                </mat-expansion-panel-header>
+                                                <mat-list>
+                                                    <mat-list-item>
+                                                        <div class='overviewBudgetListItem'>
+                                                            <div class='overviewBudgetListHeader'>
+                                                                <span>Budget</span>
+                                                            </div>
+                                                            <div></div>
+                                                            <div class='overviewBudgetListDescription'>
+                                                                <span>{{c.budget | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </mat-list-item>
+                                                    <mat-list-item>
+                                                        <div class='overviewBudgetListItem'>
+                                                            <div class='overviewBudgetListHeader'>
+                                                                <span>Used</span>
+                                                            </div>
+                                                            <div></div>
+                                                            <div class='overviewBudgetListDescription'>
+                                                                <span>{{c.used | currency}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </mat-list-item>
+                                                </mat-list>
+                                            </mat-expansion-panel>
+                                        </mat-accordion>
+                                    </div>
+                                </div>
+                            </mat-card>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label='Budget' >
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class="budgetCard">
+                        <!--How much can I save?
+                        How much should I save?
+                        How much can I spend?
+                        Do I have enough room for special occasions or emergencies?
+                        How much do I want to save?-->
+                        <div class='budgetHeaderContainer'>
+                            <div class="budgetHeader1">
+                                <span class='budgetHeader'>Available Budget: &nbsp;</span>
+                                <span class='budgetHeader'>{{BudgetObject.monthlyIncome | currency}}</span><br>
+                                <span class='budgetSubheader'>Allocated Budget: &nbsp;</span>
+                                <span class='budgetSubheader'>{{budgetAllocated | currency}}</span>
+                            </div>
+                            <div class='budgetHeader2'>
+                                <div class='arrow'>
+                                   <mat-icon *ngIf='profit > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf='profit < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
+                                </div>
+                                <div class='budgetSavings'>
+                                    <span *ngIf="profit > 0; else checkBudgetSaving2">+ {{profit | currency}}</span>
+                                    <ng-template #checkBudgetSaving2>
+                                        <span *ngIf="profit < 0; else checkBudgetSaving3">{{profit | currency}}</span>
+                                    </ng-template>
+                                    <ng-template #checkBudgetSavings3>
+                                        <span>{{profit | currency}}</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='budgetMainContainer'>
+                            <div class="budgetChart">
+                                <mat-card class='budgetPieChartCard'>
+                                    <canvas #budgetPieChart id='budgetPieChart' width="1000px" height="650px"></canvas>
+                                </mat-card>
+                            </div>
+                            <div class="budgetCategories">
+                                <div id='editBudgetChip'>
+                                    <mat-chip-list>
+                                        <mat-chip (click)="openEditDialog()">
+                                            Edit Budget &nbsp;<mat-icon>edit</mat-icon>
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                                <div class='overviewBudgetContent'>
+                                    <mat-accordion>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(0)' (closed)='drawOriginalPie()'>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Needs</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>{{BudgetObject.categories[0].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[0].percentage / 100 | currency}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip (click)='openNeedsDialog()' class='modalButton'>Add a New Needs Category +</mat-chip>
+                                                </mat-chip-list>
+                                                <div class='unallocatedContainer'>
+                                                    <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
+                                                    <span id='unallocatedAmt'>{{needsUnallocated | currency}}</span>
+                                                </div>
+                                            </div>
+                                            <mat-list>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[0].items'>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(1)' (closed)='drawOriginalPie()'>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Wants</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>{{BudgetObject.categories[1].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[1].percentage / 100 | currency}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip (click)='openWantsDialog()' class='modalButton'>Add a New Wants Category +</mat-chip>
+                                                </mat-chip-list>
+                                                <div class='unallocatedContainer'>
+                                                    <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
+                                                    <span id='unallocatedAmt'>{{wantsUnallocated | currency}}</span>
+                                                </div>
+                                            </div>                                            <mat-list>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[1].items'>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel (opened)='drawDetailedPie(2)' (closed)='drawOriginalPie()'>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Saving</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>{{BudgetObject.categories[2].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'>
+                                                            <span>{{BudgetObject.monthlyIncome * BudgetObject.categories[2].percentage / 100 | currency}}</span>
+                                                        </div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip (click)='openSavingDialog()' class='modalButton'>Add a New Saving Category +</mat-chip>
+                                                </mat-chip-list>
+                                                <div class='unallocatedContainer'>
+                                                    <span id='unallocatedHeading'>Unallocated: &nbsp;</span>
+                                                    <span id='unallocatedAmt'>{{savingUnallocated | currency}}</span>
+                                                </div>
+                                            </div>                                            
+                                            <mat-list>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[2].items'>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                        <mat-expansion-panel *ngIf='BudgetObject.categories[3].items.length > 0'>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>Uncategorized</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span>{{BudgetObject.categories[3].percentage / 100 | percent}}</span>
+                                                        </div>
+                                                        <div class='collapsedDescription2'></div>
+                                                    </div>   
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class='expandedHeader'>
+                                                <h2>Categories</h2>
+                                                <mat-chip-list>
+                                                    <mat-chip (click)='openUncategorizedDialog()'>Add a New Uncategorized Category +</mat-chip>
+                                                </mat-chip-list>
+                                            </div>                                            
+                                            <mat-list>
+                                                <mat-list-item *ngFor='let c of BudgetObject.categories[3].items'>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.amount | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+        <mat-tab label="Expenses">
+            <mat-grid-list cols='1' rowHeight='37em'>
+                <mat-grid-tile>
+                    <mat-card class="spendingCard">
+                        <!--What am I spending money on?
+                        What recurring payments am I making?
+                        What are my largest transactions?
+                        Can I afford this lifestyle?
+                        Am I spending more than I can save?
+                        What do I need to spend money on?-->
+                        <div class='budgetHeaderContainer'>
+                            <div class="budgetHeader1">
+                                <span class='budgetHeader'>Available Budget: &nbsp;</span>
+                                <span class='budgetHeader'>{{BudgetObject.monthlyIncome | currency}}</span><br>
+                                <span class='budgetSubheader'>Allocated Budget: &nbsp;</span>
+                                <span class='budgetSubheader'>{{budgetAllocated | currency}}</span>
+                            </div>
+                            <div class='budgetHeader2'>
+                                <div class='arrow'>
+                                   <mat-icon *ngIf='profit > 0; else secondCheck' id='positiveTrend'>keyboard_arrow_up</mat-icon>
+                                    <ng-template #secondCheck><mat-icon *ngIf='profit < 0; else thirdCheck' id='negativeTrend'>keyboard_arrow_down</mat-icon></ng-template>
+                                    <ng-template #thirdCheck><mat-icon id='noTrend'>remove</mat-icon></ng-template>
+                                </div>
+                                <div class='budgetSavings'>
+                                    <span *ngIf="profit > 0; else checkExpenseSaving2">+ {{profit | currency}}</span>
+                                    <ng-template #checkExpenseSaving2>
+                                        <span *ngIf="profit < 0; else checkExpenseSaving3">{{profit | currency}}</span>
+                                    </ng-template>
+                                    <ng-template #checkExpenseSavings3>
+                                        <span>{{profit | currency}}</span>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='expenseMainContainer'>
+                            <div class='expenseChart'>
+                                <mat-card class='expenseBarChartCard'>
+                                    <canvas #expenseBarChart id='expenseBarChart' width="1200px" height="800px"></canvas>
+                                </mat-card>
+                            </div>
+                            <div class='expenseCategories'>
+                                <div class='expenseAddContainer'>
+                                    <mat-chip-list>
+                                        <mat-chip (click)='openExpenseList()' class='expenseModal'>Add a New Expense +</mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                                <div id='expenseList'>
+                                    <mat-accordion>
+                                        <mat-expansion-panel *ngFor='let c of ExpenseObject.items' class='collapsedListItem'>
+                                            <mat-expansion-panel-header collapsedHeight='75px' expandedHeight='75px'>
+                                                <mat-panel-title>
+                                                    <div class='collapsedItem'>
+                                                        <div class='collapsedHeader'>
+                                                            <span>{{c.title}}</span>
+                                                        </div>
+                                                        <div class='collapsedDescription'>
+                                                            <span id='expenseUsage'>Usage &nbsp;</span>
+                                                            <span>{{c.used / c.budget | percent}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-list>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Budget</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.budget | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                                <mat-list-item>
+                                                    <div class='overviewBudgetListItem'>
+                                                        <div class='overviewBudgetListHeader'>
+                                                            <span>Used</span>
+                                                        </div>
+                                                        <div></div>
+                                                        <div class='overviewBudgetListDescription'>
+                                                            <span>{{c.used | currency}}</span>
+                                                        </div>
+                                                    </div>
+                                                </mat-list-item>
+                                            </mat-list>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+<div style="height: 8em;"></div>

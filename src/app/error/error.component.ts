@@ -14,6 +14,6 @@ export class ErrorComponent implements OnInit {
   }
 
   redirectToHome(){
-    this.r.navigate(['/home']);
+    this.r.navigate(['/dashboard']);
   }
 }

@@ -56,7 +56,7 @@ export class ArchiveComponent implements OnInit {
       this.r.navigate(['/initial']);
     }
     if(sessionStorage.getItem("userObject") === null){
-      this.r.navigate(['/home']);
+      this.r.navigate(['/dashboard']);
     }
 
     this.archiveBudget = JSON.parse(sessionStorage.getItem("userObject")).archiveBudget;

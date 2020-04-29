@@ -11,6 +11,8 @@
     <ng-template #icon>
       <mat-icon id='accountIcon' [matMenuTriggerFor]='menu' *ngIf='username != ""'>account_circle</mat-icon>
     </ng-template>
+    <button mat-button *ngIf='username === ""' (click)='redirectToLogin()'>Login</button>
+    <button mat-button *ngIf='username === ""' (click)='redirectToRegister()'>Sign Up</button>
   </div>
 </mat-toolbar>
 <mat-menu #menu='matMenu'>
@@ -20,9 +22,9 @@
   <mat-sidenav #sidenav mode='over'>
     <div class="sideNavContainer">
       <div class="sideNavButtons">
-        <button mat-button (click)='redirectToHome(); sidenav.toggle()' *ngIf='username != ""; else disabledHomeButton'>Home</button>
+        <button mat-button (click)='redirectToHome(); sidenav.toggle()' *ngIf='username != ""; else disabledHomeButton'>DashBoard</button>
         <ng-template #disabledHomeButton>
-          <button mat-button disabled>Home</button>
+          <button mat-button disabled>DashBoard</button>
         </ng-template>
         <button mat-button (click)='redirectToGoals(); sidenav.toggle()' *ngIf='username != ""; else disabledGoalsButton'>Goals</button>
         <ng-template #disabledGoalsButton>

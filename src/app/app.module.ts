@@ -29,7 +29,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoalsComponent } from './goals/goals.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { SettingsComponent } from './settings/settings.component';
@@ -46,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DeniedComponent } from './denied/denied.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -53,7 +54,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent,
+    DashboardComponent,
     GoalsComponent,
     ArchiveComponent,
     SettingsComponent,
@@ -68,7 +69,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ErrorComponent,
     DeniedComponent,
     LoginDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

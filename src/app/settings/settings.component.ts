@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
   }
 
   redirectToHome(){
-    this.r.navigate(['/home']);
+    this.r.navigate(['/dashboard']);
   }
   checkUpper(){
     if(this.newPassword.match(/.*[A-Z].*/)){

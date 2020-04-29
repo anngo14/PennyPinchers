@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     if(this.initial){
       this.r.navigate(['/initial']);
     } else{
-      this.r.navigate(['/home']);
+      this.r.navigate(['/dashboard']);
     }
   }
   redirectToRegister(){

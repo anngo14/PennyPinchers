@@ -25,6 +25,9 @@ export class AppComponent {
       this.username = sessionStorage.getItem("user");
     }
   }
+  redirectToRegister(){
+    this.r.navigate(['/register']);
+  }
   redirectToLogin(){
     localStorage.clear();
     sessionStorage.clear();
@@ -32,7 +35,7 @@ export class AppComponent {
     this.r.navigate(['/login']);
   }
   redirectToHome(){
-    this.r.navigate(['/home']);
+    this.r.navigate(['/dashboard']);
   }
   redirectToGoals(){
     this.r.navigate(['/goals']);
