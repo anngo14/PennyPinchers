@@ -3,6 +3,7 @@ var path = require('path');
 var bodyparser = require('body-parser');
 var bcrypt = require('bcrypt');
 var https = require('https');
+var http = require('http');
 var fs = require('fs');
 var force = require('express-force-ssl');
 const MongoClient = require('mongodb').MongoClient;
@@ -204,9 +205,7 @@ app.get('*', (req, res) => {
 
 client.close();
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});
+http.createServer(app).listen(PORT);
 
 var server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: "powermacg5"}, app);
 
