@@ -1,45 +1,54 @@
-<mat-card class="registerCard" [@registerFail]="error">
-    <mat-card-title class="registerHeader">Register as a New User</mat-card-title>
-    <mat-card-content class="registerContent">
-        <mat-error id="loginError" *ngIf="!valid">Was Unable to Create Account (Account Already Exists)</mat-error>
-        <form class="registerForm">
-            <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input matInput type="email" required [(ngModel)]='email' name='email'>
-            </mat-form-field><br>
-            <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input matInput type="password" required [(ngModel)]='password' name='password' minlength='8' (focus)="showPasswordHint()">
-            </mat-form-field><br>
-            <mat-form-field>
-                <mat-label>Confirm Password</mat-label>
-                <input matInput type="password" required [(ngModel)]='confirmPassword' name='confirmPassword' minlength='8' (focus)="showPasswordHint()">
-            </mat-form-field>
-        </form>
-    </mat-card-content>
-    <mat-card-actions class="registerButtons">
-        <button mat-stroked-button (click)='createAccount()' *ngIf='validInput(); else disabledCreate'>Create Account</button>
-        <ng-template #disabledCreate>
-            <button mat-stroked-button (click)='invalidAccount()'>Create Account</button>
-        </ng-template>
-    </mat-card-actions>
-</mat-card>
-<mat-card [@passwordHint]="showHint" class="passwordHintCard">
-    <mat-card-content>
-        <span> Password must be at least 8 characters </span>
-        <span *ngIf="!checkLength(); else elseBlock" class="crossMark">❌</span>
-        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
-        <span> Must Contain an Uppercase character [A-Z] </span> 
-        <span *ngIf="!checkUpper(); else elseBlock" class="crossMark">❌</span>
-        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
-        <span> Must Contain a Lowercase Character [a-z] </span>
-        <span *ngIf="!checkLower(); else elseBlock" class="crossMark">❌</span>
-        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
-        <span> Must Contain a Special Character [$!@%#...] </span>
-        <span *ngIf="!checkSpecial(); else elseBlock" class="crossMark">❌</span>
-        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
-        <span> Passwords Must Match </span>
-        <span *ngIf="!checkMatch(); else elseBlock" class="crossMark">❌</span>
-        <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br>
-    </mat-card-content>
-</mat-card>
+<mat-grid-list cols='1' rowHeight='40em'>
+    <mat-grid-tile class='registerContainer'>
+        <mat-card class="registerCard" [@registerFail]="error">
+            <mat-card-title class="registerHeader">Register as a New User</mat-card-title>
+            <mat-card-content class="registerContent">
+                <mat-error id="loginError" *ngIf="!valid">Was Unable to Create Account (Account Already Exists)</mat-error>
+                <form class="registerForm">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" required [(ngModel)]='email' name='email'>
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" required [(ngModel)]='password' name='password' minlength='8' (focus)="showPasswordHint()">
+                    </mat-form-field><br>
+                    <mat-form-field>
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type="password" required [(ngModel)]='confirmPassword' name='confirmPassword' minlength='8' (focus)="showPasswordHint()">
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions class="registerButtons">
+                <button mat-stroked-button (click)='createAccount()' *ngIf='validInput(); else disabledCreate'>Create Account</button>
+                <ng-template #disabledCreate>
+                    <button mat-stroked-button (click)='invalidAccount()'>Create Account</button>
+                </ng-template>
+            </mat-card-actions>
+        </mat-card>
+        <div class='passwordHintContainer' [@passwordHint]="showHint">
+            <mat-card class="passwordHintCard">
+                <mat-card-content>
+                    <span> Password must be at least 8 characters </span>
+                    <span *ngIf="!checkLength(); else elseBlock" class="crossMark">❌</span>
+                    <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+                    <span> Must Contain an Uppercase character [A-Z] </span> 
+                    <span *ngIf="!checkUpper(); else elseBlock" class="crossMark">❌</span>
+                    <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+                    <span> Must Contain a Lowercase Character [a-z] </span>
+                    <span *ngIf="!checkLower(); else elseBlock" class="crossMark">❌</span>
+                    <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+                    <span> Must Contain a Special Character [$!@%#...] </span>
+                    <span *ngIf="!checkSpecial(); else elseBlock" class="crossMark">❌</span>
+                    <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br><br>
+                    <span> Passwords Must Match </span>
+                    <span *ngIf="!checkMatch(); else elseBlock" class="crossMark">❌</span>
+                    <ng-template #elseBlock><span class="checkMark">✔</span></ng-template><br>
+                </mat-card-content>
+            </mat-card>
+            <div class='spacer'></div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+

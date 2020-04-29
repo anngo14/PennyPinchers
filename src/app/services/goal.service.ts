@@ -7,7 +7,7 @@ import { Goal } from '../models/Goal';
 })
 export class GoalService {
 
-  updateGoalUrl: string = 'http://pennypinchers.herokuapp.com/updateGoal';
+  updateGoalUrl: string = 'https://pennypinchers.herokuapp.com/updateGoal';
 
   constructor(private http: HttpClient) { }
 

@@ -203,9 +203,9 @@ app.get('*', (req, res) => {
 
 client.close();
 
-app.listen(PORT, () => {
+/*app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-});
+});*/
 server.listen(5001, () => {
     console.log("HTTPS on 5001");
 });

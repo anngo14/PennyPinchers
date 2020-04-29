@@ -11,29 +11,29 @@ import { UserService } from '../services/user.service';
   animations: [
     trigger('passwordHint', [
       state('1', style({
-        transform: 'translate(200%, -85%)'
+        transform: 'translate(180%, -45%)'
       })),
       state('2', style({
-        transform: 'translate(160%, -85%)'
+        transform: 'translate(140%, -45%)'
       })),
       state('3', style({
-        transform: 'translate(120%, -85%)'
+        transform: 'translate(100%, -45%)'
       })),
       state('4', style({
-        transform: 'translate(90%, -85%)'
+        transform: 'translate(80%, -45%)'
       })),
       state('0', style({})),
       transition('* => 1', animate("500ms", keyframes([
-        style({transform: 'translate(200%, -85%)'}), 
+        style({transform: 'translate(180%, -45%)'}), 
       ]))),
       transition('* => 2', animate("500ms", keyframes([
-        style({transform: 'translate(160%, -85%'})
+        style({transform: 'translate(140%, -45%'})
       ]))),
       transition('* => 3', animate("500ms", keyframes([
-        style({transform: 'translate(120%, -85%'})
+        style({transform: 'translate(100%, -45%'})
       ]))),
       transition('* => 4', animate("500ms", keyframes([
-        style({transform: 'translate(90%, -85%'})
+        style({transform: 'translate(80%, -45%'})
       ]))),
     ]),
     trigger('registerFail', [

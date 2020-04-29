@@ -2,9 +2,6 @@
     width: 850px;
     height: 350px;
     position: relative;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, 31.5%);
     display: flex;
     flex-direction: column;
 }
@@ -49,11 +46,5 @@
     .loginCard{
         width: 85%;
         height: 350px;
-        position: relative;
-        top: 35%;
-        left: 50%;
-        transform: translate(-50%, 31.5%);
-        display: flex;
-        flex-direction: column;
     }
 }

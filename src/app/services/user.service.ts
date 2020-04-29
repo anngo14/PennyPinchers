@@ -9,14 +9,14 @@ import { ExpenseObj } from '../models/ExpenseObj';
 })
 export class UserService {
 
-  registerUrl: string = 'http://pennypinchers.herokuapp.com/register';
-  loginUrl: string = 'http://pennypinchers.herokuapp.com/login';
-  saveUrl: string = 'http://pennypinchers.herokuapp.com/saveuser';
-  getUserUrl: string = 'http://pennypinchers.herokuapp.com/getuser';
-  updateUrl: string = 'http://pennypinchers.herokuapp.com/update';
-  updateDateUrl: string = 'http://pennypinchers.herokuapp.com/updateDate';
-  changePasswordUrl: string = 'http://pennypinchers.herokuapp.com/changePassword';
-  deleteUserUrl: string = 'http://pennypinchers.herokuapp.com/deleteUser';
+  registerUrl: string = 'https://pennypinchers.herokuapp.com/register';
+  loginUrl: string = 'https://pennypinchers.herokuapp.com/login';
+  saveUrl: string = 'https://pennypinchers.herokuapp.com/saveuser';
+  getUserUrl: string = 'https://pennypinchers.herokuapp.com/getuser';
+  updateUrl: string = 'https://pennypinchers.herokuapp.com/update';
+  updateDateUrl: string = 'https://pennypinchers.herokuapp.com/updateDate';
+  changePasswordUrl: string = 'https://pennypinchers.herokuapp.com/changePassword';
+  deleteUserUrl: string = 'https://pennypinchers.herokuapp.com/deleteUser';
 
   constructor(private http: HttpClient) { }
 
