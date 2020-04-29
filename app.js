@@ -4,6 +4,7 @@ var bodyparser = require('body-parser');
 var bcrypt = require('bcrypt');
 var https = require('https');
 var fs = require('fs');
+var force = require('express-force-ssl');
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://anngo:1&pCveVl@ds135963.mlab.com:35963/heroku_rqzz8p9t";
 const client = new MongoClient(url, {useNewUrlParser: true});
@@ -14,6 +15,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, 'dist/PennyPinchers')));
 app.use(express.json());
 app.use(bodyparser.json());
+app.use(force);
 
 const angularEntry = path.join(__dirname, 'dist/PennyPinchers/index.html');
 
