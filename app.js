@@ -204,9 +204,9 @@ app.get('*', (req, res) => {
 
 client.close();
 
-/*app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-});*/
+});
 
 var server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: "powermacg5"}, app);
 
