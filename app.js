@@ -205,6 +205,7 @@ client.close();
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
+    res.redirect('https://pennypinchers.herokuapp.com');
 });
 server.listen(5001, () => {
     console.log("HTTPS on 5001");
