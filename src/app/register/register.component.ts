@@ -40,14 +40,14 @@ import { UserService } from '../services/user.service';
       state('true', style({})),
       state('fail', style({})),
       transition('* => true', animate("250ms", keyframes([
-        style({transform: 'translate(-45%, 25%)'}),
-        style({transform: 'translate(-50%, 25%)'}),
-        style({transform: 'translate(-55%, 25%)'}),
-        style({transform: 'translate(-50%, 25%'}),
-        style({transform: 'translate(-45%, 25%)'}),
-        style({transform: 'translate(-50%, 25%)'}),
-        style({transform: 'translate(-55%, 25%)'}),
-        style({transform: 'translate(-50%, 25%'})
+        style({transform: 'translate(-5%, 0%)'}),
+        style({transform: 'translate(0%, 0%)'}),
+        style({transform: 'translate(5%, 0%)'}),
+        style({transform: 'translate(0%, 0%'}),
+        style({transform: 'translate(-5%, 0%)'}),
+        style({transform: 'translate(0%, 0%)'}),
+        style({transform: 'translate(5%, 0%)'}),
+        style({transform: 'translate(0%, 0%'})
       ])))
     ])
   ]

@@ -14,14 +14,14 @@ import { DataService } from '../services/data.service';
       state('true', style({})),
       state('false', style({})),
       transition('* => true', animate("250ms", keyframes([
-        style({transform: 'translate(-45%, 31.5%)'}),
-        style({transform: 'translate(-50%, 31.5%)'}),
-        style({transform: 'translate(-55%, 31.5%)'}),
-        style({transform: 'translate(-50%, 31.5%'}),
-        style({transform: 'translate(-45%, 31.5%)'}),
-        style({transform: 'translate(-50%, 31.5%)'}),
-        style({transform: 'translate(-55%, 31.5%)'}),
-        style({transform: 'translate(-50%, 31.5%'})
+        style({transform: 'translate(-5%, 0%)'}),
+        style({transform: 'translate(0%, 0%)'}),
+        style({transform: 'translate(5%, 0%)'}),
+        style({transform: 'translate(0%, 0%'}),
+        style({transform: 'translate(-5%, 0%)'}),
+        style({transform: 'translate(0%, 0%)'}),
+        style({transform: 'translate(5%, 0%)'}),
+        style({transform: 'translate(0%, 0%'})
       ])))
     ])
   ]
