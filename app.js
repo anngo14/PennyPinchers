@@ -16,7 +16,6 @@ app.use(express.json());
 app.use(bodyparser.json());
 
 const angularEntry = path.join(__dirname, 'dist/PennyPinchers/index.html');
-const server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: "powermacg5"}, app);
 
 var collection;
 client.connect(err => {
@@ -203,10 +202,12 @@ app.get('*', (req, res) => {
 
 client.close();
 
-app.listen(PORT, (req, res) => {
+/*app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
-    res.redirect('https://pennypinchers.herokuapp.com');
-});
+});*/
+
+var server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: "powermacg5"}, app);
+
 server.listen(5001, () => {
     console.log("HTTPS on 5001");
 });
