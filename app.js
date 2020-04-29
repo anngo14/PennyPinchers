@@ -175,7 +175,7 @@ app.post('/register', async (req, res) => {
     });
     console.log("User Registered");
 });
-app.get('/home', (req, res) => {
+app.get('/dashboard', (req, res) => {
     let urlPath = req.url;
     res.sendFile(angularEntry);
 });
