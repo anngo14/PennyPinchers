@@ -7,7 +7,8 @@ import { Goal } from '../models/Goal';
 })
 export class GoalService {
 
-  updateGoalUrl: string = 'https://pennypinchers.herokuapp.com/updateGoal';
+  protocol: string = "";
+  updateGoalUrl: string = 'pennypinchers.herokuapp.com/updateGoal';
 
   constructor(private http: HttpClient) { }
 
@@ -18,10 +19,11 @@ export class GoalService {
   };
 
   updateGoal(email: string, goals: Goal[]){
+    this.protocol = window.location.protocol + "//";
     let goalJSON = {
       "email": email,
       "goals": goals
     };
-    return this.http.post(this.updateGoalUrl, goalJSON, this.httpOptions);
+    return this.http.post(this.protocol + this.updateGoalUrl, goalJSON, this.httpOptions);
   }
 }
