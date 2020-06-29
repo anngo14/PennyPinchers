@@ -32,7 +32,7 @@ export class AppComponent {
     localStorage.clear();
     sessionStorage.clear();
     this.d.changeUser("");
-    this.r.navigate(['/login']);
+    this.r.navigate(['/home']);
   }
   redirectToHome(){
     this.r.navigate(['/dashboard']);
