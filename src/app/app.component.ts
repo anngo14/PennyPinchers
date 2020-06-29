@@ -32,6 +32,12 @@ export class AppComponent {
     localStorage.clear();
     sessionStorage.clear();
     this.d.changeUser("");
+    this.r.navigate(['/login']);
+  }
+  logout(){
+    localStorage.clear();
+    sessionStorage.clear();
+    this.d.changeUser("");
     this.r.navigate(['/home']);
   }
   redirectToHome(){
