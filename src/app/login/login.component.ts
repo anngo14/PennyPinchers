@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.r.navigate(['/home']);
     }
   }
-
+ 
   getErrorMessage(){
     return this.userInput.hasError('required') ? 'Enter a Valid Value': 
       this.passInput.hasError('required') ? 'Enter a Valid Value': 

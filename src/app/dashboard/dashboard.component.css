@@ -8,6 +8,8 @@
     height: 150px;
     justify-content: space-between;
     align-items: center;
+    background: rgb(223,227,255);
+    background: linear-gradient(90deg, rgba(223,227,255,1) 0%, rgba(117,120,131,1) 100%);
 }
 .homeHeader1{
     margin-left: 8em;
