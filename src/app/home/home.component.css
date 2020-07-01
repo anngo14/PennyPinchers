@@ -16,3 +16,24 @@
     height: 10em;
     width: 60em;
 }
+@media(max-width: 1058px){
+    .contentContainer{
+        width: 90%;
+    }
+    .content{
+        width: 100%;
+    }
+}
+@media(max-width: 690px){
+    .content{
+        height: auto;
+    }
+    .spacer{
+        height: 5em;
+    }
+}
+@media(max-width: 550px){
+    .content{
+        flex-direction: column-reverse;
+    }
+}
