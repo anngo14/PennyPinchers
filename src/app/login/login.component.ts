@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { transition, trigger, query, style, animate, state, keyframes } from '@angular/animations';
 import { UserService } from '../services/user.service';
 import { DataService } from '../services/data.service';
+import { OVERLAY_KEYBOARD_DISPATCHER_PROVIDER } from '@angular/cdk/overlay/typings/keyboard/overlay-keyboard-dispatcher';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,12 @@ export class LoginComponent implements OnInit {
   ));
   constructor(private r: Router, private s: UserService, private d: DataService) { }
 
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent){
+    if(event.keyCode === 13){
+      this.signIn();
+    }
+  }
   ngOnInit() {
     if(localStorage.getItem("user") != null || sessionStorage.getItem("user") != null){
       this.r.navigate(['/home']);

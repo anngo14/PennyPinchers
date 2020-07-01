@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { transition, trigger, query, style, animate, state, keyframes } from '@angular/animations';
@@ -63,6 +63,16 @@ export class RegisterComponent implements OnInit {
 
   constructor(private r: Router, private s: UserService) { }
 
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent){
+    if(event.keyCode === 13){
+      if(this.validInput()){
+        this.createAccount();
+      } else{
+        this.invalidAccount();
+      }
+    }
+  }
   ngOnInit() {
   }
 
