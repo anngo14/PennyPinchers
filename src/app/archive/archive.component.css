@@ -9,8 +9,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: rgb(223,227,255);
-    background: linear-gradient(90deg, rgba(223,227,255,1) 0%, rgba(117,120,131,1) 100%);
+    background: rgb(177,177,177);
+    background: linear-gradient(90deg, rgba(177,177,177,1) 0%, rgba(255,255,255,1) 100%);
 }
 .header{
     margin-left: 8em;
