@@ -2,10 +2,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
+}
+.cardContainer{
+    height: 45em;
 }
 .contentContainer{
     display: flex;
     flex-direction: column;
+    justify-self: center;
     align-items: center;
     width: 70em;
 }
@@ -30,6 +35,9 @@
     }
     .spacer{
         height: 5em;
+    }
+    .cardContainer{
+        height: auto
     }
 }
 @media(max-width: 550px){

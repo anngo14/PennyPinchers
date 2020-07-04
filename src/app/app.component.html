@@ -24,19 +24,19 @@
       <div class="sideNavButtons">
         <button mat-button (click)='redirectToHome(); sidenav.toggle()' *ngIf='username != ""; else disabledHomeButton'>DashBoard</button>
         <ng-template #disabledHomeButton>
-          <button mat-button disabled>DashBoard</button>
+          <button class='disabledBtn' mat-button disabled>DashBoard</button>
         </ng-template>
         <button mat-button (click)='redirectToGoals(); sidenav.toggle()' *ngIf='username != ""; else disabledGoalsButton'>Goals</button>
         <ng-template #disabledGoalsButton>
-          <button mat-button disabled>Goals</button>
+          <button class='disabledBtn' mat-button disabled>Goals</button>
         </ng-template>
         <button mat-button (click)='redirectToArchive(); sidenav.toggle()' *ngIf='username != ""; else disabledArchiveButton'>Archive</button>
         <ng-template #disabledArchiveButton>
-          <button mat-button disabled>Archive</button>
+          <button class='disabledBtn' mat-button disabled>Archive</button>
         </ng-template>
         <button mat-button (click)='redirectToSettings(); sidenav.toggle()' *ngIf='username != ""; else disabledSettingsButton'>Settings</button>
         <ng-template #disabledSettingsButton>
-          <button mat-button disabled>Settings</button>
+          <button class='disabledBtn' mat-button disabled>Settings</button>
         </ng-template>
       </div>
       <div class='spacer'></div>
