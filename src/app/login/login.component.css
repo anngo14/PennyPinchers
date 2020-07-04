@@ -40,7 +40,11 @@
 .checkBox{
     font-size: 14pt;
 }
-
+footer{
+    position: absolute;
+    bottom: 0;
+    height: 2em;
+}
 @media(max-width: 976px){
 
     .loginCard{

@@ -1,30 +1,32 @@
-<mat-grid-list cols='1' rowHeight='40em'>
-    <mat-grid-tile>
-        <mat-card [@loginFail]="error" class="loginCard">
-            <mat-card-title class="loginHeader">Login</mat-card-title>
-            <mat-card-content class="loginContent">
-                <mat-error id="loginError" *ngIf="error">Invalid Username or Password</mat-error>
-                <form class="loginForm">
-                    <mat-form-field>
-                        <mat-label>Email</mat-label>
-                        <input matInput type="email" required [(ngModel)]="email" name='email' [email]='true'>
-                        <mat-error *ngIf="userInput.invalid">{{getErrorMessage()}}</mat-error>
-                    </mat-form-field><br>
-                    <mat-form-field>
-                        <mat-label>Password</mat-label>
-                        <input matInput type="password" required [(ngModel)]='password' name='password' minlength="8">
-                        <mat-error *ngIf="passInput.invalid">{{getErrorMessage()}}</mat-error>
-                    </mat-form-field>
-                    <mat-checkbox class='checkBox' [(ngModel)]='checked' name='checked'>Remember Me</mat-checkbox>
-                </form>
-            </mat-card-content>
-            <mat-card-actions class="loginButtons">
-                <button mat-stroked-button (click)="signIn()" *ngIf="validCheck(); else disabledLogin">Sign In</button>
-                <ng-template #disabledLogin>
-                    <button mat-stroked-button disabled>Sign In</button>
-                </ng-template>
-                <button mat-stroked-button (click)="redirectToRegister()">Register</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+<div class='mainContainer'>
+    <mat-grid-list cols='1' rowHeight='40em'>
+        <mat-grid-tile>
+            <mat-card [@loginFail]="error" class="loginCard">
+                <mat-card-title class="loginHeader">Login</mat-card-title>
+                <mat-card-content class="loginContent">
+                    <mat-error id="loginError" *ngIf="error">Invalid Username or Password</mat-error>
+                    <form class="loginForm">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" required [(ngModel)]="email" name='email' [email]='true'>
+                            <mat-error *ngIf="userInput.invalid">{{getErrorMessage()}}</mat-error>
+                        </mat-form-field><br>
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" required [(ngModel)]='password' name='password' minlength="8">
+                            <mat-error *ngIf="passInput.invalid">{{getErrorMessage()}}</mat-error>
+                        </mat-form-field>
+                        <mat-checkbox class='checkBox' [(ngModel)]='checked' name='checked'>Remember Me</mat-checkbox>
+                    </form>
+                </mat-card-content>
+                <mat-card-actions class="loginButtons">
+                    <button mat-stroked-button (click)="signIn()" *ngIf="validCheck(); else disabledLogin">Sign In</button>
+                    <ng-template #disabledLogin>
+                        <button mat-stroked-button disabled>Sign In</button>
+                    </ng-template>
+                    <button mat-stroked-button (click)="redirectToRegister()">Register</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

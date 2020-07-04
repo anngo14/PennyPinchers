@@ -12,23 +12,27 @@ mat-sidenav{
     min-height: 100%;
     width: 100%;
     min-width: 100%;
+    background-image: url(../assets/img/preview.jpg);
 }
 .sideNavContainer{
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color: #292929;
+    color: #EAEAEA;
 }
 .sideNavHeader{
     flex-grow: 1;
 }
 .sideNavButtons{
-    flex-grow: 7;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 .sideNavButtons button{
     flex-grow: 1;
+    color: white;
 }
 .sideNavFooter{
     flex-grow: 1;
@@ -37,6 +41,9 @@ mat-sidenav{
 .sideNavFooter p{
     margin-right: 2em;
     margin-top: 2em;
+}
+.spacer{
+    flex-grow: 5;
 }
 .NavButtons{
     display: flex;
