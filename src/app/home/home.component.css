@@ -1,43 +1,29 @@
-.mainContainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
 .cardContainer{
-    height: 45em;
+    height: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
 }
-.contentContainer{
+.cardContainer::-webkit-scrollbar{
+    display: none;
+}
+.contentBox{
     display: flex;
     flex-direction: column;
-    justify-self: center;
-    align-items: center;
-    width: 70em;
+    justify-items: center;
+    width: 60em;
 }
 .content{
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 10em;
-    width: 60em;
 }
-@media(max-width: 1058px){
-    .contentContainer{
-        width: 90%;
-    }
-    .content{
-        width: 100%;
-    }
-}
-@media(max-width: 690px){
-    .content{
-        height: auto;
-    }
-    .spacer{
-        height: 5em;
-    }
+@media(max-width: 1090px){
     .cardContainer{
-        height: auto
+        width: 85%;
+    }
+    .contentBox{
+        width: 100%;
     }
 }
 @media(max-width: 550px){
