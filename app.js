@@ -8,6 +8,7 @@ var cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const mongo_user = process.env.MONGO_USEr;
 const mongo_key = process.env.MONGO_KEY;
+const https_key = process.env.HTTPS_KEY;
 const url = `mongodb+srv://${mongo_user}:${mongo_key}@penny-cluster.zat8d.mongodb.net/test`;
 const client = new MongoClient(url, {useNewUrlParser: true});
 const PORT = process.env.PORT || 5000;
@@ -210,7 +211,7 @@ app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
 });
 
-var server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: "powermacg5"}, app);
+var server = https.createServer({key: fs.readFileSync("./key.pem"), cert: fs.readFileSync("./cert.pem"), passphrase: `${https_key}`}, app);
 server.listen(5001, () => {
     console.log("HTTPS on 5001");
 });
