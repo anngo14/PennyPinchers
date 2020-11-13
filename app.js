@@ -6,7 +6,9 @@ var https = require('https');
 var fs = require('fs');
 var cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb+srv://anngo:powermacg5@penny-cluster.zat8d.mongodb.net/test";
+const mongo_user = process.env.MONGO_USEr;
+const mongo_key = process.env.MONGO_KEY;
+const url = `mongodb+srv://${mongo_user}:${mongo_key}@penny-cluster.zat8d.mongodb.net/test`;
 const client = new MongoClient(url, {useNewUrlParser: true});
 const PORT = process.env.PORT || 5000;
 
