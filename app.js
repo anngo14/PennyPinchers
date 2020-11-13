@@ -4,8 +4,9 @@ var bodyparser = require('body-parser');
 var bcrypt = require('bcrypt');
 var https = require('https');
 var fs = require('fs');
+var cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://anngo:1&pCveVl@ds135963.mlab.com:35963/heroku_rqzz8p9t";
+const url = "mongodb+srv://anngo:powermacg5@penny-cluster.zat8d.mongodb.net/test";
 const client = new MongoClient(url, {useNewUrlParser: true});
 const PORT = process.env.PORT || 5000;
 
@@ -14,6 +15,7 @@ var app = express();
 app.use(express.static(path.join(__dirname, 'dist/PennyPinchers')));
 app.use(express.json());
 app.use(bodyparser.json());
+app.use(cors());
 
 const angularEntry = path.join(__dirname, 'dist/PennyPinchers/index.html');
 
@@ -21,7 +23,7 @@ var collection;
 client.connect(err => {
     if(err) throw err;
     console.log("Connected to MongoDB");
-    collection = client.db("heroku_rqzz8p9t").collection("pinchers");
+    collection = client.db("Penny-DB").collection("Penny-Collection");
   });
 
 app.post('/saveuser', (req, res) => {
